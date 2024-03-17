@@ -14,7 +14,7 @@ DailyDoseofAlgo is a web portal that will gamify the concept of learning algorit
 To run **DailyDoseOfAlgo** on Desktop, follow these steps:
 
 ```bash
-git clone https://github.com/sanjibdahal/RCMS.git
+git clone https://github.com/sanjibdahal/DailyDoseOfAlgo.git
 ```
 ## Support
 If you encounter any issues or have questions, please open an issue on the GitHub repository.
