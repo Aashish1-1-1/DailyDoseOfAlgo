@@ -12,16 +12,29 @@
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet" />
     <link href="./output.css" rel="stylesheet">
   </head>
-  <body>
-    <nav>
-      <div class="nav-wrapper">
-        <a href="/" class="brand-logo">Daily Dose of Algo</a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
+  <body class="bg-slate-900 font-poppins h-[200vh]">
+    <header class="bg-[url('../assets/Background.png')] h-screen bg-cover relative flex justify-center">
+    <div class="overlay absolute top-0 left-0 w-full h-full bg-black opacity-50"></div>
+    <nav class="bg-[rgba(0,0,0,0.85)] fixed top-4 left-4 right-4 px-[80px] py-4 flex items-center justify-between rounded-full z-20">
+        <a href="/" class="brand-logo">
+          <img src="../assets/logo.png" alt="brand-logo" class="h-8">
+        </a>
+        <ul id="nav-mobile" class="text-white sm:flex-row flex flex-col gap-5">
           <li><a href="/#">Home</a></li>
           <li><a href="/#">About</a></li>
+          <li><a href="/#">Algorithms</a></li>
+          <li><a href="/#">Quizes</a></li>
           <li><a href="/#">Contact</a></li>
         </ul>
-      </div>
     </nav>
+    <main class="flex flex-col items-center justify-center z-10">
+      <h1 class="text-white text-5xl mb-4 font-black text-center font-playfair">Welcome to <br> Daily Dose of Algo</h1>
+      <p class="text-white text-lg text-center">Your ultimate destination for mastering algorithms through practice, community engagement, and interactive learning.</p>
+      <div class="btn-container mt-6 flex gap-2">
+        <a href="/#" class="text-white bg-purple-500 px-6 py-3 font-semibold rounded-md">Get Started</a>
+        <a href="/#" class="text-white border-2 border-gray-500 px-6 py-3 font-semibold rounded-md">Discover more</a>
+      </div>
+    </main>
+    </header>
   </body>
 </html>
