@@ -3,14 +3,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXTwitter } from '@fortawesome/free-brands-svg-icons'
 import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { faLinkedin } from "@fortawesome/free-brands-svg-icons";
-import Header from './components/Header';
+import Header from "../components/Header";
 
-const App = () => {
+const Home = () => {
   return (
     <>
       <div className="bg-slate-900 font-poppins">
         
-        <Header/>
+        <Header />
         {/* Our Vision section */}
         <section className="bg-slate-950 min-h-[100vh] w-full flex flex-col justify-center items-center px-60 md:px-6 max-md:px-6 max-sm:px-6">
           <h2 className="font-bold font-playfair text-purple-500 text-4xl mb-4">
@@ -232,4 +232,4 @@ const App = () => {
   )
 }
 
-export default App
+export default Home
