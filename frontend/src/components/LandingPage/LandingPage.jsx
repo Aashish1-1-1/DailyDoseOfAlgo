@@ -1,16 +1,43 @@
-import React from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faXTwitter } from '@fortawesome/free-brands-svg-icons'
+import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXTwitter } from "@fortawesome/free-brands-svg-icons";
 import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { faLinkedin } from "@fortawesome/free-brands-svg-icons";
-import Header from "../components/Header";
+import { NavLink } from "react-router-dom";
 
-const Home = () => {
+const LandingPage = () => {
   return (
     <>
+      {/* Header */}
       <div className="bg-slate-900 font-poppins">
-        
-        <Header />
+        <header className="bg-[url('../assets/Background.png')] h-screen bg-cover relative flex justify-center">
+          <div className="overlay absolute top-0 left-0 w-full h-full bg-black opacity-50"></div>
+          <div className="overlay absolute bottom-0 left-0 w-full h-full bg-gradient-to-t from-cyan-500 from-20% via-blue-500 via-40% to-transparent to-60% opacity-20"></div>
+
+          <main className="flex flex-col items-center justify-center z-10">
+            <h1 className="text-white text-6xl mb-6 font-black text-center font-playfair ">
+              Welcome to <br /> Daily Dose of Algo.
+            </h1>
+            <p className="text-gray-200 text-2xl text-center">
+              Your ultimate destination for mastering algorithms <br /> through
+              practice, community engagement, and interactive learning.
+            </p>
+            <div className="btn-container mt-6 flex gap-2">
+              <NavLink
+                to="/signup"
+                className="text-white hover:text-white bg-purple-500 px-6 py-3 font-semibold rounded-md hover:tracking-wider hover:bg-transparent border-transparent border-2 hover:border-gray-500 ease-in transition-all"
+              >
+                Get Started
+              </NavLink>
+              <NavLink
+                to="/about"
+                className="text-white hover:text-white hover:bg-purple-500 hover:border-purple-500 border-2 border-gray-500 px-6 py-3 font-semibold rounded-md hover:tracking-wider ease-in transition-all"
+              >
+                Discover more
+              </NavLink>
+            </div>
+          </main>
+        </header>
         {/* Our Vision section */}
         <section className="bg-slate-950 min-h-[100vh] w-full flex flex-col justify-center items-center px-60 md:px-6 max-md:px-6 max-sm:px-6">
           <h2 className="font-bold font-playfair text-purple-500 text-4xl mb-4">
@@ -24,14 +51,14 @@ const Home = () => {
 
         {/* Some information section */}
         <section className="bg-black py-16 w-full flex flex-col px-20 max-md:px-6 max-sm:px-6 justify-center">
-          <h2 className="font-bold font-playfair text-white text-5xl leading-normal">
+          <h2 className="font-bold font-playfair text-white text-5xl leading-normal text-center">
             Algorithm Mastery Awaits
           </h2>
-          <p className="font-poppins text-white font-light">
+          <p className="font-poppins text-white font-light text-center">
             Embark on your journey to expertise.
           </p>
 
-          <div className="cards flex gap-8 flex-wrap mt-8">
+          <div className="cards flex gap-8 flex-wrap mt-8 justify-center">
             <div className="card border-2 w-[350px] rounded-xl">
               <img
                 src="./assets/image1.png"
@@ -101,8 +128,8 @@ const Home = () => {
         </section>
 
         {/* Getting Started section */}
-        <section className="bg-slate-950 min-h-[100vh] w-full flex flex-col max-md:px-6 max-sm:px-6 px-20 py-20">
-          <h2 className="font-bold font-playfair text-white text-5xl leading-normal">
+        <section className="bg-slate-950 min-h-[100vh] w-full flex flex-col max-md:px-6 max-sm:px-6 px-20 py-20 text-white">
+          <h2 className="font-bold font-playfair text-white text-5xl leading-normal text-center mb-3">
             Getting Started
           </h2>
 
@@ -150,12 +177,12 @@ const Home = () => {
         </section>
 
         {/* Meet our Team section */}
-        <section className="bg-black w-full flex flex-col max-md:px-6 max-sm:px-6 px-20 py-20">
-          <h2 className="font-bold font-playfair text-white text-5xl leading-normal">
+        <section className="bg-black w-full flex flex-col max-md:px-6 max-sm:px-6 px-20 py-20 text-white">
+          <h2 className="font-bold font-playfair text-white text-5xl leading-normal text-center mb-2">
             Meet our team
           </h2>
 
-          <div className="w-full flex flex-wrap gap-2">
+          <div className="w-full flex flex-wrap gap-2 justify-center">
             {/* one box of one team member */}
             <div className="h-[270px] w-[250px] bg-[#242424] rounded-lg flex justify-center items-center flex-col">
               <div className="imgContainer w-[110px] h-[110px] rounded-full border-2 border-[#1F68F7]">
@@ -166,11 +193,28 @@ const Home = () => {
                 />
               </div>
               <h3 className="font-bold text-[20px]">Sanjib Dahal</h3>
-              <p className="font-light text-[15px] text-[#1F68F7] mt-[-6px] mb-[6px]">Fullstack Developer</p>
+              <p className="font-light text-[15px] text-[#1F68F7] mt-[-6px] mb-[6px]">
+                Fullstack Developer
+              </p>
               <div className="social-icons flex gap-2">
-                <a href="https://twitter.com/san_jib_dahal"><FontAwesomeIcon icon={faXTwitter} className="text-white h-[24px] w-[24px]" /></a>
-                <a href="https://www.linkedin.com/in/sanjib-dahal"><FontAwesomeIcon icon={faLinkedin} className="text-white h-[24px] w-[24px]" /></a>
-                <a href="https://www.facebook.com/sanjib.dahal04"><FontAwesomeIcon icon={faFacebook} className="text-white h-[24px] w-[24px]" /></a>
+                <a href="https://twitter.com/san_jib_dahal">
+                  <FontAwesomeIcon
+                    icon={faXTwitter}
+                    className="text-white h-[24px] w-[24px]"
+                  />
+                </a>
+                <a href="https://www.linkedin.com/in/sanjib-dahal">
+                  <FontAwesomeIcon
+                    icon={faLinkedin}
+                    className="text-white h-[24px] w-[24px]"
+                  />
+                </a>
+                <a href="https://www.facebook.com/sanjib.dahal04">
+                  <FontAwesomeIcon
+                    icon={faFacebook}
+                    className="text-white h-[24px] w-[24px]"
+                  />
+                </a>
               </div>
             </div>
 
@@ -183,11 +227,28 @@ const Home = () => {
                 />
               </div>
               <h3 className="font-bold text-[20px]">Aryaman Giri</h3>
-              <p className="font-light text-[15px] text-[#1F68F7] mt-[-6px] mb-[6px]">Frontend Developer</p>
+              <p className="font-light text-[15px] text-[#1F68F7] mt-[-6px] mb-[6px]">
+                Frontend Developer
+              </p>
               <div className="social-icons flex gap-2">
-                <a href="https://twitter.com/san_jib_dahal"><FontAwesomeIcon icon={faXTwitter} className="text-white h-[24px] w-[24px]" /></a>
-                <a href="https://www.linkedin.com/in/sanjib-dahal"><FontAwesomeIcon icon={faLinkedin} className="text-white h-[24px] w-[24px]" /></a>
-                <a href="https://www.facebook.com/sanjib.dahal04"><FontAwesomeIcon icon={faFacebook} className="text-white h-[24px] w-[24px]" /></a>
+                <a href="https://twitter.com/san_jib_dahal">
+                  <FontAwesomeIcon
+                    icon={faXTwitter}
+                    className="text-white h-[24px] w-[24px]"
+                  />
+                </a>
+                <a href="https://www.linkedin.com/in/sanjib-dahal">
+                  <FontAwesomeIcon
+                    icon={faLinkedin}
+                    className="text-white h-[24px] w-[24px]"
+                  />
+                </a>
+                <a href="https://www.facebook.com/sanjib.dahal04">
+                  <FontAwesomeIcon
+                    icon={faFacebook}
+                    className="text-white h-[24px] w-[24px]"
+                  />
+                </a>
               </div>
             </div>
 
@@ -200,11 +261,28 @@ const Home = () => {
                 />
               </div>
               <h3 className="font-bold text-[20px]">Aashish Adhikari</h3>
-              <p className="font-light text-[15px] text-[#1F68F7] mt-[-6px] mb-[6px]">GoLang Developer</p>
+              <p className="font-light text-[15px] text-[#1F68F7] mt-[-6px] mb-[6px]">
+                GoLang Developer
+              </p>
               <div className="social-icons flex gap-2">
-                <a href="https://twitter.com/san_jib_dahal"><FontAwesomeIcon icon={faXTwitter} className="text-white h-[24px] w-[24px]" /></a>
-                <a href="https://www.linkedin.com/in/sanjib-dahal"><FontAwesomeIcon icon={faLinkedin} className="text-white h-[24px] w-[24px]" /></a>
-                <a href="https://www.facebook.com/sanjib.dahal04"><FontAwesomeIcon icon={faFacebook} className="text-white h-[24px] w-[24px]" /></a>
+                <a href="https://twitter.com/san_jib_dahal">
+                  <FontAwesomeIcon
+                    icon={faXTwitter}
+                    className="text-white h-[24px] w-[24px]"
+                  />
+                </a>
+                <a href="https://www.linkedin.com/in/sanjib-dahal">
+                  <FontAwesomeIcon
+                    icon={faLinkedin}
+                    className="text-white h-[24px] w-[24px]"
+                  />
+                </a>
+                <a href="https://www.facebook.com/sanjib.dahal04">
+                  <FontAwesomeIcon
+                    icon={faFacebook}
+                    className="text-white h-[24px] w-[24px]"
+                  />
+                </a>
               </div>
             </div>
 
@@ -217,19 +295,35 @@ const Home = () => {
                 />
               </div>
               <h3 className="font-bold text-[20px]">Hridayanshu Acharya</h3>
-              <p className="font-light text-[15px] text-[#1F68F7] mt-[-6px] mb-[6px]">Frontend Developer</p>
+              <p className="font-light text-[15px] text-[#1F68F7] mt-[-6px] mb-[6px]">
+                Frontend Developer
+              </p>
               <div className="social-icons flex gap-2">
-                <a href="https://twitter.com/san_jib_dahal"><FontAwesomeIcon icon={faXTwitter} className="text-white h-[24px] w-[24px]" /></a>
-                <a href="https://www.linkedin.com/in/sanjib-dahal"><FontAwesomeIcon icon={faLinkedin} className="text-white h-[24px] w-[24px]" /></a>
-                <a href="https://www.facebook.com/sanjib.dahal04"><FontAwesomeIcon icon={faFacebook} className="text-white h-[24px] w-[24px]" /></a>
+                <a href="https://twitter.com/san_jib_dahal">
+                  <FontAwesomeIcon
+                    icon={faXTwitter}
+                    className="text-white h-[24px] w-[24px]"
+                  />
+                </a>
+                <a href="https://www.linkedin.com/in/sanjib-dahal">
+                  <FontAwesomeIcon
+                    icon={faLinkedin}
+                    className="text-white h-[24px] w-[24px]"
+                  />
+                </a>
+                <a href="https://www.facebook.com/sanjib.dahal04">
+                  <FontAwesomeIcon
+                    icon={faFacebook}
+                    className="text-white h-[24px] w-[24px]"
+                  />
+                </a>
               </div>
             </div>
           </div>
-
         </section>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default LandingPage;
