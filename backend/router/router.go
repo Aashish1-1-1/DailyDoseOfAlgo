@@ -3,6 +3,8 @@ package router
 import(
 	"dailydoseofalgo/database"
 	"dailydoseofalgo/controllers/Auth"
+	"dailydoseofalgo/controllers/algorithm"
+	"dailydoseofalgo/middleware"
 
 	"github.com/gin-gonic/gin"
 	"github.com/gin-contrib/cors"
@@ -20,5 +22,8 @@ func Routes() *gin.Engine{
 	})
 	router.POST("/api/login",Auth.HandelLogin)
    	router.POST("/api/signup",Auth.HandelSignup)
+	router.GET("/api/verify/:code",Verify.HandelVerify)
+	router.GET("/api/view/:name",algorithm.ThrowBlog)
+	router.GET("/api/preview/:algoords",algorithm.ThrowAlgos)
 	return router
 }

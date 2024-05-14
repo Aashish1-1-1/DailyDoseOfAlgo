@@ -46,24 +46,24 @@ func MakeInsertQuery(query string,values ...interface{}) error {
 }
 
 
-func LoginQuery(email string,password string) (int,error) {
-  Init()
-  var password1 string
-  var id int
-  query := `SELECT "user_id","password" FROM "users" WHERE "email"=$1`
-  err := Db.QueryRow(query, email).Scan(&id,&password1)
-  if err!=nil{
-    fmt.Println(err)
-    return 0,err
-  }
-   if password1!=password{
-      fmt.Println("Password not match")
-      return 0,nil 
-  }
-  CloseDB()
-  fmt.Println("Password Matched")
-  return id,nil
-}
+//func LoginQuery(email string,password string) (int,error) {
+//  Init()
+//  var password1 string
+//  var id int
+//  query := `SELECT "user_id","password" FROM "users" WHERE "email"=$1`
+//  err := Db.QueryRow(query, email).Scan(&id,&password1)
+//  if err!=nil{
+//    fmt.Println(err)
+//    return 0,err
+//  }
+//   if password1!=password{
+//      fmt.Println("Password not match")
+//      return 0,nil 
+//  }
+//  CloseDB()
+//  fmt.Println("Password Matched")
+//  return id,nil
+//}
 func Searchsmt(query string,values ...interface{}) (string,error) {
   Init()
   var data string
