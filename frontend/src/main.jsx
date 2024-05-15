@@ -8,6 +8,7 @@ import About from './components/About/About.jsx'
 import SignUp from './components/SignUp/Signup.jsx'
 import User from './components/User/User.jsx'
 import Github from './components/Github/Github.jsx'
+import SignUpNew from './components/SignUp/SignupNew.jsx'
 
 // method 1
 const router = createBrowserRouter([
@@ -25,7 +26,13 @@ const router = createBrowserRouter([
       },
       {
         path: '/signup',
-        element: <SignUp />
+        element: <SignUp />,
+        children: [
+          {
+            path: '/signupnew',
+            element: <SignUpNew/>
+          }
+        ]
       },
       {
         path: '/algorithms',
@@ -50,6 +57,7 @@ const router1 = createBrowserRouter(
       <Route path="/" element={<LandingPage />} />
       <Route path="/about" element={<About />} />
       <Route path="/signup" element={<SignUp />} />
+      <Route path="/signup/signupnew" element={<SignUpNew/>}/>
       <Route path="/algorithms" element={<SignUp />} />
       <Route path="/quizes" element={<SignUp />} />
       <Route path="/contact" element={<SignUp />} />
