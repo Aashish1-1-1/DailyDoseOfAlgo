@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 const algorithms = [
   {
     id: 1,
-    title: 'Bubble Sort',
+    title: 'Bubble Sorting',
     description: 'A simple sorting algorithm that repeatedly swaps adjacent elements if they are in the wrong order.',
     difficulty: 'Easy',
     language: 'JavaScript',
