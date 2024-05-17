@@ -39,7 +39,7 @@ const Login = () => {
               <button className="w-full text-white my-2 font-semibold bg-[#060606] rounded-md p-4 text-center flex items-center justify-center hover:bg-gray-800 transition-colors duration-300">
                 Log in
               </button>
-              <NavLink to="/signup/signupnew">
+              <NavLink to="/signup">
                 <button className="w-full text-[#060606] my-2 bg-white border-2 border-black rounded-md p-4 text-center flex items-center justify-center hover:bg-gray-800 transition-colors duration-300">
                   Sign Up
                 </button>
