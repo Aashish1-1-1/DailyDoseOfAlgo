@@ -13,7 +13,7 @@ const Login = () => {
         <div className="w-1/2  bg-white flex flex-col p-7 justify-center">
           <div className="w-full flex flex-col max-w-[550px] items-center">
 
-            <h1 className="text-xl font-semibold mb-7 py-7">DailyDoseOfAlgo</h1>
+            <h1 className="text-3xl font-Poetsen One mb-7 py-7">DailyDoseOfAlgo</h1>
             {/* <div className="flex items-center justify-center mb-4">
             <img src="./assets/logo.png" className="w-10 h-8" alt="Logo" /> 
           </div> */}
@@ -36,11 +36,11 @@ const Login = () => {
             </div>
 
             <div className="w-full flex flex-col my-4">
-              <button className="w-full text-white my-2 font-semibold bg-[#060606] rounded-md p-4 text-center flex items-center justify-center hover:bg-gray-800 transition-colors duration-300">
-                Log in
+              <button className="w-full text-white my-2 font-semibold bg-[#060606] rounded-md p-4 text-center flex items-center justify-center hover:bg-gray-500 transition-colors duration-300">
+                Log In
               </button>
               <NavLink to="/signup">
-                <button className="w-full text-[#060606] my-2 bg-white border-2 border-black rounded-md p-4 text-center flex items-center justify-center hover:bg-gray-800 transition-colors duration-300">
+                <button className="w-full text-[#060606] my-2 bg-white border-2 border-black rounded-md p-4 text-center flex items-center justify-center hover:bg-cyan-400 transition-colors duration-300">
                   Sign Up
                 </button>
               </NavLink>
@@ -50,9 +50,9 @@ const Login = () => {
               <div className="w-full h-[1px] bg-white"></div>
               <p className="text-lg absolute bg-white -top-1/2 transform -translate-y-1/2">or</p>
             </div>
-            <div className="w-full text-[#060606] my-2 bg-white border-2 border-black rounded-md p-4 text-center flex items-center justify-center hover:bg-gray-800 transition-colors duration-300 cursor-pointer">
+            <div className="w-full text-[#060606] my-2 bg-white border-2 border-black rounded-md p-4 text-center flex items-center justify-center hover:bg-cyan-400 transition-colors duration-300 cursor-pointer">
               <img src="./assets/google_logo.png" className="h-6 mr-2" />
-              Sign In With google
+              Sign In With Google
             </div>
           </div>
 
