@@ -6,7 +6,7 @@ const About = () => {
       <h1 className="text-3xl text-white font-bold mb-4 font-serif ">About</h1>
       <div className="flex flex-col md:flex-row">
         <div className="md:w-1/2 md:pr-4 mb-4 md:mb-0">
-          <div className="text-lg text-white py-2 font-mono italic">
+          <div className="text-lg text-white py-2 font-Times New Roman italic">
             <h1>-DailyDoseOfAlgo</h1>
           </div>
           <img
