@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding Linked Lists in C++</title>
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.25.0/themes/prism-okaidia.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1e1e1e;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        pre {
+            padding: 20px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Understanding Linked Lists in C++</h1>
+        <h2>What is a Linked List?</h2>
+        <p>A linked list is a linear data structure where each element is a separate object, called a node. Each node
+            contains two parts:</p>
+        <ol>
+            <li><strong>Data:</strong> The value or information of the node.</li>
+            <li><strong>Next:</strong> A pointer or reference to the next node in the sequence.</li>
+        </ol>
+        <p>Unlike arrays, linked lists do not have a fixed size and can grow or shrink dynamically. This makes them more
+            flexible for certain applications.</p>
+
+        <h2>Types of Linked Lists</h2>
+        <ul>
+            <li><strong>Singly Linked List:</strong> Each node points to the next node.</li>
+            <li><strong>Doubly Linked List:</strong> Each node points to both the next and previous nodes.</li>
+            <li><strong>Circular Linked List:</strong> The last node points back to the first node, forming a circle.
+            </li>
+        </ul>
+
+        <h2>Visual Explanation</h2>
+        <p>Here's a visual representation of a singly linked list:</p>
+        <img src="/api/getimage/linkedlist.png" alt="Linked List Diagram"  height="300">
+
+        <h2>Implementing a Linked List</h2>
+        <h3>Defining a Node</h3>
+        <pre><code class="language-cpp">class Node {
+public:
+    int data;
+    Node *next;
+
+    Node() {}
+    ~Node() {}
+    Node(int d) : data(d), next(nullptr) {}
+    Node(int d, Node *next) : data(d), next(next) {}
+};</code></pre>
+
+        <h3>Defining a Linked List</h3>
+        <pre><code class="language-cpp">class LinkedList {
+private:
+    Node *HEAD;
+    Node *TAIL;
+
+public:
+    LinkedList::LinkedList() {
+        this->HEAD = nullptr;
+        this->TAIL = nullptr;
+    }
+    LinkedList::~LinkedList() {
+        this->FreeMemory();
+    }
+    void addToHead(int data);
+    void addToTail(int data);
+    bool removeFromHead();
+    bool removeFromTail();
+    Node *searchsmt(int target);
+    void traverse();
+    bool remove(int data);
+    void add(Node *pred, int data);
+    bool isEmpty();
+};</code></pre>
+
+        <h2>Different Operations</h2>
+        <h3>Add to Head</h3>
+        <pre><code class="language-cpp">void LinkedList::addToHead(int data) {
+    Node *temp = new Node(data, this->HEAD);
+    this->HEAD = temp;
+    if (this->TAIL == nullptr) {
+        this->TAIL = this->HEAD;
+    }
+}</code></pre>
+
+        <h3>Add to Tail</h3>
+        <pre><code class="language-cpp">void LinkedList::addToTail(int data) {
+    if (this->isEmpty()) {
+        Node *temp = new Node(data, nullptr);
+        this->TAIL = temp;
+        this->HEAD = temp;
+    } else {
+        Node *temp = new Node(data, nullptr);
+        this->TAIL->next = temp;
+        this->TAIL = temp;
+    }
+}</code></pre>
+
+        <h3>Remove from Head</h3>
+        <pre><code class="language-cpp">bool LinkedList::removeFromHead() {
+    if (!this->isEmpty()) {
+        Node *nodeToDelete = this->HEAD;
+        this->HEAD = nodeToDelete->next;
+        delete nodeToDelete;
+        return true;
+    } else {
+        return false;
+    }
+}</code></pre>
+
+        <h3>Remove from Tail</h3>
+        <pre><code class="language-cpp">bool LinkedList::removeFromTail() {
+    if (this->isEmpty()) {
+        std::cout << "Nothing is there";
+        return false;
+    } else {
+        Node *prev = this->HEAD;
+        while (prev->next->next != nullptr) {
+            prev = prev->next;
+        }
+        delete prev->next;
+        prev->next = nullptr;
+        TAIL = prev;
+        return true;
+    }
+
+    return false;
+}</code></pre>
+
+        <h3>Remove by Value</h3>
+        <pre><code class="language-cpp">bool LinkedList::remove(int target) {
+    if (this->isEmpty()) {
+        std::cout << "Nothing to remove";
+        return false;
+    } else if (target == HEAD->data || target == TAIL->data) {
+        std::cout << "User remove from head or tail";
+        return false;
+    } else {
+        Node *previous = HEAD;
+        Node *current = HEAD->next;
+        while (current != nullptr) {
+            if (current->data == target) {
+                break;
+            }
+            previous = current;
+            current = current->next;
+        }
+        if (current == nullptr) {
+            std::cout << "Not found";
+            return false;
+        } else {
+            previous->next = current->next;
+            if (current == TAIL) {
+                TAIL = previous;
+            }
+            delete current;
+            return true;
+        }
+    }
+    return false;
+}</code></pre>
+
+        <h3>Traverse</h3>
+        <pre><code class="language-cpp">void LinkedList::traverse() {
+    if (this->isEmpty()) {
+        std::cout << "Nothing to lookfor";
+    }
+    Node *temp = HEAD;
+    while (temp != nullptr) {
+        std::cout << temp->data << ' ';
+        temp = temp->next;
+    }
+    std::cout << std::endl;
+}</code></pre>
+
+        <h3>Add Before Node</h3>
+        <pre><code class="language-cpp">
+void LinkedList::add(Node *pred, int data) {
+    if (pred == nullptr) {
+        std::cout << "Nothing to add before";
+    } else {
+        Node *temp = new Node(data, pred->next);
+        pred->next = temp;
+    }
+}</code></pre>
+
+        <h3>Search for a Value</h3>
+        <pre><code class="language-cpp">Node *LinkedList::searchsmt(int target) {
+    Node *temp = HEAD;
+    while (temp != nullptr) {
+        if (temp->data == target) {
+            return temp;
+        }
+        temp = temp->next;
+    }
+    return nullptr;
+}</code></pre>
+
+        <h3>Check if Empty</h3>
+        <pre><code class="language-cpp">bool LinkedList::isEmpty() {
+    return HEAD == nullptr;
+}</code></pre>
+
+        <h2>Conclusion</h2>
+        <p>Linked lists are a fundamental data structure in computer science and are used in many applications.
+                Understanding how to implement and manipulate linked lists is essential for any programmer.</p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.25.0"></script>
+</body>
+
+</html>

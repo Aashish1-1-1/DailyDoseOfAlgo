@@ -25,5 +25,6 @@ func Routes() *gin.Engine{
 	router.GET("/api/verify/:code",Verify.HandelVerify)
 	router.GET("/api/view/:name",algorithm.ThrowBlog)
 	router.GET("/api/preview/:algoords",algorithm.ThrowAlgos)
+	router.GET("/api/getimage/:name",algorithm.ThrowImage)
 	return router
 }

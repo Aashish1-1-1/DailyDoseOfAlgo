@@ -52,3 +52,7 @@ func ThrowBlog(c *gin.Context){
 	}
 	c.File("."+file);
 }
+func ThrowImage(c *gin.Context){
+	name:=c.Param("name");
+	c.File("./assets/images/"+name);
+}
