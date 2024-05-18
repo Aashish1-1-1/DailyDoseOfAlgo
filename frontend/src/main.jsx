@@ -10,6 +10,7 @@ import Github from './components/Github/Github.jsx'
 import Login from './components/Login/Login.jsx'
 import DashboardComponent from './components/Dashboard/Dashboard.jsx'
 import SignUp from './components/SignUp/SignUp.jsx'
+import Blog from './components/Blog/Blog.jsx'
 
 // method 1
 // const router = createBrowserRouter([
@@ -65,6 +66,7 @@ const router1 = createBrowserRouter(
       <Route path="/user/:id" element={<User />} />
       <Route path="/dashboard" element={<DashboardComponent />} />
       <Route path="/github/:username" element={<Github />} />
+      <Route path="/algorithms/:name" element={<Blog />} />
     </Route>
   )
 );

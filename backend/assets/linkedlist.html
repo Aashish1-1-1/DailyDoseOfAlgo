@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Understanding Linked Lists in C++</title>
-    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.25.0/themes/prism-okaidia.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <script src="prism.js"></script>
+
+    <link rel="stylesheet" href="prism.css">
+    <script src="https://drive.google.com/file/d/1D5I57Iytnqo96hSG7p6mCZKZTQsfei5U/view?usp=sharing"></script>
+    <link rel="stylesheet" href="https://drive.google.com/file/d/1ayyJ9wPVNdYjc_w10qfZcmbHJ8Bvo8Yq/view?usp=sharing">
+
     <style>
         body {
             background-color: #1e1e1e;
             color: #ffffff;
-            font-family: Arial, sans-serif;
-            padding: 20px;
         }
 
         pre {
@@ -20,41 +23,38 @@
             overflow-x: auto;
         }
 
-        .container {
+        /* .containers {
             max-width: 800px;
             margin: 0 auto;
-        }
+        } */
     </style>
+
 </head>
-
 <body>
-    <div class="container">
-        <h1>Understanding Linked Lists in C++</h1>
-        <h2>What is a Linked List?</h2>
-        <p>A linked list is a linear data structure where each element is a separate object, called a node. Each node
-            contains two parts:</p>
-        <ol>
-            <li><strong>Data:</strong> The value or information of the node.</li>
-            <li><strong>Next:</strong> A pointer or reference to the next node in the sequence.</li>
-        </ol>
-        <p>Unlike arrays, linked lists do not have a fixed size and can grow or shrink dynamically. This makes them more
-            flexible for certain applications.</p>
+<div class="containers mx-auto py-8 text-white font-poppins" style="max-width: 800px;">
+    <h1 class="text-3xl font-bold mb-4 ">Understanding Linked Lists in C++</h1>
+    <h2 class="text-2xl font-bold mb-2">What is a Linked List?</h2>
+    <p class="mb-4">A linked list is a linear data structure where each element is a separate object, called a node. Each node contains two parts:</p>
+    <ol class="list-decimal list-inside mb-4">
+        <li><strong>Data:</strong> The value or information of the node.</li>
+        <li><strong>Next:</strong> A pointer or reference to the next node in the sequence.</li>
+    </ol>
+    <p class="mb-4">Unlike arrays, linked lists do not have a fixed size and can grow or shrink dynamically. This makes them more flexible for certain applications.</p>
 
-        <h2>Types of Linked Lists</h2>
-        <ul>
-            <li><strong>Singly Linked List:</strong> Each node points to the next node.</li>
-            <li><strong>Doubly Linked List:</strong> Each node points to both the next and previous nodes.</li>
-            <li><strong>Circular Linked List:</strong> The last node points back to the first node, forming a circle.
-            </li>
-        </ul>
+    <h2 class="text-2xl font-bold mb-2">Types of Linked Lists</h2>
+    <ul class="list-disc list-inside mb-4">
+        <li><strong>Singly Linked List:</strong> Each node points to the next node.</li>
+        <li><strong>Doubly Linked List:</strong> Each node points to both the next and previous nodes.</li>
+        <li><strong>Circular Linked List:</strong> The last node points back to the first node, forming a circle.</li>
+    </ul>
 
-        <h2>Visual Explanation</h2>
-        <p>Here's a visual representation of a singly linked list:</p>
-        <img src="/api/getimage/linkedlist.png" alt="Linked List Diagram"  height="300">
+    <h2 class="text-2xl font-bold mb-2">Visual Explanation</h2>
+    <p class="mb-4">Here's a visual representation of a singly linked list:</p>
+    <img src="/api/getimage/linkedlist.png" alt="Linked List Diagram" class="mx-auto mb-8" height="300">
 
-        <h2>Implementing a Linked List</h2>
-        <h3>Defining a Node</h3>
-        <pre><code class="language-cpp">class Node {
+    <h2 class="text-2xl font-bold mb-2">Implementing a Linked List</h2>
+    <h3 class="text-xl font-bold mb-2">Defining a Node</h3>
+    <pre><code class="language-cpp">class Node {
 public:
     int data;
     Node *next;
@@ -65,8 +65,9 @@ public:
     Node(int d, Node *next) : data(d), next(next) {}
 };</code></pre>
 
-        <h3>Defining a Linked List</h3>
-        <pre><code class="language-cpp">class LinkedList {
+    <h3 class="text-xl font-bold mb-2">Defining a Linked List</h3>
+    <pre><code class="language-cpp">
+class LinkedList {
 private:
     Node *HEAD;
     Node *TAIL;
@@ -90,9 +91,9 @@ public:
     bool isEmpty();
 };</code></pre>
 
-        <h2>Different Operations</h2>
-        <h3>Add to Head</h3>
-        <pre><code class="language-cpp">void LinkedList::addToHead(int data) {
+    <h2 class="text-2xl font-bold mb-2">Different Operations</h2>
+    <h3 class="text-xl font-bold mb-2">Add to Head</h3>
+    <pre><code class="language-cpp">void LinkedList::addToHead(int data) {
     Node *temp = new Node(data, this->HEAD);
     this->HEAD = temp;
     if (this->TAIL == nullptr) {
@@ -100,8 +101,8 @@ public:
     }
 }</code></pre>
 
-        <h3>Add to Tail</h3>
-        <pre><code class="language-cpp">void LinkedList::addToTail(int data) {
+    <h3 class="text-xl font-bold mb-2">Add to Tail</h3>
+    <pre><code class="language-cpp">void LinkedList::addToTail(int data) {
     if (this->isEmpty()) {
         Node *temp = new Node(data, nullptr);
         this->TAIL = temp;
@@ -113,8 +114,8 @@ public:
     }
 }</code></pre>
 
-        <h3>Remove from Head</h3>
-        <pre><code class="language-cpp">bool LinkedList::removeFromHead() {
+    <h3 class="text-xl font-bold mb-2">Remove from Head</h3>
+    <pre><code class="language-cpp">bool LinkedList::removeFromHead() {
     if (!this->isEmpty()) {
         Node *nodeToDelete = this->HEAD;
         this->HEAD = nodeToDelete->next;
@@ -125,8 +126,8 @@ public:
     }
 }</code></pre>
 
-        <h3>Remove from Tail</h3>
-        <pre><code class="language-cpp">bool LinkedList::removeFromTail() {
+    <h3 class="text-xl font-bold mb-2">Remove from Tail</h3>
+    <pre><code class="language-cpp">bool LinkedList::removeFromTail() {
     if (this->isEmpty()) {
         std::cout << "Nothing is there";
         return false;
@@ -144,8 +145,8 @@ public:
     return false;
 }</code></pre>
 
-        <h3>Remove by Value</h3>
-        <pre><code class="language-cpp">bool LinkedList::remove(int target) {
+    <h3 class="text-xl font-bold mb-2">Remove by Value</h3>
+    <pre><code class="language-cpp">bool LinkedList::remove(int target) {
     if (this->isEmpty()) {
         std::cout << "Nothing to remove";
         return false;
@@ -177,8 +178,8 @@ public:
     return false;
 }</code></pre>
 
-        <h3>Traverse</h3>
-        <pre><code class="language-cpp">void LinkedList::traverse() {
+    <h3 class="text-xl font-bold mb-2">Traverse</h3>
+    <pre><code class="language-cpp">void LinkedList::traverse() {
     if (this->isEmpty()) {
         std::cout << "Nothing to lookfor";
     }
@@ -190,39 +191,43 @@ public:
     std::cout << std::endl;
 }</code></pre>
 
-        <h3>Add Before Node</h3>
-        <pre><code class="language-cpp">
-void LinkedList::add(Node *pred, int data) {
-    if (pred == nullptr) {
-        std::cout << "Nothing to add before";
-    } else {
-        Node *temp = new Node(data, pred->next);
-        pred->next = temp;
+    <h3 class="text-xl font-bold mb-2">Add Before Node</h3>
+    <pre><code class="language-cpp">
+void LinkedList::add(Node *pred, int data)
+if (pred == nullptr) {
+    std::cout << "Nothing to add before";
+} else {
+    Node *temp = new Node(data, pred->next);
+    pred->next = temp;
+}
+}
+</code></pre>
+
+<h3 class="text-xl font-bold mb-2">Search for a Value</h3>
+<pre><code class="language-cpp">Node *LinkedList::searchsmt(int target) {
+Node *temp = HEAD;
+while (temp != nullptr) {
+    if (temp->data == target) {
+        return temp;
     }
+    temp = temp->next;
+}
+return nullptr;
 }</code></pre>
 
-        <h3>Search for a Value</h3>
-        <pre><code class="language-cpp">Node *LinkedList::searchsmt(int target) {
-    Node *temp = HEAD;
-    while (temp != nullptr) {
-        if (temp->data == target) {
-            return temp;
-        }
-        temp = temp->next;
-    }
-    return nullptr;
+<h3 class="text-xl font-bold mb-2">Check if Empty</h3>
+<pre><code class="language-cpp">bool LinkedList::isEmpty() {
+return HEAD == nullptr;
 }</code></pre>
 
-        <h3>Check if Empty</h3>
-        <pre><code class="language-cpp">bool LinkedList::isEmpty() {
-    return HEAD == nullptr;
-}</code></pre>
+<h2 class="text-2xl font-bold mb-2">Conclusion</h2>
+<p class="mb-4">Linked lists are a fundamental data structure in computer science and are used in many applications. Understanding how to implement and manipulate linked lists is essential for any programmer.</p>
 
-        <h2>Conclusion</h2>
-        <p>Linked lists are a fundamental data structure in computer science and are used in many applications.
-                Understanding how to implement and manipulate linked lists is essential for any programmer.</p>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.25.0"></script>
+</div>
+
+
+<!-- <script src="prism.js"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/components/prism-cpp.min.js" ></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/9000.0.1/components/prism-cpp.js"></script> -->
 </body>
-
 </html>

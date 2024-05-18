@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <footer className="bg-black border-y border-gray-700 relative w-full bottom-0">
+    <footer className="bg-black border-y border-gray-700 w-full">
       <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
         <div className="md:flex md:justify-between">
           <div className="mb-6 md:mb-0">
             <Link to="/" className="flex items-center">
               <img
-                src="./assets/logo.png"
+                src="/assets/logo.png"
                 className="mr-3 h-16"
                 alt="Logo"
               />
@@ -40,7 +40,7 @@ export default function Footer() {
               <ul className="text-gray-500 font-medium">
                 <li className="mb-4">
                   <a
-                    href="https://github.com/hiteshchoudhary"
+                    href="https://github.com/sanjibdahal/DailyDoseofAlgo"
                     className="hover:underline"
                     target="_blank"
                     rel="noreferrer"
@@ -78,7 +78,7 @@ export default function Footer() {
         <div className="sm:flex sm:items-center sm:justify-between">
           <span className="text-sm text-gray-500 sm:text-center">
             ©2024 {" "}
-            <a href="https://hiteshchoudhary.com/" className="hover:underline">
+            <a href="https://daily-dose-of-algo.vercel.app/" className="hover:underline">
               DailyDoseOfAlgo
             </a>
             . All Rights Reserved.

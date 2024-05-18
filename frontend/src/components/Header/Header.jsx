@@ -29,7 +29,7 @@ const Header = () => {
     <>
       <nav className="bg-[rgba(0,0,0)] w-full px-[80px] py-[20px] flex items-center justify-between z-20 font-poppins transition-all duration-300 ease-in-out">
         <Link to="/" className="brand-logo">
-          <img src={"./assets/logo.png"} alt="brand-logo" className="h-8" />
+          <img src={"/assets/logo.png"} alt="brand-logo" className="h-8" />
         </Link>
         <ul
           id="nav-mobile"
