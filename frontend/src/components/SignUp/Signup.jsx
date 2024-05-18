@@ -8,14 +8,14 @@ const SignUp = () => {
         {/* Image */}
         <div className="relative w-1/2 h-[calc(100vh-72px)] flex flex-col justify-center items-center p-14 bg-slate-950 text-white">
           <img src={SingupImg} alt="signup" className="scale-75"/>
-          <h1 className="font-semibold text-5xl">Daily Dose of Algo</h1>
+          <h1 className="font-semibold text-5xl">Daily Dose Of Algo</h1>
           <h3 className="text-white opacity-65 text-2xl text-center mt-3">Master your algorithm with DailyDoseofAlgo’s quizes and algorithm lessons.</h3>
         </div>
 
         {/* Text container */}
         <div className="w-1/2 bg-white flex flex-col p-7 justify-center">
           <div className="w-full flex flex-col max-w-[550px] items-center">
-            <h1 className="text-3xl font-Poetsen One mb-7 py-7">DailyDoseOfAlgo</h1>
+            <h1 className="text-4xl font-Poetsen One mb-7 py-7">Sign Up</h1>
             <div className="w-full flex flex-col">
               <input
                 type="text"

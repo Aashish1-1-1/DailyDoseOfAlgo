@@ -13,7 +13,7 @@ const Login = () => {
         <div className="w-1/2  bg-white flex flex-col p-7 justify-center">
           <div className="w-full flex flex-col max-w-[550px] items-center">
 
-            <h1 className="text-3xl font-Poetsen One mb-7 py-7">DailyDoseOfAlgo</h1>
+            <h1 className="text-4xl font-Poetsen One mb-7 py-7">Login</h1>
             {/* <div className="flex items-center justify-center mb-4">
             <img src="./assets/logo.png" className="w-10 h-8" alt="Logo" /> 
           </div> */}
