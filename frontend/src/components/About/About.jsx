@@ -10,7 +10,7 @@ const About = () => {
             <h1>-DailyDoseOfAlgo</h1>
           </div>
           <img
-            src="./assets/Background.png"
+            src="./assets/about.png"
             alt="About Us"
             className="rounded-lg w-full h-auto"
           />
