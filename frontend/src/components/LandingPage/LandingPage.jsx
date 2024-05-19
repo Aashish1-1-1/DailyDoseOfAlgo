@@ -231,19 +231,19 @@ const LandingPage = () => {
                 Frontend Developer
               </p>
               <div className="social-icons flex gap-2">
-                <a href="https://twitter.com/san_jib_dahal">
+                <a href="https://x.com/Gannibro">
                   <FontAwesomeIcon
                     icon={faXTwitter}
                     className="text-white h-[24px] w-[24px]"
                   />
                 </a>
-                <a href="https://www.linkedin.com/in/sanjib-dahal">
+                <a href="https://www.linkedin.com/in/aryaman-giri-945b5a1b6/">
                   <FontAwesomeIcon
                     icon={faLinkedin}
                     className="text-white h-[24px] w-[24px]"
                   />
                 </a>
-                <a href="https://www.facebook.com/sanjib.dahal04">
+                <a href="https://www.facebook.com/aryaman.giri.9">
                   <FontAwesomeIcon
                     icon={faFacebook}
                     className="text-white h-[24px] w-[24px]"
@@ -265,19 +265,19 @@ const LandingPage = () => {
                 GoLang Developer
               </p>
               <div className="social-icons flex gap-2">
-                <a href="https://twitter.com/san_jib_dahal">
+                <a href="https://x.com/AashishAdh9?t=8ZBIBJ8Fi93dzx13i8PG1Q&s=09">
                   <FontAwesomeIcon
                     icon={faXTwitter}
                     className="text-white h-[24px] w-[24px]"
                   />
                 </a>
-                <a href="https://www.linkedin.com/in/sanjib-dahal">
+                <a href="https://www.linkedin.com/in/aashish-adhikari-92a958212">
                   <FontAwesomeIcon
                     icon={faLinkedin}
                     className="text-white h-[24px] w-[24px]"
                   />
                 </a>
-                <a href="https://www.facebook.com/sanjib.dahal04">
+                <a href="https://www.facebook.com/100014331156052">
                   <FontAwesomeIcon
                     icon={faFacebook}
                     className="text-white h-[24px] w-[24px]"
@@ -299,19 +299,19 @@ const LandingPage = () => {
                 Frontend Developer
               </p>
               <div className="social-icons flex gap-2">
-                <a href="https://twitter.com/san_jib_dahal">
+                <a href="https://x.com/hridayanshu23?s=21">
                   <FontAwesomeIcon
                     icon={faXTwitter}
                     className="text-white h-[24px] w-[24px]"
                   />
                 </a>
-                <a href="https://www.linkedin.com/in/sanjib-dahal">
+                <a href="https://www.linkedin.com/in/hridayanshu-raj-acharya-4b4a96265/">
                   <FontAwesomeIcon
                     icon={faLinkedin}
                     className="text-white h-[24px] w-[24px]"
                   />
                 </a>
-                <a href="https://www.facebook.com/sanjib.dahal04">
+                <a href="https://www.facebook.com/Hridayanshu23">
                   <FontAwesomeIcon
                     icon={faFacebook}
                     className="text-white h-[24px] w-[24px]"
