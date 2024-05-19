@@ -38,7 +38,7 @@ const Header = () => {
           <li>
             <NavLink
               to="/"
-              className={({isActive})=>`hover:tracking-wider hover:font-medium hover:text-purple-500 transition-all ease-in duration-300 ${isActive ? 'text-purple-500 font-semibold' : 'text-white'}`}
+              className={({isActive})=>`hover:font-medium hover:text-purple-500 transition-all ease-in duration-300 ${isActive ? 'text-purple-500 font-semibold' : 'text-white'}`}
             >
               Home
             </NavLink>
@@ -46,7 +46,7 @@ const Header = () => {
           <li>
             <NavLink
               to="/about"
-              className={({isActive})=>`hover:tracking-wider hover:font-medium hover:text-purple-500 transition-all ease-in duration-300 ${isActive ? 'text-purple-500 font-semibold' : 'text-white'}`}
+              className={({isActive})=>`hover:font-medium hover:text-purple-500 transition-all ease-in duration-300 ${isActive ? 'text-purple-500 font-semibold' : 'text-white'}`}
             >
               About
             </NavLink>
@@ -54,7 +54,7 @@ const Header = () => {
           <li>
             <NavLink
               to="/algorithms"
-              className={({isActive})=>`hover:tracking-wider hover:font-medium hover:text-purple-500 transition-all ease-in duration-300 ${isActive ? 'text-purple-500 font-semibold' : 'text-white'}`}
+              className={({isActive})=>`hover:font-medium hover:text-purple-500 transition-all ease-in duration-300 ${isActive ? 'text-purple-500 font-semibold' : 'text-white'}`}
             >
               Algorithms
             </NavLink>
@@ -62,7 +62,7 @@ const Header = () => {
           <li>
             <NavLink
               to="/quizes"
-              className={({isActive})=>`hover:tracking-wider hover:font-medium hover:text-purple-500 transition-all ease-in duration-300 ${isActive ? 'text-purple-500 font-semibold' : 'text-white'}`}
+              className={({isActive})=>`hover:font-medium hover:text-purple-500 transition-all ease-in duration-300 ${isActive ? 'text-purple-500 font-semibold' : 'text-white'}`}
             >
               Quizes
             </NavLink>
@@ -70,7 +70,7 @@ const Header = () => {
           <li>
             <NavLink
               to="/contact"
-              className={({isActive})=>`hover:tracking-wider hover:font-medium hover:text-purple-500 transition-all ease-in duration-300 ${isActive ? 'text-purple-500 font-semibold' : 'text-white'}`}
+              className={({isActive})=>`hover:font-medium hover:text-purple-500 transition-all ease-in duration-300 ${isActive ? 'text-purple-500 font-semibold' : 'text-white'}`}
             >
               Contact
             </NavLink>

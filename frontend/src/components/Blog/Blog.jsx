@@ -1,28 +1,52 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import Loader from "../Loader/Loader";
+// import { Helmet } from 'react-helmet';
+// import cheerio from 'cheerio';
+import 'highlight.js/styles/github-dark-dimmed.min.css';
+import hljs from 'highlight.js/lib/core';
+import cpp from 'highlight.js/lib/languages/cpp';
+
+hljs.registerLanguage('cpp', cpp);
+
 
 const Blog = () => {
-  const [data, setData] = useState('');
+  const [loading, setLoading] = useState(true);
   const { name } = useParams();
 
+  const [htmlContent, setHtmlContent] = useState('');
   useEffect(() => {
-    // Fetch data from your Go backend API
-    fetch("http://localhost:8080/api/view/"+name)
-      .then((response) => response.text())
-      .then((data) => {
-          var doc = new DOMParser().parseFromString(data, "text/html");
-        //   console.log(doc.documentElement.querySelector("body").innerHTML);
-          setData(data);
-        //   console.log(data)
-      });
-  }, [name]);
+    const fetchContent = async () => {
+      try {
+        const response = await fetch('http://localhost:8080/api/view/'+name);
+        const data = await response.text();
+        setHtmlContent(data);
+      } catch (error) {
+        console.error('Error fetching content:', error);
+      }
+    };
 
+    fetchContent();
+  }, []);
+
+  useEffect(() => {
+    hljs.highlightAll();
+    setLoading(false);
+  }, [htmlContent]);
+  
   return (
     <>
-        <div className="bg-slate-950" dangerouslySetInnerHTML={{ __html: data }}>
-            
+      {loading ? (
+        <Loader />
+      ) : (
+        <div className="bg-slate-950 flex justify-center">
+        <div className= "mb-[25px] max-w-[800px">
+          <div dangerouslySetInnerHTML={{ __html: htmlContent }}></div>
+          <NavLink to={`/quiz/${name}`} className={"bg-purple-700 hover:bg-purple-600 transition-colors px-5 py-3 font-poppins text-white font-medium rounded-md"}>Take Quiz</NavLink>
         </div>
+        </div>
+      )}
     </>
   );
 };
