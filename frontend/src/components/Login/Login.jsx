@@ -40,7 +40,7 @@ const Login = () => {
                 Log in
               </button>
               <NavLink to="/signup">
-                <button className="w-full text-[#060606] my-2 bg-white border-2 border-black rounded-md p-4 text-center flex items-center justify-center hover:bg-gray-800 transition-colors duration-300">
+                <button className="w-full text-[#060606] my-2 bg-white border-2 border-black rounded-md p-4 text-center flex items-center justify-center hover:bg-gray-500 transition-colors duration-300">
                   Sign Up
                 </button>
               </NavLink>
@@ -50,15 +50,11 @@ const Login = () => {
               <div className="w-full h-[1px] bg-white"></div>
               <p className="text-lg absolute bg-white -top-1/2 transform -translate-y-1/2">or</p>
             </div>
-            <div className="w-full text-[#060606] my-2 bg-white border-2 border-black rounded-md p-4 text-center flex items-center justify-center hover:bg-gray-800 transition-colors duration-300 cursor-pointer">
+            <div className="w-full text-[#060606] my-2 bg-white border-2 border-black rounded-md p-4 text-center flex items-center justify-center hover:bg-cyan-400 transition-colors duration-300 cursor-pointer">
               <img src="./assets/google_logo.png" className="h-6 mr-2" />
-              Sign In With google
+              Sign In With Google
             </div>
           </div>
-
-          {/* <div className="w-full flex items-center justify-center">
-            <p className="text-sm font-normal text-black">Dont have a account? <span className="font-semibold underline underline-offset-2 cursor-pointer">Sign up for free</span></p>
-          </div> */}
         </div>
       </div>
     </>

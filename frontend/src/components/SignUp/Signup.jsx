@@ -9,7 +9,7 @@ const SignUp = () => {
         {/* Image */}
         <div className="relative w-1/2 h-full flex flex-col justify-center items-center p-14 bg-slate-950 text-white">
           <img src={SingupImg} alt="signup" className="scale-75"/>
-          <h1 className="font-semibold text-5xl">Daily Dose of Algo</h1>
+          <h1 className="font-semibold text-5xl">Daily Dose Of Algo</h1>
           <h3 className="text-white opacity-65 text-2xl text-center mt-3">Master your algorithm with DailyDoseofAlgo’s quizes and algorithm lessons.</h3>
         </div>
 
