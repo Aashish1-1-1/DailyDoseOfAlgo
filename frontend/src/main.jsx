@@ -9,8 +9,8 @@ import User from './components/User/User.jsx'
 import Github from './components/Github/Github.jsx'
 import Login from './components/Login/Login.jsx'
 import DashboardComponent from './components/Dashboard/Dashboard.jsx'
-import SignUp from './components/SignUp/SignUp.jsx'
 import Blog from './components/Blog/Blog.jsx'
+import SignUp from './components/SignUp/SignUp.jsx'
 
 // method 1
 // const router = createBrowserRouter([

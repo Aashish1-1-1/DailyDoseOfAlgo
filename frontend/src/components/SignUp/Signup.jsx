@@ -5,17 +5,17 @@ import { NavLink } from "react-router-dom";
 const SignUp = () => {
   return (
     <>
-      <div className="w-full h-[calc(100vh-72px)] flex items-start justify-center font-poppins text-white">
+      <div className="w-full lg:h-[calc(100vh-72px)] h-full flex flex-col lg:flex-row justify-center font-poppins text-white">
         {/* Image */}
-        <div className="relative w-1/2 h-full flex flex-col justify-center items-center p-14 bg-slate-950 text-white">
+        <div className="relative w-full lg:w-1/2 h-full flex-col hidden lg:flex justify-center items-center p-14 bg-slate-950 text-white">
           <img src={SingupImg} alt="signup" className="scale-75"/>
           <h1 className="font-semibold text-5xl">Daily Dose Of Algo</h1>
           <h3 className="text-white opacity-65 text-2xl text-center mt-3">Master your algorithm with DailyDoseofAlgo’s quizes and algorithm lessons.</h3>
         </div>
 
         {/* Text container */}
-        <div className="w-1/2 bg-[#1F1D1D] h-full flex flex-col justify-center items-center">
-          <div className="w-full flex flex-col max-w-[380px] p-4 items-center">
+        <div className="w-full lg:w-1/2 bg-[#1F1D1D] h-full flex flex-col justify-center items-center">
+          <div className="w-full flex flex-col max-w-[420px] lg:max-w-[500px] p-4 items-center">
             <h1 className="text-3xl font-semibold mb-5">Sign Up</h1>
               <div className="w-full mb-[10px]">
                 <label htmlFor="username" className="text-white text-[14px] mb-[2px]">Username</label>
