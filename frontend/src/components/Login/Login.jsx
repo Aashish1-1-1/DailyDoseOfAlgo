@@ -54,8 +54,8 @@ const Login = () => {
             <div className="w-full text-[#060606] my-2 bg-white border-2 border-black rounded-md p-4 text-center flex items-center justify-center hover:bg-cyan-400 transition-colors duration-300 cursor-pointer">
               <img src="./assets/google_logo.png" className="h-6 mr-2" />
               Sign In With Google
-              Sign In With Google
             </div>
+          </div>
           </div>
         </div>
       </div>
