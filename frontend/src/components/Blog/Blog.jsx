@@ -7,6 +7,7 @@ import Loader from "../Loader/Loader";
 import 'highlight.js/styles/github-dark-dimmed.min.css';
 import hljs from 'highlight.js/lib/core';
 import cpp from 'highlight.js/lib/languages/cpp';
+import CopyButtonPlugin from 'highlightjs-copy';
 
 hljs.registerLanguage('cpp', cpp);
 
@@ -31,6 +32,7 @@ const Blog = () => {
   }, []);
 
   useEffect(() => {
+    hljs.addPlugin(new CopyButtonPlugin());
     hljs.highlightAll();
     setLoading(false);
   }, [htmlContent]);
