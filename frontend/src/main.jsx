@@ -11,7 +11,7 @@ import Login from './components/Login/Login.jsx'
 import DashboardComponent from './components/Dashboard/Dashboard.jsx'
 import Blog from './components/Blog/Blog.jsx'
 import Quiz from './components/Quiz/Quiz.jsx'
-import SignUp from './components/SignUp/SignUp.jsx'
+// import SignUp from './components/SignUp/SignUp.jsx'
 
 // method 1
 // const router = createBrowserRouter([
@@ -59,11 +59,11 @@ const router1 = createBrowserRouter(
     <Route path="/" element={<Layout />}>
       <Route path="/" element={<LandingPage />} />
       <Route path="/about" element={<About />} />
-      <Route path="/signup" element={<SignUp />} />
+      <Route path="/signup" element={<Login />} />
       <Route path="/login" element={<Login/>}/>
-      <Route path="/algorithms" element={<SignUp />} />
-      <Route path="/quizes" element={<SignUp />} />
-      <Route path="/contact" element={<SignUp />} />
+      <Route path="/algorithms" element={<Login />} />
+      <Route path="/quizes" element={<Login />} />
+      <Route path="/contact" element={<Login />} />
       <Route path="/user/:id" element={<User />} />
       <Route path="/dashboard" element={<DashboardComponent />} />
       <Route path="/github/:username" element={<Github />} />
