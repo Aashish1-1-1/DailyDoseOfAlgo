@@ -10,8 +10,8 @@ import Github from './components/Github/Github.jsx'
 import Login from './components/Login/Login.jsx'
 import DashboardComponent from './components/Dashboard/Dashboard.jsx'
 import Blog from './components/Blog/Blog.jsx'
-import SignUp from './components/SignUp/SignUp.jsx'
 import Quiz from './components/Quiz/Quiz.jsx'
+import SignUp from './components/SignUp/SignUp.jsx'
 
 // method 1
 // const router = createBrowserRouter([

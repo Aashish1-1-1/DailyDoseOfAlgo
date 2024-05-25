@@ -2,8 +2,6 @@ import React from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Loader from "../Loader/Loader";
-// import { Helmet } from 'react-helmet';
-// import cheerio from 'cheerio';
 import 'highlight.js/styles/github-dark-dimmed.min.css';
 import hljs from 'highlight.js/lib/core';
 import cpp from 'highlight.js/lib/languages/cpp';
