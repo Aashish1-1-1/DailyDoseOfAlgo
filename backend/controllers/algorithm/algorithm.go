@@ -7,6 +7,8 @@ import(
 
 	"dailydoseofalgo/database"
 	"dailydoseofalgo/models/Algorithms"
+	"io/ioutil"
+	"encoding/json"
 )
 
 func ThrowAlgos(c *gin.Context){
@@ -55,4 +57,21 @@ func ThrowBlog(c *gin.Context){
 func ThrowImage(c *gin.Context){
 	name:=c.Param("name");
 	c.File("./assets/images/"+name);
+}
+
+func ThrowQuiz(c *gin.Context){
+	name:=c.Param("name");
+	data, err := ioutil.ReadFile("./assets/quiz/"+name+".json")
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Unable to read file"})
+		return
+	}
+	var jsonData interface{}
+	if err := json.Unmarshal(data, &jsonData); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Invalid JSON format"})
+		return
+	}
+	c.JSON(http.StatusOK, jsonData)
+	// c.JSON(http.StatusOK,gin.H{"message":"Hello from server"})
+	// return json which is in folder assets/quiz/linkedlist.json
 }
