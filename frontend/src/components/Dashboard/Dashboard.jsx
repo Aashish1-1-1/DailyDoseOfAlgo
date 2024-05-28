@@ -8,39 +8,58 @@ const Dashboard = () => {
    const [Algoresult, setAlgoresult] = useState([]);
 
    const handelfetch = async (value) => {
-     if (DSresult.length === 0 || Algoresult.length === 0) {
-       try {
-         const response = await fetch(
-           `http://localhost:8080/api/preview/${value}`,
-           {
-             method: "GET",
-             headers: {
-               "Content-Type": "application/json",
-             },
-           }
-         );
-         if (response.ok) {
-           const result = await response.json();
-           if (value) {
-             setAlgoresult(result);
-             setFetchedalgo(!fetchedalgo);
-           } else {
-             setDSresult(result);
-             setFetchedds(!fetchedds);
-           }
-         } else {
-           console.log("failed to fetch data");
-         }
-       } catch (error) {
-         console.error(error);
-       }
-     } else {
-       if (value) {
-         setFetchedalgo(!fetchedalgo);
-       } else {
-         setFetchedds(!fetchedds);
-       }
-     }
+	   if(value){
+		if(Algoresult.length === 0){
+		 try {
+      		     const response = await fetch(
+      		       `http://localhost:8080/api/preview/${value}`,
+      		       {
+      		         method: "GET",
+      		         headers: {
+      		           "Content-Type": "application/json",
+      		         },
+      		       }
+      		     );
+      		     if (response.ok) {
+      		       const result = await response.json();
+      		         setAlgoresult(result);
+      		     } else {
+      		       console.log("failed to fetch data");
+      		     }
+      		   } catch (error) {
+		         console.error(error);
+		       }
+			}	
+	       }else{
+		if(DSresult.length === 0){
+			try {
+       		  		const response = await fetch(
+       		    `http://localhost:8080/api/preview/${value}`,
+       		    {
+       		      method: "GET",
+       		      headers: {
+       		        "Content-Type": "application/json",
+       		      },
+       		    }
+       		  );
+       		  if (response.ok) {
+       		    const result = await response.json();
+       		      setDSresult(result);
+       		    }
+       		   else {
+       		    console.log("failed to fetch data");
+       		  }
+       		} catch (error) {
+       		  console.error(error);
+       		}
+		}
+	   }
+	   if(value){
+	   	setFetchedalgo(!fetchedalgo);
+	   }
+	   else{
+	   	setFetchedds(!fetchedds);
+	   }
    };
 
   return (
