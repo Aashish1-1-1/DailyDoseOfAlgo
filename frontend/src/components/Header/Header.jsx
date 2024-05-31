@@ -35,20 +35,20 @@ const Header = () => {
 
   return (
     <>
-      <nav className="bg-[rgba(0,0,0)] w-full px-[20px] sm:px-[80px] py-[10px] flex items-center justify-between z-20 font-poppins transition-all duration-300 ease fixed">
+      <nav className="bg-[rgba(0,0,0)] w-full px-[20px] sm:px-[80px] py-[10px] sm:py-[20px] flex items-center justify-between z-20 font-poppins transition-all duration-300 ease fixed">
         <Link to="/" className="brand-logo">
           <img src={"/assets/logo.png"} alt="brand-logo" className="h-8" />
         </Link>
         <ul
           id="nav-links"
-          className="nav-links text-white flex flex-col items-center fixed bg-slate-950 h-screen w-3/5 left-0 top-[70px] sm:flex-row sm:gap-5 -translate-x-full transition-all ease-in duration-300 z-10"
+          className="nav-links text-white flex flex-col items-center fixed bg-slate-950 h-screen w-3/5 left-0 top-[70px] sm:flex-row sm:gap-5 -translate-x-full transition-all ease-in duration-300 z-10 sm:relative sm:h-auto sm:w-auto sm:bg-transparent sm:top-0 sm:translate-x-0"
         >
           <li className="w-full m-0">
             <NavLink
               to="/"
               className={({ isActive }) =>
-                `w-full h-full py-[10px] px-[30px] m-0 text-xl block hover:font-medium hover:bg-slate-200 hover:text-purple-500 transition-all ease-in duration-300 ${
-                  isActive ? "text-purple-500 bg-white" : "text-white"
+                `w-full h-full py-[10px] px-[30px] m-0 text-xl block hover:font-medium hover:bg-white hover:text-purple-500 sm:text-lg sm:hover:bg-transparent sm:p-0 transition-all ease-in duration-300 ${
+                  isActive ? "text-purple-500 bg-white sm:bg-transparent" : "text-white"
                 }`
               }
             >
@@ -59,8 +59,8 @@ const Header = () => {
             <NavLink
               to="/about"
               className={({ isActive }) =>
-                `w-full h-full py-[10px] px-[30px] m-0 text-xl block hover:font-medium hover:bg-white hover:text-purple-500 transition-all ease-in duration-300 ${
-                  isActive ? "text-purple-500 bg-white" : "text-white"
+                `w-full h-full py-[10px] px-[30px] m-0 text-xl block hover:font-medium hover:bg-white hover:text-purple-500 sm:text-lg sm:hover:bg-transparent sm:p-0 transition-all ease-in duration-300 ${
+                  isActive ? "text-purple-500 bg-white sm:bg-transparent" : "text-white"
                 }`
               }
             >
@@ -71,8 +71,8 @@ const Header = () => {
             <NavLink
               to="/algorithms"
               className={({ isActive }) =>
-                `w-full h-full py-[10px] px-[30px] m-0 text-xl block hover:font-medium hover:bg-white hover:text-purple-500 transition-all ease-in duration-300 ${
-                  isActive ? "text-purple-500 bg-white" : "text-white"
+                `w-full h-full py-[10px] px-[30px] m-0 text-xl block hover:font-medium hover:bg-white hover:text-purple-500 sm:text-lg sm:hover:bg-transparent sm:p-0 transition-all ease-in duration-300 ${
+                  isActive ? "text-purple-500 bg-white sm:bg-transparent" : "text-white"
                 }`
               }
             >
@@ -83,8 +83,8 @@ const Header = () => {
             <NavLink
               to="/quizes"
               className={({ isActive }) =>
-                `w-full h-full py-[10px] px-[30px] m-0 text-xl block hover:font-medium hover:bg-white hover:text-purple-500 transition-all ease-in duration-300 ${
-                  isActive ? "text-purple-500 bg-white" : "text-white"
+                `w-full h-full py-[10px] px-[30px] m-0 text-xl block hover:font-medium hover:bg-white hover:text-purple-500 sm:text-lg sm:hover:bg-transparent sm:p-0 transition-all ease-in duration-300 ${
+                  isActive ? "text-purple-500 bg-white sm:bg-transparent" : "text-white"
                 }`
               }
             >
@@ -95,8 +95,8 @@ const Header = () => {
             <NavLink
               to="/contact"
               className={({ isActive }) =>
-                `w-full h-full py-[10px] px-[30px] m-0 text-xl block hover:font-medium hover:bg-white hover:text-purple-500 transition-all ease-in duration-300 ${
-                  isActive ? "text-purple-500 bg-white" : "text-white"
+                `w-full h-full py-[10px] px-[30px] m-0 text-xl block hover:font-medium hover:bg-white hover:text-purple-500 sm:text-lg sm:hover:bg-transparent sm:p-0 transition-all ease-in duration-300 ${
+                  isActive ? "text-purple-500 bg-white sm:bg-transparent" : "text-white"
                 }`
               }
             >
