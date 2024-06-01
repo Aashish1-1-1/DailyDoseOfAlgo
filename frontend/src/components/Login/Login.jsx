@@ -63,7 +63,7 @@ const Login = () => {
             <div>
               <p className="text-white text-center mt-3">
                 Don't have an account?{" "}
-                <NavLink to="/login" className="font-medium text-[#6C63FF]">
+                <NavLink to="/signup" className="font-medium text-[#6C63FF]">
                   Sign Up
                 </NavLink>
               </p>

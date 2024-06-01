@@ -6,6 +6,7 @@ import 'highlight.js/styles/github-dark-dimmed.min.css';
 import hljs from 'highlight.js/lib/core';
 import cpp from 'highlight.js/lib/languages/cpp';
 import CopyButtonPlugin from 'highlightjs-copy';
+import "./Blog.css";
 
 hljs.registerLanguage('cpp', cpp);
 
@@ -17,6 +18,7 @@ const Blog = () => {
   const [htmlContent, setHtmlContent] = useState('');
   useEffect(() => {
     const fetchContent = async () => {
+      setLoading(true);
       try {
         const response = await fetch('http://localhost:8080/api/view/'+name);
         const data = await response.text();
@@ -30,8 +32,8 @@ const Blog = () => {
   }, []);
 
   useEffect(() => {
-    hljs.addPlugin(new CopyButtonPlugin());
     hljs.highlightAll();
+    hljs.addPlugin(new CopyButtonPlugin());
     setLoading(false);
   }, [htmlContent]);
   
@@ -41,7 +43,7 @@ const Blog = () => {
         <Loader />
       ) : (
         <div className="bg-slate-950 flex justify-center">
-        <div className= "mb-[25px] max-w-[800px">
+        <div className= "mb-[25px] max-w-[800px]">
           <div dangerouslySetInnerHTML={{ __html: htmlContent }}></div>
           <NavLink to={`/quiz/${name}`} className={"bg-purple-700 hover:bg-purple-600 transition-colors px-5 py-3 font-poppins text-white font-medium rounded-md"}>Take Quiz</NavLink>
         </div>

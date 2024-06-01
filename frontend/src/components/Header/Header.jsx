@@ -47,7 +47,7 @@ const Header = () => {
             <NavLink
               to="/"
               className={({ isActive }) =>
-                `w-full h-full py-[10px] px-[30px] m-0 text-xl block hover:font-medium hover:bg-white hover:text-purple-500 sm:text-lg sm:hover:bg-transparent sm:p-0 transition-all ease-in duration-300 ${
+                `w-full h-full py-[10px] px-[30px] m-0 text-xl block font-medium hover:bg-white hover:text-purple-500 sm:text-lg sm:hover:bg-transparent sm:p-0 transition-all ease-in duration-300 ${
                   isActive ? "text-purple-500 bg-white sm:bg-transparent" : "text-white"
                 }`
               }
@@ -59,7 +59,7 @@ const Header = () => {
             <NavLink
               to="/about"
               className={({ isActive }) =>
-                `w-full h-full py-[10px] px-[30px] m-0 text-xl block hover:font-medium hover:bg-white hover:text-purple-500 sm:text-lg sm:hover:bg-transparent sm:p-0 transition-all ease-in duration-300 ${
+                `w-full h-full py-[10px] px-[30px] m-0 text-xl block font-medium hover:bg-white hover:text-purple-500 sm:text-lg sm:hover:bg-transparent sm:p-0 transition-all ease-in duration-300 ${
                   isActive ? "text-purple-500 bg-white sm:bg-transparent" : "text-white"
                 }`
               }
@@ -71,7 +71,7 @@ const Header = () => {
             <NavLink
               to="/algorithms"
               className={({ isActive }) =>
-                `w-full h-full py-[10px] px-[30px] m-0 text-xl block hover:font-medium hover:bg-white hover:text-purple-500 sm:text-lg sm:hover:bg-transparent sm:p-0 transition-all ease-in duration-300 ${
+                `w-full h-full py-[10px] px-[30px] m-0 text-xl block font-medium hover:bg-white hover:text-purple-500 sm:text-lg sm:hover:bg-transparent sm:p-0 transition-all ease-in duration-300 ${
                   isActive ? "text-purple-500 bg-white sm:bg-transparent" : "text-white"
                 }`
               }
@@ -83,7 +83,7 @@ const Header = () => {
             <NavLink
               to="/quizes"
               className={({ isActive }) =>
-                `w-full h-full py-[10px] px-[30px] m-0 text-xl block hover:font-medium hover:bg-white hover:text-purple-500 sm:text-lg sm:hover:bg-transparent sm:p-0 transition-all ease-in duration-300 ${
+                `w-full h-full py-[10px] px-[30px] m-0 text-xl block font-medium hover:bg-white hover:text-purple-500 sm:text-lg sm:hover:bg-transparent sm:p-0 transition-all ease-in duration-300 ${
                   isActive ? "text-purple-500 bg-white sm:bg-transparent" : "text-white"
                 }`
               }
@@ -95,7 +95,7 @@ const Header = () => {
             <NavLink
               to="/contact"
               className={({ isActive }) =>
-                `w-full h-full py-[10px] px-[30px] m-0 text-xl block hover:font-medium hover:bg-white hover:text-purple-500 sm:text-lg sm:hover:bg-transparent sm:p-0 transition-all ease-in duration-300 ${
+                `w-full h-full py-[10px] px-[30px] m-0 text-xl block font-medium hover:bg-white hover:text-purple-500 sm:text-lg sm:hover:bg-transparent sm:p-0 transition-all ease-in duration-300 ${
                   isActive ? "text-purple-500 bg-white sm:bg-transparent" : "text-white"
                 }`
               }

@@ -11,59 +11,19 @@ import Login from './components/Login/Login.jsx'
 import DashboardComponent from './components/Dashboard/Dashboard.jsx'
 import Blog from './components/Blog/Blog.jsx'
 import Quiz from './components/Quiz/Quiz.jsx'
-// import SignUp from './components/SignUp/SignUp.jsx'
+import SignUp from './components/SignUp/SignUp.jsx'
+import Contact from './components/Contact/Contact.jsx'
 
-// method 1
-// const router = createBrowserRouter([
-//   {
-//     path: '/',
-//     element: <Layout />,
-//     children: [
-//       {
-//         path: '/',
-//         element: <LandingPage />
-//       },
-//       {
-//         path: '/about',
-//         element: <About />
-//       },
-//       {
-//         path: '/signup',
-//         element: <SignUp />,
-//         children: [
-//           {
-//             path: '/signupnew',
-//             element: <SignUpNew/>
-//           }
-//         ]
-//       },
-//       {
-//         path: '/algorithms',
-//         element: <SignUp />
-//       },
-//       {
-//         path: '/quizes',
-//         element: <SignUp />
-//       },
-//       {
-//         path: '/contact',
-//         element: <SignUp />
-//       }
-//     ]
-//   },
-// ]);
- 
-// method 2
-const router1 = createBrowserRouter(
+const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
       <Route path="/" element={<LandingPage />} />
       <Route path="/about" element={<About />} />
-      <Route path="/signup" element={<Login />} />
+      <Route path="/signup" element={<SignUp />} />
       <Route path="/login" element={<Login/>}/>
       <Route path="/algorithms" element={<Login />} />
       <Route path="/quizes" element={<Login />} />
-      <Route path="/contact" element={<Login />} />
+      <Route path="/contact" element={<Contact />} />
       <Route path="/user/:id" element={<User />} />
       <Route path="/dashboard" element={<DashboardComponent />} />
       <Route path="/github/:username" element={<Github />} />
@@ -74,7 +34,7 @@ const router1 = createBrowserRouter(
 );
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <RouterProvider router={router1}/>
-  </React.StrictMode>,
+  // <React.StrictMode>
+    <RouterProvider router={router}/>
+  // </React.StrictMode>,
 )
