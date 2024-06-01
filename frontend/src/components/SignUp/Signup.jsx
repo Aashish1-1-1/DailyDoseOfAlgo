@@ -1,10 +1,44 @@
-import React from "react";
+import React, { useState} from "react";
 import SingupImg from "/assets/signup.svg";
 import { NavLink } from "react-router-dom";
 
 const SignUp = () => {
-  return (
+   const [formData, setFormData] = useState({
+    username: '',
+    email: '',
+    password: '',
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit= async (e)=>{
+
+    e.preventDefault();
+
+    try {
+      const response = await fetch('http://localhost:8080/api/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log(result);
+      } else {
+        console.error('Try another username/email taken');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
+  }
+return(
     <>
+	<form onSubmit={handleSubmit}>
       <div className="w-full lg:h-[calc(100vh-72px)] h-full flex flex-col lg:flex-row justify-center font-poppins text-white">
         {/* Image */}
         <div className="relative w-full lg:w-1/2 h-full flex-col hidden lg:flex justify-center items-center p-14 bg-slate-950 text-white">
@@ -20,29 +54,35 @@ const SignUp = () => {
               <div className="w-full mb-[10px]">
                 <label htmlFor="username" className="text-white text-[14px] mb-[2px]">Username</label>
                 <input
+	  	  value={formData.username}
+	  	  onChange={handleChange}
                   type="text"
                   name="username"
                   placeholder="Enter your username"
                   className="w-full p-2 bg-transparent border-2 border-opacity-60 rounded-md border-white outline-none focus:outline-none text-[15px]"
-                />
+               required/>
               </div>
               <div className="w-full mb-[10px]">
                 <label htmlFor="email" className="text-white text-[14px] mb-[2px]">Email</label>
                 <input
-                  type="text"
+	  	  value={formData.email}
+                  type="email"
+	  	  onChange={handleChange}
                   name="email"
                   placeholder="Enter your email"
                   className="w-full p-2 bg-transparent border-2 border-opacity-60 rounded-md border-white outline-none focus:outline-none text-[15px]"
-                />
+                required/>
               </div>
               <div className="w-full mb-[10px]">
                 <label htmlFor="[password]" className="text-white text-[14px] mb-[2px]">Password</label>
                 <input
+	  	  value={formData.password}
                   type="password"
                   name="password"
+	  	  onChange={handleChange}
                   placeholder="Enter your password"
                   className="w-full p-2 bg-transparent border-2 border-opacity-60 rounded-md border-white outline-none focus:outline-none text-[15px]"
-                />
+                required/>
               </div>
               <div className="w-full mb-[10px]">
                 <label htmlFor="confirmpassword" className="text-white text-[14px] mb-[2px]">Confirm Password</label>
@@ -51,19 +91,19 @@ const SignUp = () => {
                   name="confirmpassword"
                   placeholder="Confirm password"
                   className="w-full p-2 bg-transparent border-2 border-opacity-60 rounded-md border-white outline-none focus:outline-none text-[15px]"
-                />
+                required/>
               </div>
              
             
             <div className="w-full flex items-center justify-between">
               <div className="w-full flex items-center">
-                <input type="checkbox" className="h-4 mr-2" />
+                <input type="checkbox" className="h-4 mr-2" required/>
                 <p className="text-sm">I agree to the Terms & Conditions</p>
               </div>
             </div>
 
             <div className="w-full my-4">
-              <button className="w-full text-white my-2 font-semibold bg-[#6C63FF] rounded-md p-3 text-center flex items-center justify-center hover:bg-opacity-60 transition-colors duration-300">
+              <button type="submit" className="w-full text-white my-2 font-semibold bg-[#6C63FF] rounded-md p-3 text-center flex items-center justify-center hover:bg-opacity-60 transition-colors duration-300">
                 Sign Up
               </button>
             </div>
@@ -89,6 +129,7 @@ const SignUp = () => {
           </div>
         </div>
       </div>
+	</form>
     </>
   );
 };
