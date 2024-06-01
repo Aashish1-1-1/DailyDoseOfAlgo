@@ -2,13 +2,11 @@ import React from "react";
 
 const About = () => {
   return (
-    <div className="flex flex-col px-4 py-8 bg-black">
-      <h1 className="text-3xl text-white font-bold mb-4 font-serif ">About</h1>
+    <div className="flex flex-col px-4 py-8 bg-black font-poppins pt-[80px]">
+      <h1 className="text-3xl text-white font-bold mb-10 font-poppins text-center ">About Us</h1>
       <div className="flex flex-col md:flex-row">
         <div className="md:w-1/2 md:pr-4 mb-4 md:mb-0">
-          <div className="text-lg text-white py-2 font-Times New Roman italic">
-            <h1>-DailyDoseOfAlgo</h1>
-          </div>
+          
           <img
             src="./assets/about.png"
             alt="About Us"

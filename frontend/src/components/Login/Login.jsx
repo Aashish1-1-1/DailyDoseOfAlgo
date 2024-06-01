@@ -39,7 +39,7 @@ const Login = () => {
   return (
     <>
 	  <form onSubmit={handleSubmit}>
-      <div className="w-full lg:h-[calc(100vh-72px)] h-full flex flex-col lg:flex-row justify-center font-poppins text-white">
+      <div className="w-full lg:h-[calc(100vh)] h-full flex flex-col lg:flex-row justify-center font-poppins text-white pt-[72px]">
         {/* Image */}
         <div className="relative w-full lg:w-1/2 h-full flex-col hidden lg:flex justify-center items-center p-14 bg-slate-950 text-white">
           <img src={SingupImg} alt="signup" className="scale-75"/>

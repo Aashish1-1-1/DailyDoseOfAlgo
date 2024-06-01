@@ -18,6 +18,7 @@ const Quiz = () => {
         );
         const data = await response.json();
         setQuizData(data.question);
+        console.log(data);
       } catch (error) {
         console.error("Error fetching quiz data:", error);
       }
