@@ -42,7 +42,7 @@ const Blog = () => {
       {loading ? (
         <Loader />
       ) : (
-        <div className="bg-slate-950 flex justify-center">
+        <div className="bg-slate-950 flex justify-center pt-[72px]">
         <div className= "mb-[25px] max-w-[800px]">
           <div dangerouslySetInnerHTML={{ __html: htmlContent }}></div>
           <NavLink to={`/quiz/${name}`} className={"bg-purple-700 hover:bg-purple-600 transition-colors px-5 py-3 font-poppins text-white font-medium rounded-md"}>Take Quiz</NavLink>
