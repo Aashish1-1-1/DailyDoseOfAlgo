@@ -4,11 +4,10 @@ import(
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"encoding/json"
 
 	"dailydoseofalgo/database"
 	"dailydoseofalgo/models/Algorithms"
-	"io/ioutil"
-	"encoding/json"
 )
 
 func ThrowAlgos(c *gin.Context){
@@ -43,13 +42,11 @@ func ThrowAlgos(c *gin.Context){
 
 func ThrowBlog(c *gin.Context){
 	name:=c.Param("name");
-	fmt.Println(name);
 	query := `select "file_path" from "dsa" where "name"=$1`
 	file,err:=database.Searchsmt(query,name)
 	fmt.Println(file);
 	if err!=nil{
-		fmt.Println("Error:", err)
-		c.JSON(http.StatusBadRequest,gin.H{"Error":err.Error()})
+		c.JSON(http.StatusBadRequest,gin.H{"message":err.Error()})
 		return
 	}
 	c.File("."+file);
@@ -61,17 +58,30 @@ func ThrowImage(c *gin.Context){
 
 func ThrowQuiz(c *gin.Context){
 	name:=c.Param("name");
-	data, err := ioutil.ReadFile("./assets/quiz/"+name+".json")
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Unable to read file"})
+	query := `SELECT question FROM quiz INNER JOIN dsa ON quiz.dsa_id = dsa.id WHERE name=$1`
+	question,err := database.Searchsmt(query,name)
+	if err!=nil{
+		c.JSON(http.StatusBadRequest,gin.H{"message":err.Error()})
 		return
 	}
-	var jsonData interface{}
-	if err := json.Unmarshal(data, &jsonData); err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Invalid JSON format"})
+	var questions []algomodel.Quiz
+	err = json.Unmarshal([]byte(question), &questions)
+    		if err != nil {
+        		fmt.Println("Error unmarshalling JSON:", err)
+        	return
+    		}
+
+	c.JSON(http.StatusOK,gin.H{"question":questions})
+}
+
+func Evaluation(c *gin.Context){
+	name:=c.Param("name");
+	query := `SELECT correct_ans from quiz INNER JOIN dsa ON quiz.dsa_id=dsa.id WHERE name=$1`
+	answer,err := database.Searchsmt(query,name)
+
+	if err!=nil{
+		c.JSON(http.StatusBadRequest,gin.H{"message":err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, jsonData)
-	// c.JSON(http.StatusOK,gin.H{"message":"Hello from server"})
-	// return json which is in folder assets/quiz/linkedlist.json
+	fmt.Println(answer);
 }

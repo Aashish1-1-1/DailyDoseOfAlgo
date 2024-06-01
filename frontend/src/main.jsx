@@ -8,6 +8,7 @@ import About from './components/About/About.jsx'
 import User from './components/User/User.jsx'
 import Github from './components/Github/Github.jsx'
 import Login from './components/Login/Login.jsx'
+import Signup from './components/SignUp/Signup.jsx'
 import DashboardComponent from './components/Dashboard/Dashboard.jsx'
 import Blog from './components/Blog/Blog.jsx'
 import Quiz from './components/Quiz/Quiz.jsx'
@@ -59,8 +60,8 @@ const router1 = createBrowserRouter(
     <Route path="/" element={<Layout />}>
       <Route path="/" element={<LandingPage />} />
       <Route path="/about" element={<About />} />
-      <Route path="/signup" element={<Login />} />
       <Route path="/login" element={<Login/>}/>
+      <Route path="/signup" element={<Signup/>}/>
       <Route path="/algorithms" element={<Login />} />
       <Route path="/quizes" element={<Login />} />
       <Route path="/contact" element={<Login />} />

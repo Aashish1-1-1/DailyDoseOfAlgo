@@ -27,5 +27,6 @@ func Routes() *gin.Engine{
 	router.GET("/api/preview/:algoords",algorithm.ThrowAlgos)
 	router.GET("/api/getimage/:name",algorithm.ThrowImage)
 	router.GET("/api/quiz/:name",algorithm.ThrowQuiz)
+	router.GET("/api/quiz/evaluate/:name",algorithm.Evaluation)
 	return router
 }
