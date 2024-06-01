@@ -9,6 +9,7 @@ import(
 	"github.com/joho/godotenv"
 	"os"
 	"time"
+	"fmt"
 	"math/rand"
 	"github.com/golang-jwt/jwt/v5"
 
@@ -85,6 +86,7 @@ func HandelLogin(c *gin.Context){
 		query = `select "id" from "users" where "email"=$1`
 		user_id,_ := database.Searchsmt(query,email)
 		
+		fmt.Println("I am here");	
     		if user_id != "0" {
 	        // Load the secret key from environment variable
 	      		if err := godotenv.Load(); err != nil {
@@ -107,12 +109,13 @@ func HandelLogin(c *gin.Context){
 	            c.JSON(http.StatusBadRequest, gin.H{"message": "Token string could not be created"})
 	            return
 	        }
-	
 	       	 c.JSON(http.StatusOK, gin.H{"Auth": tokenString})
 		  return
 		}
+	}
+
 	c.JSON(http.StatusBadRequest,gin.H{"message":"Email or password incorrect"})
-}}
+}
 
 
 func SendMail(email string,verification_code string) error {

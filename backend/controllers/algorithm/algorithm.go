@@ -74,6 +74,14 @@ func ThrowQuiz(c *gin.Context){
 	c.JSON(http.StatusOK,gin.H{"question":questions})
 }
 
-//func Evaluation(c *gin.Context){
-//
-//}
+func Evaluation(c *gin.Context){
+	name:=c.Param("name");
+	query := `SELECT correct_ans from quiz INNER JOIN dsa ON quiz.dsa_id=dsa.id WHERE name=$1`
+	answer,err := database.Searchsmt(query,name)
+
+	if err!=nil{
+		c.JSON(http.StatusBadRequest,gin.H{"message":err.Error()})
+		return
+	}
+	fmt.Println(answer);
+}
