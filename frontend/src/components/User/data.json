@@ -1,0 +1,41 @@
+{
+  "name": "Aashish Adhikari",
+  "profileImage": "https://avatar.iran.liara.run/public/32",
+  "submissions": 112,
+  "learningProgress": ["array", "linkedlist", "insertion sort", "stack"],
+  "streak": {
+    "current": 3,
+    "longest": 8,
+    "currentRange": "May 31 - Jun 2",
+    "longestRange": "May 12 - May 19"
+  },
+  "leaderboard": [
+    {
+      "name": "Aashish Adhikari",
+      "points": 700
+    },
+    {
+      "name": "Sanjib Dahal",
+      "points": 650
+    },
+    {
+      "name": "Bipul Lamsal",
+      "points": 620
+    },
+    {
+      "name": "Aryaman Giri",
+      "points": 580
+    },
+    {
+      "name": "Hridayanshu Raj Acharya",
+      "points": 550
+    },
+    {
+      "name": "Dikshit Bhatta",
+      "points": 530
+    }
+  ],
+  "contributionDates": [
+    3, 7, 12, 15, 18, 22, 27, 31, 34, 38, 41, 45, 49, 52
+  ]
+}
