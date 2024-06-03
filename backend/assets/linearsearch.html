@@ -1,0 +1,111 @@
+<body class="text-white bg-black">
+    <style>
+        code {
+            border-radius: 6px;
+        }
+    </style>
+
+    <div class="containers mx-auto py-8 text-white font-poppins" style="max-width: 800px;">
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+        <h1 class="text-3xl font-bold mb-4">Understanding Linear Search in C++</h1>
+        <h2 class="text-2xl font-bold mb-2">What is Linear Search?</h2>
+        <p class="mb-4">Linear search is a simple algorithm for finding a target value within an array. It works by
+            sequentially checking each element in the array until the target is found or all elements are checked:</p>
+        <ol class="list-decimal list-inside mb-4">
+            <li>Start from the first element of the array.</li>
+            <li>Compare the target with the current element.</li>
+            <li>If target matches, return its index.</li>
+            <li>If target doesn't match, move to the next element.</li>
+            <li>Repeat until found or all elements are checked.</li>
+        </ol>
+
+        <h2 class="text-2xl font-bold mb-2">Visual Explanation</h2>
+        <p class="mb-4">Here's a visual representation of linear search:</p>
+        <img src="http://localhost:8080/api/getimage/linearsearch.png" alt="Linear Search Visualization" class="mb-8"
+            height="300">
+
+        <h2 class="text-2xl font-bold mb-2">Implementing Linear Search</h2>
+        <pre><code class="language-cpp">int linearSearch(vector<int>& arr, int target) {
+    for (int i = 0; i < arr.size(); ++i) {
+        if (arr[i] == target)
+            return i; // Found
+    }
+    return -1; // Not found
+}</code></pre>
+
+        <p class="mb-4">Usage: <code>int index = linearSearch(arr, target);</code></p>
+
+        <h2 class="text-2xl font-bold mb-2">Time Complexity</h2>
+        <ul class="list-disc list-inside mb-4">
+            <li><strong>Best Case:</strong> O(1) - target is the first element</li>
+            <li><strong>Average Case:</strong> O(n) - checks each element once on average</li>
+            <li><strong>Worst Case:</strong> O(n) - target at the end or not present</li>
+        </ul>
+
+        <h2 class="text-2xl font-bold mb-2">Space Complexity</h2>
+        <ul class="list-disc list-inside mb-4">
+            <li><strong>Iterative:</strong> O(1) - uses only a few variables</li>
+        </ul>
+
+        <h2 class="text-2xl font-bold mb-2">Linear Search vs Binary Search</h2>
+        <table class="table-auto mb-8">
+            <thead>
+                <tr class="bg-gray-800">
+                    <th class="px-4 py-2">Aspect</th>
+                    <th class="px-4 py-2">Linear Search</th>
+                    <th class="px-4 py-2">Binary Search</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="border px-4 py-2">Time Complexity</td>
+                    <td class="border px-4 py-2">O(n)</td>
+                    <td class="border px-4 py-2">O(log n)</td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">Data Requirement</td>
+                    <td class="border px-4 py-2">Any Array</td>
+                    <td class="border px-4 py-2">Sorted Array</td>
+                </tr>
+                <tr>
+                    <td class="border px-4 py-2">Best For</td>
+                    <td class="border px-4 py-2">Small or Unsorted Data</td>
+                    <td class="border px-4 py-2">Large, Sorted Data</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 class="text-2xl font-bold mb-2">Real-World Applications</h2>
+        <ul class="list-disc list-inside mb-4">
+            <li><strong>Linear Data Structures:</strong> Searching in arrays, lists, etc.</li>
+            <li><strong>Unsorted Databases:</strong> Linearly searching records</li>
+            <li><strong>Text Processing:</strong> Searching for a substring in a text</li>
+        </ul>
+
+        <h2 class="text-2xl font-bold mb-2">Example Usage</h2>
+        <pre><code class="language-cpp">int main() {
+    vector<int> arr = {12, 5, 8, 2, 16, 23, 38, 45, 56, 72, 91};
+    int target = 23;
+
+    int index = linearSearch(arr, target);
+    if (index != -1)
+        cout << "Found " << target << " at index " << index << endl;
+    else
+        cout << target << " not found" << endl;
+
+    // Test cases
+    cout << linearSearch(arr, 12) << endl;   // First element
+    cout << linearSearch(arr, 91) << endl;  // Last element
+    cout << linearSearch(arr, 92) << endl;  // Not in array
+
+    return 0;
+}
+</code></pre>
+
+        <h2 class="text-2xl font-bold mb-2">Conclusion</h2>
+        <p class="mb-4">Linear search, though straightforward, can be inefficient for large datasets due to its linear
+            time complexity. However, it remains useful in scenarios where the data is small or unsorted, or when
+            simplicity is prioritized over efficiency.</p>
+    </div>
+    <script>hljs.highlightAll();</script>
+</body>
