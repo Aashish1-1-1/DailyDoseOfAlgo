@@ -1,0 +1,142 @@
+<body class="text-white bg-black">
+    <style>code { border-radius: 6px; }</style>
+
+<div class="containers mx-auto py-8 text-white font-poppins" style="max-width: 800px;">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <h1 class="text-3xl font-bold mb-4">Understanding Binary Search in C++</h1>
+    <h2 class="text-2xl font-bold mb-2">What is Binary Search?</h2>
+    <p class="mb-4">Binary search is an efficient algorithm for searching a target value in a sorted array. It works by repeatedly dividing the search space in half:</p>
+    <ol class="list-decimal list-inside mb-4">
+        <li>Compare the target with the middle element.</li>
+        <li>If target matches, return its index.</li>
+        <li>If target is smaller, search the left half.</li>
+        <li>If target is larger, search the right half.</li>
+        <li>Repeat until found or space exhausted.</li>
+    </ol>
+    <p class="mb-4">Key requirement: The array <strong>must be sorted</strong> in ascending or descending order.</p>
+
+    <h2 class="text-2xl font-bold mb-2">Visual Explanation</h2>
+    <p class="mb-4">Here's a visual representation of binary search:</p>
+    <img src="http://localhost:8080/api/getimage/binarysearch.png" alt="Binary Search Visualization" class="mx-auto mb-8" height="300">
+
+    <h2 class="text-2xl font-bold mb-2">Implementing Binary Search</h2>
+    <h3 class="text-xl font-bold mb-2">Iterative Approach</h3>
+    <pre><code class="language-cpp">int binarySearch(vector<int>& arr, int target) {
+    int left = 0;
+    int right = arr.size() - 1;
+
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+
+        if (arr[mid] == target)
+            return mid;
+        else if (arr[mid] < target)
+            left = mid + 1;
+        else
+            right = mid - 1;
+    }
+
+    return -1; // Not found
+}</code></pre>
+    <br>
+    <h3 class="text-xl font-bold mb-2">Recursive Approach</h3>
+    <pre><code class="language-cpp">int binarySearchRecursive(vector<int>& arr, int target, int left, int right) {
+    if (left > right)
+        return -1;
+
+    int mid = left + (right - left) / 2;
+
+    if (arr[mid] == target)
+        return mid;
+    else if (arr[mid] < target)
+        return binarySearchRecursive(arr, target, mid + 1, right);
+    else
+        return binarySearchRecursive(arr, target, left, mid - 1);
+}</code></pre>
+    <br>
+    <p class="mb-4">Usage: <code>int index = binarySearchRecursive(arr, target, 0, arr.size() - 1);</code></p>
+
+    <h2 class="text-2xl font-bold mb-2">Time Complexity</h2>
+    <ul class="list-disc list-inside mb-4">
+        <li><strong>Best Case:</strong> O(1) - target is the middle element</li>
+        <li><strong>Average Case:</strong> O(log n) - halves search space each time</li>
+        <li><strong>Worst Case:</strong> O(log n) - target at the end or not present</li>
+    </ul>
+
+    <h2 class="text-2xl font-bold mb-2">Space Complexity</h2>
+    <ul class="list-disc list-inside mb-4">
+        <li><strong>Iterative:</strong> O(1) - uses only a few variables</li>
+        <li><strong>Recursive:</strong> O(log n) - due to call stack</li>
+    </ul>
+
+    <h2 class="text-2xl font-bold mb-2">Binary Search vs Linear Search</h2>
+    <table class="table-auto mx-auto mb-8">
+        <thead>
+            <tr class="bg-gray-800">
+                <th class="px-4 py-2">Aspect</th>
+                <th class="px-4 py-2">Binary Search</th>
+                <th class="px-4 py-2">Linear Search</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="border px-4 py-2">Time Complexity</td>
+                <td class="border px-4 py-2">O(log n)</td>
+                <td class="border px-4 py-2">O(n)</td>
+            </tr>
+            <tr>
+                <td class="border px-4 py-2">Data Requirement</td>
+                <td class="border px-4 py-2">Sorted Array</td>
+                <td class="border px-4 py-2">Any Array</td>
+            </tr>
+            <tr>
+                <td class="border px-4 py-2">Best For</td>
+                <td class="border px-4 py-2">Large, Sorted Data</td>
+                <td class="border px-4 py-2">Small or Unsorted Data</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="text-2xl font-bold mb-2">Real-World Applications</h2>
+    <ul class="list-disc list-inside mb-4">
+        <li><strong>Databases:</strong> Searching in B-trees and indexing</li>
+        <li><strong>System Libraries:</strong> C++'s <code>std::binary_search</code></li>
+        <li><strong>Search Engines:</strong> Quick page retrieval</li>
+        <li><strong>Version Control:</strong> Git's binary search for bugs</li>
+    </ul>
+
+    <h2 class="text-2xl font-bold mb-2">Example Usage</h2>
+    <pre><code class="language-cpp">int main() {
+    vector<int> arr = {2, 5, 8, 12, 16, 23, 38, 45, 56, 72, 91};
+    int target = 23;
+
+    int index = binarySearch(arr, target);
+    if (index != -1)
+        cout << "Found " << target << " at index " << index << endl;
+    else
+        cout << target << " not found" << endl;
+
+    // Test cases
+    cout << binarySearch(arr, 2) << endl;   // First element
+    cout << binarySearch(arr, 91) << endl;  // Last element
+    cout << binarySearch(arr, 92) << endl;  // Not in array
+    cout << binarySearch(arr, 1) << endl;   // Smaller than all
+    cout << binarySearch(arr, 50) << endl;  // Between elements
+
+    return 0;
+}
+</code></pre>
+    <br>
+    <h2 class="text-2xl font-bold mb-2">Binary Search Variants</h2>
+    <ul class="list-disc list-inside mb-4">
+        <li><strong>Lower Bound:</strong> First element ≥ target</li>
+        <li><strong>Upper Bound:</strong> First element > target</li>
+        <li><strong>Rotated Array:</strong> Binary search with a twist</li>
+        <li><strong>2D Arrays:</strong> Row-wise and column-wise sorted</li>
+    </ul>
+
+    <h2 class="text-2xl font-bold mb-2">Conclusion</h2>
+    <p class="mb-4">Binary search is a prime example of the "divide-and-conquer" paradigm, showcasing how smart algorithmic design can significantly outperform brute-force methods. Its logarithmic time complexity makes it indispensable for scenarios involving large, sorted datasets.</p>
+
+</div>
+</body>
