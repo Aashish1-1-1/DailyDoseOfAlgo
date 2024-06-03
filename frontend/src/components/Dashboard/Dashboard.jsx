@@ -63,7 +63,7 @@ const Dashboard = () => {
    };
 
   return (
-    <div className="flex flex-col items-center min-h-screen bg-slate-950 space-y-12 pt-10 pb-10 font-poppins">
+    <div className="flex flex-col items-center min-h-screen bg-slate-950 space-y-12 pt-[90px] pb-10 font-poppins">
       <input
         type="text"
         placeholder="Search"

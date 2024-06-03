@@ -5,7 +5,10 @@ import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./Header.css";
 
+
 const Header = () => {
+  const id = "aashish";
+
   // useEffect(() => {
   //   const onScroll = (event) => {
   //     const scrollPosition = window.scrollY;
@@ -39,7 +42,7 @@ const Header = () => {
 
   return (
     <>
-      <nav className="bg-[rgba(0,0,0)] w-full px-[20px] sm:px-[80px] py-[10px] sm:py-[20px] flex items-center justify-between z-20 font-poppins transition-all duration-300 ease fixed">
+      <nav className="bg-[rgba(0,0,0)] w-full px-[20px] sm:px-[80px] py-[10px] flex items-center justify-between z-20 font-poppins transition-all duration-300 ease fixed">
         <Link to="/" className="brand-logo">
           <img src={"/assets/logo.png"} alt="brand-logo" className="h-8" />
         </Link>

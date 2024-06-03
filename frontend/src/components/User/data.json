@@ -1,8 +1,8 @@
 {
   "name": "Aashish Adhikari",
-  "profileImage": "https://avatar.iran.liara.run/public/32",
+  "profileImage": "http://localhost:8080/api/getimage/aashish.jpeg",
   "submissions": 112,
-  "learningProgress": ["array", "linkedlist", "insertion sort", "stack"],
+  "learningProgress": ["array", "linkedlist", "insertion sort", "stack", "queue", "halloween"],
   "streak": {
     "current": 3,
     "longest": 8,
