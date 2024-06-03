@@ -4,7 +4,7 @@
             border-radius: 6px;
         }
     </style>
-    <div class="container mx-auto py-8 text-white font-poppins" style="max-width: 800px;">
+    <div class="containers mx-auto py-8 text-white font-poppins" style="max-width: 800px;">
         <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
         <h1 class="text-3xl font-bold mb-4">Understanding Heap Sort in C++</h1>
         <h2 class="text-2xl font-bold mb-2">What is Heap Sort?</h2>
@@ -57,20 +57,21 @@
         heapify(arr, n, largest);
     }
 }</code></pre>
-        <h3 class="text-xl font-bold mb-2">Defining heapSort function</h3>
-        <p class="mb-4">Heap Sort is a comparison-based sorting technique based on the binary heap data structure. It
-            sorts an array by first building a heap from the array and then repeatedly extracting the maximum element
-            from the heap and adjusting the heap structure accordingly.</p>
-        <pre><code class="language-cpp"></code>
-        void heapSort(int arr[], int n) {
-        for (int i = n / 2 - 1; i >= 0; i--)
+<h3 class="text-xl font-bold mb-2">Defining heapSort function</h3>
+<p class="mb-4">Heap Sort is a comparison-based sorting technique based on the binary heap data structure. It
+    sorts an array by first building a heap from the array and then repeatedly extracting the maximum element
+    from the heap and adjusting the heap structure accordingly.</p>
+<pre><code class="language-cpp">
+void heapSort(int arr[], int n) {
+    for (int i = n / 2 - 1; i >= 0; i--)
         heapify(arr, n, i);
 
-        for (int i = n - 1; i > 0; i--) {
+    for (int i = n - 1; i > 0; i--) {
         swap(arr[0], arr[i]);
         heapify(arr, i, 0);
-        }
-        }</code></pre>
+    }
+}
+</code></pre>
 
         <h2 class="text-2xl font-bold mb-2">Main Function</h2>
         <pre><code class="language-cpp">int main() {
@@ -89,6 +90,7 @@
         <pre><code>Sorted array is: 5 6 7 11 12 13
 
 </code></pre>
+
 
 
         <h2 class="text-2xl font-bold mb-2">Conclusion</h2>
