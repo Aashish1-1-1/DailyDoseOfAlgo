@@ -1,0 +1,143 @@
+<body class="text-white bg-black">
+    <style>code { border-radius: 6px; }</style>
+
+<div class="containers mx-auto py-8 text-white font-poppins" style="max-width: 800px;">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <h1 class="text-3xl font-bold mb-4">Implementing a Stack using Linked List in C++</h1>
+    <h2 class="text-2xl font-bold mb-2">What is a Stack?</h2>
+    <p class="mb-4">A stack is a linear data structure that follows the Last In First Out (LIFO) principle. The operations are performed in the following order:</p>
+    <ol class="list-decimal list-inside mb-4">
+        <li><strong>Push:</strong> Adds an item to the top of the stack.</li>
+        <li><strong>Pop:</strong> Removes an item from the top of the stack.</li>
+    </ol>
+    <p class="mb-4">A stack can be effectively implemented using a linked list, providing dynamic size adjustment capabilities.</p>
+
+    <h2 class="text-2xl font-bold mb-2">Stack Operations</h2>
+    <ul class="list-disc list-inside mb-4">
+        <li><strong>Push:</strong> Add to the head of the linked list.</li>
+        <li><strong>Pop:</strong> Remove from the head of the linked list.</li>
+        <li><strong>Top:</strong> Return the data of the head node.</li>
+        <li><strong>isEmpty:</strong> Check if the stack is empty.</li>
+    </ul>
+
+    <h2 class="text-2xl font-bold mb-2">Visual Explanation</h2>
+    <p class="mb-4">Here's a visual representation of a stack using a linked list:</p>
+    <img src="http://localhost:8080/api/getimage/linkedliststack.png" alt="Stack Using Linked List" class="mx-auto mb-8" height="300">
+
+    <h2 class="text-2xl font-bold mb-2">Implementing a Stack</h2>
+    <h3 class="text-xl font-bold mb-2">Using the Node Class</h3>
+    <p class="mb-4">We'll use the same <code>Node</code> class from the linked list implementation:</p>
+    <pre><code class="language-cpp">class Node {
+public:
+    int data;
+    Node *next;
+
+    Node(int d) : data(d), next(nullptr) {}
+};</code></pre>
+    <br>
+    <h3 class="text-xl font-bold mb-2">Stack Class</h3>
+    <pre><code class="language-cpp">class Stack {
+private:
+    Node *top;
+
+public:
+    Stack() : top(nullptr) {}
+    ~Stack() { while (!isEmpty()) pop(); }
+
+    void push(int data);
+    int pop();
+    int getTop();
+    bool isEmpty();
+};</code></pre>
+    <br>
+    <h2 class="text-2xl font-bold mb-2">Stack Operations</h2>
+    <h3 class="text-xl font-bold mb-2">Push</h3>
+    <pre><code class="language-cpp">void Stack::push(int data) {
+    Node *newNode = new Node(data);
+    newNode->next = top;
+    top = newNode;
+}</code></pre>
+    <br>
+    <h3 class="text-xl font-bold mb-2">Pop</h3>
+    <pre><code class="language-cpp">int Stack::pop() {
+    if (isEmpty()) {
+        throw std::out_of_range("Stack is empty");
+    }
+    int data = top->data;
+    Node *temp = top;
+    top = top->next;
+    delete temp;
+    return data;
+}</code></pre>
+    <br>
+    <h3 class="text-xl font-bold mb-2">Get Top</h3>
+    <pre><code class="language-cpp">int Stack::getTop() {
+    if (isEmpty()) {
+        throw std::out_of_range("Stack is empty");
+    }
+    return top->data;
+}</code></pre>
+    <br>
+    <h3 class="text-xl font-bold mb-2">Is Empty</h3>
+    <pre><code class="language-cpp">bool Stack::isEmpty() {
+    return top == nullptr;
+}</code></pre>
+    <br>
+    <h2 class="text-2xl font-bold mb-2">Benefits of Using Linked List</h2>
+    <ul class="list-disc list-inside mb-4">
+        <li><strong>Dynamic Size:</strong> Grows and shrinks as needed.</li>
+        <li><strong>Fast Operations:</strong> O(1) time for push, pop, and top.</li>
+        <li><strong>Memory Efficiency:</strong> Allocates only what's required.</li>
+    </ul>
+
+    <h2 class="text-2xl font-bold mb-2">Common Stack Applications</h2>
+    <ul class="list-disc list-inside mb-4">
+        <li><strong>Function Call Management:</strong> In program execution.</li>
+        <li><strong>Expression Evaluation:</strong> Infix to postfix conversion.</li>
+        <li><strong>Backtracking:</strong> In algorithms like maze solving.</li>
+        <li><strong>Undo Functionality:</strong> In text editors.</li>
+    </ul>
+
+    <h2 class="text-2xl font-bold mb-2">Example Usage</h2>
+    <pre><code class="language-cpp">int main() {
+    Stack s;
+    s.push(10);
+    s.push(20);
+    s.push(30);
+
+    cout << s.getTop() << endl;  // Outputs: 30
+    cout << s.pop() << endl;    // Outputs: 30
+    cout << s.getTop() << endl;  // Outputs: 20
+
+    s.push(40);
+    while (!s.isEmpty()) {
+        cout << s.pop() << " ";  // Outputs: 40 20 10
+    }
+    cout << endl;
+
+    return 0;
+}</code></pre>
+    <br>
+    <h2 class="text-2xl font-bold mb-2">Balancing Parentheses Example</h2>
+    <pre><code class="language-cpp">bool isBalanced(string expr) {
+    Stack s;
+    for (char ch : expr) {
+        if (ch == '(' || ch == '{' || ch == '[') {
+            s.push(ch);
+        } else if (ch == ')' || ch == '}' || ch == ']') {
+            if (s.isEmpty()) return false;
+            char top = s.pop();
+            if ((ch == ')' && top != '(') || 
+                (ch == '}' && top != '{') || 
+                (ch == ']' && top != '['))
+                return false;
+        }
+    }
+    return s.isEmpty();
+}</code></pre>
+    <br>
+    <h2 class="text-2xl font-bold mb-2">Conclusion</h2>
+    <p class="mb-4">A linked list-based stack offers a flexible and efficient solution for LIFO operations. Its dynamic nature makes it suitable for a wide range of applications, particularly those with unpredictable stack size requirements.</p>
+
+</div>
+</body>
