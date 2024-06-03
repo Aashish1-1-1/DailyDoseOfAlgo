@@ -20,5 +20,5 @@ type Quiz struct{
 	Options []Option `json:"options"`
 }
 type Quizevaluate struct{
-	Answers []byte `json:"answers"`
+	Answers []string `json:"answers"`
 }
