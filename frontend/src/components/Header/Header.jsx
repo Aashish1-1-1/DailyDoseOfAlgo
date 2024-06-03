@@ -1,5 +1,8 @@
 import React, { useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { faUser } from "@fortawesome/fontawesome-free-solid";
+import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./Header.css";
 
 const Header = () => {
@@ -33,12 +36,14 @@ const Header = () => {
     };
   }, []);
 
+
   return (
     <>
       <nav className="bg-[rgba(0,0,0)] w-full px-[20px] sm:px-[80px] py-[10px] sm:py-[20px] flex items-center justify-between z-20 font-poppins transition-all duration-300 ease fixed">
         <Link to="/" className="brand-logo">
           <img src={"/assets/logo.png"} alt="brand-logo" className="h-8" />
         </Link>
+        <div className="flex justify-center items-center">
         <ul
           id="nav-links"
           className="nav-links text-white flex flex-col items-center fixed bg-slate-950 h-screen w-3/5 left-0 top-[70px] sm:flex-row sm:gap-5 -translate-x-full transition-all ease-in duration-300 z-10 sm:relative sm:h-auto sm:w-auto sm:bg-transparent sm:top-0 sm:translate-x-0"
@@ -104,8 +109,38 @@ const Header = () => {
             </NavLink>
           </li>
         </ul>
+
+        <div id="user-menu" className="image-container cursor-pointer ml-4 h-[42px] w-[42px] object-fill rounded-[50%] overflow-hidden" onClick={(e)=>{
+          document.querySelector(".sub-menu-wrap").classList.toggle("active");
+        }}>
+          <img src={"/assets/aashish.jpeg"} alt="user" className="" />
+        </div>
+
+        <div id="sub-menu" className="sub-menu-wrap overflow-hidden absolute top-full right-[5%] w-[240px] transition-all duration-300 ease text-white rounded-md bg-gray-800 p-[20px] m-[10px]">
+          <div className="sub-menu ">
+            <div className="user-info flex items-center">
+              <img src={"/assets/aashish.jpeg"} alt="user" className="w-[50px] rounded-[50%] mr-[15px]" />
+              <h2 className="font-medium">Aashish Adhikari</h2>
+            </div>
+            <hr className="border-0 h-[1px] w-full bg-[#ccc] mt-[15px]"/>
+
+            <ul className="sub-menu-links mt-[10px] flex flex-col">
+              <li className="mb-[10px] inline-flex items-center">
+                <FontAwesomeIcon icon={faUser} className="text-[#525252] bg-[#e5e5e5] rounded-[50%] p-[8px] mr-[15px] h-[16px] w-[16px]"/>
+                <NavLink to={`/user/${id}`} className="text-[#a5a5a5] font-medium block hover:text-purple-500 text-[18px]">Profile</NavLink>
+              </li>
+              <li className="mb-[10px] inline-flex">
+                <FontAwesomeIcon icon={faRightFromBracket} className="text-[#525252] bg-[#e5e5e5] rounded-[50%] p-[8px] mr-[15px] h-[16px] w-[16px]"/>
+                <NavLink to="/logout" className="text-[#a5a5a5] font-medium block hover:text-purple-500 text-[16px]">Logout</NavLink>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+
+        </div>
         <div
-          class="toggle-menu h-[50px] w-[50px] rounded-lg relative flex justify-center items-center overflow-hidden cursor-pointer sm:hidden"
+          class="toggle-menu h-[40px] w-[40px] rounded-lg relative flex justify-center items-center overflow-hidden cursor-pointer sm:hidden"
           id="toggle-menu"
           onClick={(e) => {
             e.target.classList.toggle("active");

@@ -11,7 +11,7 @@ import Login from './components/Login/Login.jsx'
 import DashboardComponent from './components/Dashboard/Dashboard.jsx'
 import Blog from './components/Blog/Blog.jsx'
 import Quiz from './components/Quiz/Quiz.jsx'
-import SignUp from './components/SignUp/Signup.jsx'
+import SignUp from './components/SignUp/SignUp.jsx'
 import Contact from './components/Contact/Contact.jsx'
 
 const router = createBrowserRouter(

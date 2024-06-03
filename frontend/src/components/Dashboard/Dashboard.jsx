@@ -63,7 +63,7 @@ const Dashboard = () => {
    };
 
   return (
-    <div className="flex flex-col items-center min-h-screen bg-black space-y-12">
+    <div className="flex flex-col items-center min-h-screen bg-slate-950 space-y-12 pt-10 pb-10 font-poppins">
       <input
         type="text"
         placeholder="Search"
@@ -72,7 +72,7 @@ const Dashboard = () => {
       <div className="space-y-12 w-full">
         <div className="flex flex-col items-center">
           <button
-            className="bg-gray-900 text-white py-3 px-8 rounded-lg flex items-center justify-between w-1/2"
+            className="bg-gray-900 text-white font-semibold py-3 px-8 rounded-lg flex items-center justify-between w-1/2"
             onClick={() => { handelfetch(false) }}
           >
             Data Structures
@@ -96,7 +96,7 @@ const Dashboard = () => {
 
         <div className="flex flex-col items-center">
           <button
-            className="bg-gray-900 text-white py-3 px-8 rounded-lg flex items-center justify-between w-1/2"
+            className="bg-gray-900 text-white font-semibold py-3 px-8 rounded-lg flex items-center justify-between w-1/2"
             onClick={() => { handelfetch(true) }}
           >
             Algorithms

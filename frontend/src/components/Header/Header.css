@@ -51,3 +51,13 @@
 .nav-links.active {
     transform: translateX(0);
 }
+
+.sub-menu-wrap {
+  max-height: 0px;
+  display: none;
+}
+
+.sub-menu-wrap.active {
+  max-height: 240px;
+  display: block;
+}
