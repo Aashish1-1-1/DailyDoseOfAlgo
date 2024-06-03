@@ -1,0 +1,140 @@
+<body class="text-white bg-black">
+    <style>code { border-radius: 6px; }</style>
+    <div class="containers mx-auto py-8 text-white font-poppins" style="max-width: 800px;">
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+        <h1 class="text-3xl font-bold mb-4">Understanding Insertion Sort in C++</h1>
+        <h2 class="text-2xl font-bold mb-2">What is Insertion Sort?</h2>
+        <p class="mb-4">Insertion Sort is a simple sorting algorithm that builds the final sorted array one item at a time. It is much less efficient on large lists than more advanced algorithms such as quicksort, heapsort, or merge sort.</p>
+
+        <h2 class="text-2xl font-bold mb-2">Characteristics of Insertion Sort</h2>
+        <ul class="list-disc list-inside mb-4">
+            <li><strong>Simple Implementation:</strong> Easy to implement and understand.</li>
+            <li><strong>Efficient for Small Data Sets:</strong> Performs well for small or nearly sorted data sets.</li>
+            <li><strong>In-Place Sorting:</strong> Does not require extra space, as it sorts the array in place.</li>
+        </ul>
+
+        <h2 class="text-2xl font-bold mb-2">Time Complexity</h2>
+        <ul class="list-disc list-inside mb-4">
+            <li><strong>Best Case:</strong> O(N)</li>
+            <li><strong>Worst Case:</strong> O(N<sup>2</sup>)</li>
+            <li><strong>Average Case:</strong> O(N<sup>2</sup>)</li>
+        </ul>
+
+        <h2 class="text-2xl font-bold mb-2">Visual Explanation</h2>
+        <p class="mb-4">Here's a visual representation of the Insertion Sort process:</p>
+        <img src="http://localhost:8080/api/getimage/insertionsort.png" alt="Insertion Sort Diagram" class="mx-auto mb-8" height="300">
+
+        <h2 class="text-2xl font-bold mb-2">Implementing Insertion Sort</h2>
+
+        <h2 class="text-2xl font-bold mb-2">Different Operations</h2>
+        <h3 class="text-xl font-bold mb-2">Display Array</h3>
+        <pre><code class="language-cpp">void printArray(int a[], int n) {
+    for (int i = 0; i &lt; n; i++) {
+        cout &lt;&lt; a[i] &lt;&lt; " ";
+    }
+    cout &lt;&lt; endl;
+}</code></pre>
+
+        <h3 class="text-xl font-bold mb-2">Swap Elements</h3>
+        <pre><code class="language-cpp">void swap(int &a, int &b) {
+    int temp;
+    temp = a;
+    a = b;
+    b = temp;
+}</code></pre>
+
+        <h3 class="text-xl font-bold mb-2">Insertion Sort Function</h3>
+        <pre><code class="language-cpp">void insSort(int a[], int n) {
+    for (int i = 1; i &lt; n; i++) {
+        for (int j = 0; j &lt; i; j++) {
+            if (a[i] &lt; a[j]) {
+                swap(a[i], a[j]);
+            }
+        }
+    }
+}</code></pre>
+
+        <h3 class="text-xl font-bold mb-2">Main Function</h3>
+        <pre><code class="language-cpp">int main() {   
+    srand(time(NULL));
+
+    int r, n = 15;
+    
+    int *a = new int[n];
+    for (int i = 0; i &lt; n; i++) {
+        r = rand() % 10;
+        a[i] = r;
+    }
+
+    cout << "\nUnsorted array: ";
+    printArray(arr, n);
+
+    insSort(a, n);
+
+    cout << "\nSorted array: ";
+    printArray(arr, n);
+    
+}</code></pre>
+
+<h3 class="text-xl font-bold mb-2">Insertion Sort Full Code</h3>
+        <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;random&gt;
+#include &lt;ctime&gt;
+
+using namespace std;
+
+void display(int a[], int n) {
+    for (int i = 0; i < n; i++) {
+        cout &lt;&lt; a[i] &lt;&lt; " ";
+    }
+    cout &lt;&lt; endl;
+}
+
+void swap(int &a, int &b) {
+    int temp;
+    temp = a;
+    a = b;
+    b = temp;
+}
+
+void insSort(int a[], int n) {
+    for (int i = 1; i < n; i++) {
+        for (int j = 0; j < i; j++) {
+            if (a[i] < a[j]) {
+                swap(a[i], a[j]);
+            }
+        }
+    }
+}
+
+int main() {   
+    srand(time(NULL));
+
+    int r, n = 15;
+    
+    int *a = new int[n];
+    for (int i = 0; i &lt; n; i++) {
+        r = rand() % 10;
+        a[i] = r;
+    }
+
+    cout << "\nUnsorted array: ";
+    printArray(arr, n);
+
+    insSort(a, n);
+
+    cout << "\nSorted array: ";
+    printArray(arr, n);
+}</code></pre>
+
+<h3 class="text-xl font-bold mb-2">Output:</h3>
+<pre><code>Unsorted array: 81 48 16 39 54 93 27 75 62 18 42 7 35 90 12
+Sorted array: 7 12 16 18 27 35 39 42 48 54 62 75 81 90 93
+</code></pre>
+
+
+        <h2 class="text-2xl font-bold mb-2">Conclusion</h2>
+        <p class="mb-4">Insertion Sort is an important sorting algorithm to understand, especially for small data sets or nearly sorted data. Its simple implementation and in-place sorting make it a useful algorithm to learn.</p>
+    </div>
+    <script>hljs.highlightAll();</script>
+</body>

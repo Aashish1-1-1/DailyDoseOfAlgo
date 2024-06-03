@@ -1,0 +1,142 @@
+<body class="text-white bg-black">
+    <style>code { border-radius: 6px; }</style>
+    <div class="containers mx-auto py-8 text-white font-poppins" style="max-width: 800px;">
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+        <h1 class="text-3xl font-bold mb-4">Understanding Selection Sort in C++</h1>
+        <h2 class="text-2xl font-bold mb-2">What is Selection Sort?</h2>
+        <p class="mb-4">Selection Sort is a simple comparison-based sorting algorithm. It works by repeatedly finding the minimum element from the unsorted part and putting it at the beginning of the list.</p>
+
+        <h2 class="text-2xl font-bold mb-2">Characteristics of Selection Sort</h2>
+        <ul class="list-disc list-inside mb-4">
+            <li><strong>Simple Implementation:</strong> Easy to understand and implement.</li>
+            <li><strong>Efficient for Small Data Sets:</strong> Performs well on small data sets.</li>
+            <li><strong>In-Place Sorting:</strong> Does not require extra space, sorts the array in place.</li>
+        </ul>
+
+        <h2 class="text-2xl font-bold mb-2">Time Complexity</h2>
+        <ul class="list-disc list-inside mb-4">
+            <li><strong>Best Case:</strong> O(N<sup>2</sup>)</li>
+            <li><strong>Worst Case:</strong> O(N<sup>2</sup>)</li>
+            <li><strong>Average Case:</strong> O(N<sup>2</sup>)</li>
+        </ul>
+
+        <h2 class="text-2xl font-bold mb-2">Visual Explanation</h2>
+        <p class="mb-4">Here's a visual representation of the Selection Sort process:</p>
+        <img src="http://localhost:8080/api/getimage/selectionsort.jpg" alt="Selection Sort Diagram" class="mx-auto mb-8" height="300">
+
+        <h2 class="text-2xl font-bold mb-2">Implementing Selection Sort</h2>
+
+        <h2 class="text-2xl font-bold mb-2">Different Operations</h2>
+        <h3 class="text-xl font-bold mb-2">Swap Elements</h3>
+        <pre><code class="language-cpp">void swap(int *xp, int *yp) {
+    int temp = *xp;
+    *xp = *yp;
+    *yp = temp;
+}</code></pre>
+
+        <h3 class="text-xl font-bold mb-2">Selection Sort Function</h3>
+        <pre><code class="language-cpp">void selectionSort(int arr[], int n) {
+    int i, j, min_idx;
+    for (i = 0; i < n-1; i++) {
+        min_idx = i;
+        for (j = i+1; j < n; j++)
+            if (arr[j] < arr[min_idx])
+                min_idx = j;
+        swap(&arr[min_idx], &arr[i]);
+    }
+}</code></pre>
+
+        <h3 class="text-xl font-bold mb-2">Print Array</h3>
+        <pre><code class="language-cpp">void printArray(int arr[], int size) {
+    for (int i = 0; i < size; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+}</code></pre>
+
+        <h3 class="text-xl font-bold mb-2">Main Function</h3>
+        <pre><code class="language-cpp">int main() {
+    srand(time(NULL));
+
+    int r, n = 10;
+    
+    int *arr = new int[n];
+
+    for (int i = 0; i < n; i++) {
+        r = rand();
+        arr[i] = r;
+    }
+
+    cout << "\nUnsorted array: ";
+    printArray(arr, n);
+
+    selectionSort(arr, n);
+
+    cout << "\nSorted array: ";
+    printArray(arr, n);
+    
+    return 0;
+}</code></pre>
+
+<h3 class="text-xl font-bold mb-2">Selection Sort Full Code</h3>
+        <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;ctime&gt;
+using namespace std;
+
+void swap(int *xp, int *yp) {
+    int temp = *xp;
+    *xp = *yp;
+    *yp = temp;
+}
+
+void selectionSort(int arr[], int n) {
+    int i, j, min_idx;
+    for (i = 0; i < n-1; i++) {
+        min_idx = i;
+        for (j = i+1; j < n; j++)
+            if (arr[j] < arr[min_idx])
+                min_idx = j;
+        swap(&arr[min_idx], &arr[i]);
+    }
+}
+
+void printArray(int arr[], int size) {
+    for (int i = 0; i < size; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+}
+
+int main() {
+    srand(time(NULL));
+
+    int r, n = 10;
+    
+    int *arr = new int[n];
+
+    for (int i = 0; i < n; i++) {
+        r = rand();
+        arr[i] = r;
+    }
+
+    cout << "\nUnsorted array: ";
+    printArray(arr, n);
+
+    selectionSort(arr, n);
+
+    cout << "\nSorted array: ";
+    printArray(arr, n);
+    
+    return 0;
+}</code></pre>
+
+<h3 class="text-xl font-bold mb-2">Output:</h3>
+<pre><code>Unsorted array: 57 28 91 14 62 35 72 49 6 18
+Sorted array: 6 14 18 28 35 49 57 62 72 91
+</code></pre>
+
+        <h2 class="text-2xl font-bold mb-2">Conclusion</h2>
+        <p class="mb-4">Selection Sort is a fundamental sorting algorithm with a straightforward implementation. Its in-place sorting and simplicity make it a valuable tool for understanding the basics of sorting algorithms.</p>
+    </div>
+    <script>hljs.highlightAll();</script>
+</body>

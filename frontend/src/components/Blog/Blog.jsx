@@ -18,7 +18,6 @@ const Blog = () => {
   const [htmlContent, setHtmlContent] = useState('');
   useEffect(() => {
     const fetchContent = async () => {
-      setLoading(true);
       try {
         const response = await fetch('http://localhost:8080/api/view/'+name);
         const data = await response.text();
@@ -32,9 +31,11 @@ const Blog = () => {
   }, []);
 
   useEffect(() => {
-    hljs.highlightAll();
-    hljs.addPlugin(new CopyButtonPlugin());
-    setLoading(false);
+    setTimeout(() => {
+      hljs.highlightAll();
+      hljs.addPlugin(new CopyButtonPlugin());
+      setLoading(false);
+    }, 200);
   }, [htmlContent]);
   
   return (
@@ -42,7 +43,7 @@ const Blog = () => {
       {loading ? (
         <Loader />
       ) : (
-        <div className="bg-slate-950 flex justify-center pt-[72px]">
+        <div className="bg-slate-950 flex justify-center pt-[72px] min-h-screen">
         <div className= "mb-[25px] max-w-[800px]">
           <div dangerouslySetInnerHTML={{ __html: htmlContent }}></div>
           <NavLink to={`/quiz/${name}`} className={"bg-purple-700 hover:bg-purple-600 transition-colors px-5 py-3 font-poppins text-white font-medium rounded-md"}>Take Quiz</NavLink>

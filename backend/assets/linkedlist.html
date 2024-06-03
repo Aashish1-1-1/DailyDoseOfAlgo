@@ -25,6 +25,10 @@
     <img src="http://localhost:8080/api/getimage/linkedlist.png" alt="Linked List Diagram" class="mx-auto mb-8" height="300">
 
     <h2 class="text-2xl font-bold mb-2">Implementing a Linked List</h2>
+    <h3 class="text-xl font-bold mb-2">Check if Empty</h3>
+<pre><code class="language-cpp">bool LinkedList::isEmpty() {
+return HEAD == nullptr;
+}</code></pre>
     <h3 class="text-xl font-bold mb-2">Defining a Node</h3>
     <pre><code class="language-cpp">class Node {
 public:
@@ -187,18 +191,10 @@ while (temp != nullptr) {
 return nullptr;
 }</code></pre>
 
-<h3 class="text-xl font-bold mb-2">Check if Empty</h3>
-<pre><code class="language-cpp">bool LinkedList::isEmpty() {
-return HEAD == nullptr;
-}</code></pre>
-
 <h2 class="text-2xl font-bold mb-2">Conclusion</h2>
 <p class="mb-4">Linked lists are a fundamental data structure in computer science and are used in many applications. Understanding how to implement and manipulate linked lists is essential for any programmer.</p>
 
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script> -->
 <script>hljs.highlightAll();</script>
 </div>
 
 </body>
-</html>

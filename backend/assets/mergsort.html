@@ -1,0 +1,211 @@
+<body class="text-white bg-black">
+    <style>code { border-radius: 6px; }</style>
+    <div class="containers mx-auto py-8 text-white font-poppins" style="max-width: 800px;">
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+        <h1 class="text-3xl font-bold mb-4">Understanding Merge Sort in C++</h1>
+        <h2 class="text-2xl font-bold mb-2">What is Merge Sort?</h2>
+        <p class="mb-4">Merge Sort is a divide-and-conquer algorithm that splits the array into smaller subarrays, sorts them, and then merges them back together. This method is highly efficient and ensures a stable sort.</p>
+
+        <h2 class="text-2xl font-bold mb-2">Characteristics of Merge Sort</h2>
+        <ul class="list-disc list-inside mb-4">
+            <li><strong>Divide and Conquer:</strong> The algorithm divides the problem into smaller sub-problems, solves each sub-problem, and then combines the solutions.</li>
+            <li><strong>Stable Sort:</strong> Maintains the relative order of equal elements.</li>
+            <li><strong>Efficient for Large Data Sets:</strong> Performs well on large data sets with a consistent time complexity of O(N log N).</li>
+        </ul>
+
+        <h2 class="text-2xl font-bold mb-2">Time Complexity</h2>
+        <ul class="list-disc list-inside mb-4">
+            <li><strong>Best Case:</strong> O(N log N)</li>
+            <li><strong>Worst Case:</strong> O(N log N)</li>
+            <li><strong>Average Case:</strong> O(N log N)</li>
+        </ul>
+
+        <h2 class="text-2xl font-bold mb-2">Visual Explanation</h2>
+        <p class="mb-4">Here's a visual representation of the Merge Sort process:</p>
+        <img src="http://localhost:8080/api/getimage/mergesort.png" alt="Merge Sort Diagram" class="mx-auto mb-8" height="300">
+
+        <h2 class="text-2xl font-bold mb-2">Implementing Merge Sort</h2>
+
+        <h2 class="text-2xl font-bold mb-2">Different Operations</h2>
+        <h3 class="text-xl font-bold mb-2">Merge Function</h3>
+        <p class="mb-4">The <code>merge</code> function merges two halves of an array into a sorted array.</p>
+        <pre><code class="language-cpp">void merge(int arr[], int l, int m, int r) {
+    int n1 = m - l + 1;
+    int n2 = r - m;
+
+    int *L = new int[n1];
+    int *R = new int[n2];
+
+    for (int i = 0; i < n1; i++)
+        L[i] = arr[l + i];
+    for (int j = 0; j < n2; j++)
+        R[j] = arr[m + 1 + j];
+
+    int i = 0, j = 0, k = l;
+
+    while (i < n1 && j < n2) {
+        if (L[i] <= R[j]) {
+            arr[k] = L[i];
+            i++;
+        } else {
+            arr[k] = R[j];
+            j++;
+        }
+        k++;
+    }
+
+    while (i < n1) {
+        arr[k] = L[i];
+        i++;
+        k++;
+    }
+
+    while (j < n2) {
+        arr[k] = R[j];
+        j++;
+        k++;
+    }
+
+    delete[] L;
+    delete[] R;
+}</code></pre>
+
+        <h3 class="text-xl font-bold mb-2">Merge Sort Function</h3>
+        <p class="mb-4">The <code>mergeSort</code> function divides the array into two halves, recursively sorts them, and then merges them back together.</p>
+        <pre><code class="language-cpp">void mergeSort(int arr[], int l, int r) {
+    if (l < r) {
+        int m = l + (r - l) / 2;
+
+        mergeSort(arr, l, m);
+        mergeSort(arr, m + 1, r);
+
+        merge(arr, l, m, r);
+    }
+}</code></pre>
+
+        <h3 class="text-xl font-bold mb-2">Print Array</h3>
+        <p class="mb-4">The <code>printArray</code> function prints the elements of the array.</p>
+        <pre><code class="language-cpp">void printArray(int A[], int size) {
+    for (int i = 0; i &lt; size; i++)
+        cout &lt;&lt; A[i] &lt;&lt; " ";
+    cout &lt;&lt; endl;
+}</code></pre>
+
+        <h3 class="text-xl font-bold mb-2">Main Function</h3>
+        <p class="mb-4">The <code>main</code> function initializes the array with random values, sorts it using merge sort, and prints the sorted array.</p>
+        <pre><code class="language-cpp">int main() {
+    srand(time(NULL));
+
+    int r, n = 7;
+    
+    int *arr = new int[n];
+
+    for (int i = 0; i < n; i++) {
+        r = rand();
+        arr[i] = r;
+    }
+
+    cout << "\nUnsorted array: ";
+    printArray(arr, n);
+
+    mergeSort(arr, 0, n - 1);
+
+    cout << "\nSorted array: \n";
+    printArray(arr, n);
+    
+    return 0;
+}</code></pre>
+<h3 class="text-xl font-bold mb-2">Merge Sort Whole Code</h3>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+using namespace std;
+
+void merge(int arr[], int l, int m, int r) {
+    int n1 = m - l + 1;
+    int n2 = r - m;
+
+    int *L = new int[n1];
+    int *R = new int[n2];
+
+    for (int i = 0; i < n1; i++)
+        L[i] = arr[l + i];
+    for (int j = 0; j < n2; j++)
+        R[j] = arr[m + 1 + j];
+
+    int i = 0, j = 0, k = l;
+
+    while (i < n1 && j < n2) {
+        if (L[i] <= R[j]) {
+            arr[k] = L[i];
+            i++;
+        } else {
+            arr[k] = R[j];
+            j++;
+        }
+        k++;
+    }
+
+    while (i < n1) {
+        arr[k] = L[i];
+        i++;
+        k++;
+    }
+
+    while (j < n2) {
+        arr[k] = R[j];
+        j++;
+        k++;
+    }
+
+    delete[] L;
+    delete[] R;
+}
+
+void mergeSort(int arr[], int l, int r) {
+    if (l < r) {
+        int m = l + (r - l) / 2;
+
+        mergeSort(arr, l, m);
+        mergeSort(arr, m + 1, r);
+        merge(arr, l, m, r);
+    }
+}
+
+void printArray(int A[], int size) {
+    for (int i = 0; i < size; i++)
+        cout << A[i] << " ";
+    cout << endl;
+}
+
+int main() {
+    srand(time(NULL));
+
+    int r, n = 7;
+
+    int *arr = new int[n];
+
+    for (int i = 0; i < n; i++) {
+        r = rand();
+        arr[i] = r % 100;
+    }
+
+    cout << "\nUnsorted array: ";
+    printArray(arr, n);
+
+    mergeSort(arr, 0, n - 1);
+
+    cout << "\nSorted array: ";
+    printArray(arr, n);
+
+    return 0;
+}</code></pre>
+
+<h3 class="text-xl font-bold mb-2">Output:</h3>
+<pre><code>Unsorted array: 38 27 43 3 9 82 10
+Sorted array: 3 9 10 27 38 43 82
+</code></pre>
+
+        <h2 class="text-2xl font-bold mb-2">Conclusion</h2>
+        <p class="mb-4">Merge Sort is a powerful sorting algorithm that ensures a stable and efficient sort with a consistent time complexity of O(N log N). Understanding its divide-and-conquer strategy is essential for tackling more complex sorting problems.</p>
+    </div>
+    <script>hljs.highlightAll();</script>
+</body>
