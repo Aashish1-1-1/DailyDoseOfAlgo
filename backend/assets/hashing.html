@@ -1,0 +1,165 @@
+<body class="text-white bg-black">
+    <style>code { border-radius: 6px; }</style>
+
+<div class="containers mx-auto py-8 text-white font-poppins" style="max-width: 800px;">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <h1 class="text-3xl font-bold mb-4">Understanding Hashing in C++</h1>
+    <h2 class="text-2xl font-bold mb-2">What is Hashing?</h2>
+    <p class="mb-4">Hashing is a technique that maps keys to indices in a fixed-size table (hash table) using a function (hash function). It's used for efficient insertion, deletion, and retrieval operations.</p>
+    <ol class="list-decimal list-inside mb-4">
+        <li><strong>Hash Function:</strong> Converts key into table index</li>
+        <li><strong>Hash Table:</strong> Array that stores key-value pairs</li>
+        <li><strong>Collision:</strong> When two keys map to the same index</li>
+    </ol>
+    <p class="mb-4">The goal is to distribute keys uniformly across the table to minimize collisions.</p>
+
+    <h2 class="text-2xl font-bold mb-2">Visual Explanation</h2>
+    <p class="mb-4">Here's a visual representation of hashing:</p>
+    <img src="http://localhost:8080/api/getimage/hashing.png" alt="Hashing Visualization" class="mx-auto mb-8" height="300">
+
+    <h2 class="text-2xl font-bold mb-2">Hash Functions</h2>
+    <ul class="list-disc list-inside mb-4">
+        <li><strong>Division Method:</strong> <code>h(k) = k % m</code></li>
+        <li><strong>Multiplication Method:</strong> <code>h(k) = ⌊m(kA mod 1)⌋</code></li>
+        <li><strong>Universal Hashing:</strong> Randomly chosen from a family</li>
+    </ul>
+
+    <h3 class="text-xl font-bold mb-2">Division Method Example</h3>
+    <pre><code class="language-cpp">int divisionHash(int key, int tableSize) {
+    return key % tableSize;
+}</code></pre><br>
+
+    <h2 class="text-2xl font-bold mb-2">Collision Resolution</h2>
+    <h3 class="text-xl font-bold mb-2">1. Chaining</h3>
+    <p class="mb-4">Each slot in the table points to a linked list of entries.</p>
+    <pre><code class="language-cpp">struct Node {
+    int key;
+    string value;
+    Node* next;
+    Node(int k, string v) : key(k), value(v), next(nullptr) {}
+};
+
+class HashTable {
+private:
+    vector<Node*> table;
+    int size;
+    int hash(int key) { return key % size; }
+
+public:
+    HashTable(int s) : size(s), table(s, nullptr) {}
+    void insert(int key, string value) {
+        int index = hash(key);
+        Node* newNode = new Node(key, value);
+        newNode->next = table[index];
+        table[index] = newNode;
+    }
+};</code></pre><br>
+
+    <h3 class="text-xl font-bold mb-2">2. Open Addressing</h3>
+    <p class="mb-4">Find another open slot in the table.</p>
+    <ul class="list-disc list-inside mb-4">
+        <li><strong>Linear Probing:</strong> <code>h(k, i) = (h'(k) + i) % m</code></li>
+        <li><strong>Quadratic Probing:</strong> <code>h(k, i) = (h'(k) + c₁i + c₂i²) % m</code></li>
+        <li><strong>Double Hashing:</strong> <code>h(k, i) = (h₁(k) + ih₂(k)) % m</code></li>
+    </ul>
+
+    <h3 class="text-xl font-bold mb-2">Linear Probing Example</h3>
+    <pre><code class="language-cpp">class HashTable {
+private:
+    vector<pair<int, string>> table;
+    int size;
+    int hash(int key) { return key % size; }
+
+public:
+    HashTable(int s) : size(s), table(s, {-1, ""}) {}
+    void insert(int key, string value) {
+        int index = hash(key);
+        while (table[index].first != -1) {
+            index = (index + 1) % size;
+        }
+        table[index] = {key, value};
+    }
+};</code></pre><br>
+
+    <h2 class="text-2xl font-bold mb-2">Load Factor and Rehashing</h2>
+    <p class="mb-4">Load factor (α) = n / m, where n is number of items and m is table size.</p>
+    <pre><code class="language-cpp">void rehash() {
+    vector<pair<int, string>> oldTable = table;
+    size *= 2;
+    table.clear();
+    table.resize(size, {-1, ""});
+    for (auto& p : oldTable) {
+        if (p.first != -1) {
+            insert(p.first, p.second);
+        }
+    }
+}</code></pre><br>
+
+    <h2 class="text-2xl font-bold mb-2">C++'s Unordered Maps</h2>
+    <p class="mb-4">C++ provides the <code>unordered_map</code> class that uses hashing internally.</p>
+    <pre><code class="language-cpp">#include <unordered_map>
+using namespace std;
+
+int main() {
+    unordered_map<string, int> scores;
+    scores["Alice"] = 90;
+    scores["Bob"] = 85;
+    scores["Carol"] = 92;
+
+    cout << scores["Bob"] << endl;  // Outputs: 85
+    if (scores.count("Dave") == 0) {
+        cout << "Dave not found" << endl;
+    }
+
+    for (auto& pair : scores) {
+        cout << pair.first << ": " << pair.second << endl;
+    }
+
+    return 0;
+}</code></pre><br>
+
+    <h2 class="text-2xl font-bold mb-2">Applications of Hashing</h2>
+    <ul class="list-disc list-inside mb-4">
+        <li><strong>Databases:</strong> Indexing for fast retrieval</li>
+        <li><strong>Caches:</strong> Quick access to frequently used data</li>
+        <li><strong>Cryptography:</strong> Password storage (e.g., bcrypt)</li>
+        <li><strong>Network Security:</strong> Message authentication</li>
+        <li><strong>Compilers:</strong> Symbol tables for variables</li>
+        <li><strong>Data Deduplication:</strong> Identifying duplicates</li>
+    </ul>
+
+    <h2 class="text-2xl font-bold mb-2">Performance Analysis</h2>
+    <table class="table-auto mx-auto mb-8">
+        <thead>
+            <tr class="bg-gray-800">
+                <th class="px-4 py-2">Operation</th>
+                <th class="px-4 py-2">Average Case</th>
+                <th class="px-4 py-2">Worst Case</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="border px-4 py-2">Insert</td>
+                <td class="border px-4 py-2">O(1)</td>
+                <td class="border px-4 py-2">O(n)</td>
+            </tr>
+            <tr>
+                <td class="border px-4 py-2">Search</td>
+                <td class="border px-4 py-2">O(1)</td>
+                <td class="border px-4 py-2">O(n)</td>
+            </tr>
+            <tr>
+                <td class="border px-4 py-2">Delete</td>
+                <td class="border px-4 py-2">O(1)</td>
+                <td class="border px-4 py-2">O(n)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p class="mb-4">Note: Worst case occurs when all keys hash to the same index.</p>
+
+    <h2 class="text-2xl font-bold mb-2">Conclusion</h2>
+    <p class="mb-4">Hashing is a powerful technique that offers near-constant time complexity for basic operations, making it indispensable in modern computing. However, its efficiency heavily depends on the quality of the hash function and collision resolution strategy.</p>
+
+</div>
+</body>
