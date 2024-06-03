@@ -34,7 +34,7 @@ public:
 
     Node(int d) : data(d), next(nullptr) {}
 };</code></pre>
-    <br>
+    
     <h3 class="text-xl font-bold mb-2">Queue Class</h3>
     <pre><code class="language-cpp">class Queue {
 private:
@@ -50,7 +50,7 @@ public:
     int getFront();
     bool isEmpty();
 };</code></pre>
-    <br>
+    
     <h2 class="text-2xl font-bold mb-2">Queue Operations</h2>
     <h3 class="text-xl font-bold mb-2">Enqueue</h3>
     <pre><code class="language-cpp">void Queue::enqueue(int data) {
@@ -62,7 +62,7 @@ public:
         rear = newNode;
     }
 }</code></pre>
-    <br>
+    
     <h3 class="text-xl font-bold mb-2">Dequeue</h3>
     <pre><code class="language-cpp">int Queue::dequeue() {
     if (isEmpty()) {
@@ -77,7 +77,7 @@ public:
     }
     return data;
 }</code></pre>
-    <br>
+    
     <h3 class="text-xl font-bold mb-2">Get Front</h3>
     <pre><code class="language-cpp">int Queue::getFront() {
     if (isEmpty()) {
@@ -85,12 +85,12 @@ public:
     }
     return front->data;
 }</code></pre>
-    <br>
+    
     <h3 class="text-xl font-bold mb-2">Is Empty</h3>
     <pre><code class="language-cpp">bool Queue::isEmpty() {
     return front == nullptr;
 }</code></pre>
-    <br>
+    
     <h2 class="text-2xl font-bold mb-2">Benefits of Using Linked List</h2>
     <ul class="list-disc list-inside mb-4">
         <li><strong>Dynamic Size:</strong> No need to specify size beforehand.</li>
@@ -117,7 +117,7 @@ public:
 
     return 0;
 }</code></pre>
-    <br>
+    
     <h2 class="text-2xl font-bold mb-2">Conclusion</h2>
     <p class="mb-4">Implementing a queue using a linked list provides a flexible and efficient way to handle FIFO operations. This approach is particularly useful when the size of the queue is unknown or varies significantly during runtime.</p>
 

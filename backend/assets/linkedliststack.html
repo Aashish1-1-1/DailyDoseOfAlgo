@@ -34,7 +34,7 @@ public:
 
     Node(int d) : data(d), next(nullptr) {}
 };</code></pre>
-    <br>
+    
     <h3 class="text-xl font-bold mb-2">Stack Class</h3>
     <pre><code class="language-cpp">class Stack {
 private:
@@ -49,7 +49,7 @@ public:
     int getTop();
     bool isEmpty();
 };</code></pre>
-    <br>
+    
     <h2 class="text-2xl font-bold mb-2">Stack Operations</h2>
     <h3 class="text-xl font-bold mb-2">Push</h3>
     <pre><code class="language-cpp">void Stack::push(int data) {
@@ -57,7 +57,7 @@ public:
     newNode->next = top;
     top = newNode;
 }</code></pre>
-    <br>
+    
     <h3 class="text-xl font-bold mb-2">Pop</h3>
     <pre><code class="language-cpp">int Stack::pop() {
     if (isEmpty()) {
@@ -69,7 +69,7 @@ public:
     delete temp;
     return data;
 }</code></pre>
-    <br>
+    
     <h3 class="text-xl font-bold mb-2">Get Top</h3>
     <pre><code class="language-cpp">int Stack::getTop() {
     if (isEmpty()) {
@@ -77,12 +77,12 @@ public:
     }
     return top->data;
 }</code></pre>
-    <br>
+    
     <h3 class="text-xl font-bold mb-2">Is Empty</h3>
     <pre><code class="language-cpp">bool Stack::isEmpty() {
     return top == nullptr;
 }</code></pre>
-    <br>
+    
     <h2 class="text-2xl font-bold mb-2">Benefits of Using Linked List</h2>
     <ul class="list-disc list-inside mb-4">
         <li><strong>Dynamic Size:</strong> Grows and shrinks as needed.</li>
@@ -117,7 +117,7 @@ public:
 
     return 0;
 }</code></pre>
-    <br>
+    
     <h2 class="text-2xl font-bold mb-2">Balancing Parentheses Example</h2>
     <pre><code class="language-cpp">bool isBalanced(string expr) {
     Stack s;
@@ -135,7 +135,7 @@ public:
     }
     return s.isEmpty();
 }</code></pre>
-    <br>
+    
     <h2 class="text-2xl font-bold mb-2">Conclusion</h2>
     <p class="mb-4">A linked list-based stack offers a flexible and efficient solution for LIFO operations. Its dynamic nature makes it suitable for a wide range of applications, particularly those with unpredictable stack size requirements.</p>
 
