@@ -1,0 +1,140 @@
+<body class="text-white bg-black">
+    <style>
+        code {
+            border-radius: 6px;
+        }
+    </style>
+    <div class="container mx-auto py-8 text-white font-poppins" style="max-width: 800px;">
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+        <h1 class="text-3xl font-bold mb-4">Understanding Huffman Coding in C++</h1>
+        <h2 class="text-2xl font-bold mb-2">What is Huffman Coding?</h2>
+        <p class="mb-4">Huffman Coding is a compression algorithm used for lossless data compression. It assigns
+            variable-length codes to input characters, with shorter codes assigned to more frequent characters.</p>
+
+        <h2 class="text-2xl font-bold mb-2">Characteristics of Huffman Coding</h2>
+        <ul class="list-disc list-inside mb-4">
+            <li><strong>Variable-Length Codes:</strong> Characters are encoded using codes of varying lengths.</li>
+            <li><strong>Prefix Codes:</strong> No code is a prefix of any other code.</li>
+            <li><strong>Lossless Compression:</strong> The original data can be perfectly reconstructed from the
+                compressed data.</li>
+        </ul>
+        <h2 class="text-2xl font-bold mb-2">Time Complexities</h2>
+        <p class="mb-4">The time complexities of the various operations and the overall Huffman Coding algorithm are as follows:</p>
+        <ul class="list-disc list-inside mb-4">
+            <li><strong>Building the Min-Heap:</strong> Inserting all characters into the min-heap takes <code>O(n log n)</code> time because each insertion operation takes <code>O(log n)</code> time and there are <code>n</code> characters.</li>
+            <li><strong>Extracting the two minimum frequency nodes and inserting the combined node back into the min-heap:</strong> This operation also takes <code>O(n log n)</code> time because each extraction and insertion operation in the min-heap takes <code>O(log n)</code> time and this operation is performed <code>n-1</code> times.</li>
+            <li><strong>Generating Huffman Codes:</strong> Traversing the Huffman tree to generate codes takes <code>O(n log n)</code> time in the worst case because the depth of the tree is <code>O(log n)</code> and we need to traverse this depth for each of the <code>n</code> characters to generate their codes.</li>
+        </ul>
+        <p class="mb-4"><strong>Overall Time Complexity:</strong> Combining the above steps, the overall time complexity of the Huffman Coding algorithm is <code>O(n log n)</code>, where <code>n</code> is the number of characters (or unique symbols).</p>
+
+
+        <h2 class="text-2xl font-bold mb-2">Visual Explanation</h2>
+        <p class="mb-4">Here's a visual representation of Huffman Coding:</p>
+        <img src="http://localhost:8080/api/getimage/huffman.png" alt="Huffman Coding Diagram" class="mx-auto mb-8"
+            height="300">
+
+        <h2 class="text-2xl font-bold mb-2">Implementing Huffman Coding</h2>
+        <h3 class="text-xl font-bold mb-2">Defining the Structures</h3>
+        <pre><code class="language-cpp">struct MinHNode {
+    char item;
+    unsigned freq;
+    MinHNode *left, *right;
+
+    MinHNode(char item, unsigned freq) {
+        left = right = NULL;
+        this->item = item;
+        this->freq = freq;
+    }
+};
+
+struct compare {
+    bool operator()(MinHNode* l, MinHNode* r) {
+        return (l->freq > r->freq);
+    }
+};</code></pre>
+
+        <h2 class="text-2xl font-bold mb-2">Different Operations</h2>
+        <h3 class="text-xl font-bold mb-2">Utility Functions</h3>
+        <pre><code class="language-cpp">bool isLeaf(MinHNode* root) {
+    return !(root->left) && !(root->right);
+}
+
+void printArray(int arr[], int n) {
+    for (int i = 0; i < n; ++i)
+        cout << arr[i];
+    cout << "\n";
+}</code></pre>
+
+        <h3 class="text-xl font-bold mb-2">Printing Huffman Codes</h3>
+        <pre><code class="language-cpp">void printHCodes(MinHNode* root, int arr[], int top) {
+    if (root->left) {
+        arr[top] = 0;
+        printHCodes(root->left, arr, top + 1);
+    }
+
+    if (root->right) {
+        arr[top] = 1;
+        printHCodes(root->right, arr, top + 1);
+    }
+
+    if (isLeaf(root)) {
+        cout << root->item << "  | ";
+        printArray(arr, top);
+    }
+}</code></pre>
+
+        <h3 class="text-xl font-bold mb-2">Building the Huffman Tree</h3>
+        <pre><code class="language-cpp">void HuffmanCodes(char item[], int freq[], int size) {
+    MinHNode *left, *right, *top;
+
+    priority_queue<MinHNode*, vector<MinHNode*>, compare> minHeap;
+
+    for (int i = 0; i < size; ++i)
+        minHeap.push(new MinHNode(item[i], freq[i]));
+
+    while (minHeap.size() != 1) {
+        left = minHeap.top();
+        minHeap.pop();
+
+        right = minHeap.top();
+        minHeap.pop();
+
+        top = new MinHNode('$', left->freq + right->freq);
+        top->left = left;
+        top->right = right;
+
+        minHeap.push(top);
+    }
+
+    int arr[MAX_TREE_HT], topIndex = 0;
+    printHCodes(minHeap.top(), arr, topIndex);
+}</code></pre>
+
+        <h2 class="text-2xl font-bold mb-2">Main Function</h2>
+        <pre><code class="language-cpp">int main() {
+    char arr[] = { 'A', 'B', 'C', 'D' };
+    int freq[] = { 5, 1, 6, 3 };
+
+    int size = sizeof(arr) / sizeof(arr[0]);
+
+    cout << "Char | Huffman code ";
+    cout << "\n----------------------\n";
+    HuffmanCodes(arr, freq, size);
+    return 0;
+}</code></pre>
+        <h3 class="text-xl font-bold mb-2">Output:</h3>
+        <pre><code>Char | Huffman code 
+            ----------------------
+            A  | 10
+            B  | 111
+            C  | 0
+            D  | 110
+            
+</code></pre>
+
+        <h2 class="text-2xl font-bold mb-2">Conclusion</h2>
+        <p class="mb-4">Huffman Coding is an efficient algorithm for lossless data compression. Understanding its
+            implementation and operations is essential for anyone interested in data compression techniques.</p>
+    </div>
+    <script>hljs.highlightAll();</script>
+</body>
