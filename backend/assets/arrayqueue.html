@@ -1,0 +1,111 @@
+<body class=" text-white bg-black">
+    <style>code { border-radius: 6px; }</style>
+<div class="container mx-auto py-8 text-white font-poppins" style="max-width: 800px;">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <h1 class="text-3xl font-bold mb-4">Understanding ArrayQueue in C++</h1>
+    <h2 class="text-2xl font-bold mb-2">What is an ArrayQueue?</h2>
+    <p class="mb-4">An ArrayQueue is a linear data structure that follows the First In, First Out (FIFO) principle. It is implemented using an array and provides efficient enqueue and dequeue operations.</p>
+
+    <h2 class="text-2xl font-bold mb-2">Characteristics of ArrayQueue</h2>
+    <ul class="list-disc list-inside mb-4">
+        <li><strong>Fixed Size:</strong> The size of the queue is fixed and must be defined at the time of creation.</li>
+        <li><strong>FIFO Principle:</strong> The first element added to the queue is the first one to be removed.</li>
+        <li><strong>Efficient Operations:</strong> Enqueue and dequeue operations have a time complexity of O(1).</li>
+    </ul>
+
+    <h2 class="text-2xl font-bold mb-2">Visual Explanation</h2>
+    <p class="mb-4">Here's a visual representation of an ArrayQueue:</p>
+    <img src="http://localhost:8080/api/getimage/arrayqueue.png" alt="ArrayQueue Diagram" class="mx-auto mb-8" height="300">
+
+    <h2 class="text-2xl font-bold mb-2">Implementing an ArrayQueue</h2>
+    <h3 class="text-xl font-bold mb-2">Defining the Queue</h3>
+    <pre><code class="language-cpp">class ArrayQueue {
+private:
+    int *arr;
+    int front;
+    int rear;
+    int capacity;
+    int count;
+
+public:
+    ArrayQueue(int size);
+    ~ArrayQueue();
+    void enqueue(int x);
+    int dequeue();
+    int peekFront();
+    int peekRear();
+    bool isEmpty();
+    bool isFull();
+};</code></pre>
+
+    <h2 class="text-2xl font-bold mb-2">Different Operations</h2>
+    <h3 class="text-xl font-bold mb-2">Constructor</h3>
+    <pre><code class="language-cpp">ArrayQueue::ArrayQueue(int size) {
+    arr = new int[size];
+    capacity = size;
+    front = 0;
+    rear = -1;
+    count = 0;
+}</code></pre>
+
+    <h3 class="text-xl font-bold mb-2">Destructor</h3>
+    <pre><code class="language-cpp">ArrayQueue::~ArrayQueue() {
+    delete[] arr;
+}</code></pre>
+
+    <h3 class="text-xl font-bold mb-2">Enqueue Operation</h3>
+    <pre><code class="language-cpp">void ArrayQueue::enqueue(int x) {
+    if (isFull()) {
+        std::cout << "Overflow\n";
+        return;
+    }
+    arr[++rear] = x;
+    count++;
+}</code></pre>
+
+    <h3 class="text-xl font-bold mb-2">Dequeue Operation</h3>
+    <pre><code class="language-cpp">int ArrayQueue::dequeue() {
+    if (isEmpty()) {
+        std::cout << "Underflow\n";
+    }
+    int x = arr[front];
+    for (int i = 0; i < rear; i++) {
+        arr[i] = arr[i + 1];
+    }
+    rear--;
+    count--;
+    return x;
+}</code></pre>
+
+    <h3 class="text-xl font-bold mb-2">Peek Front Operation</h3>
+    <pre><code class="language-cpp">int ArrayQueue::peekFront() {
+    if (isEmpty()) {
+        std::cout << "Underflow\n";
+    }
+    return arr[front];
+}</code></pre>
+
+    <h3 class="text-xl font-bold mb-2">Peek Rear Operation</h3>
+    <pre><code class="language-cpp">int ArrayQueue::peekRear() {
+    if (isEmpty()) {
+        std::cout << "Underflow\n";
+    }
+    return arr[rear];
+}</code></pre>
+
+    <h3 class="text-xl font-bold mb-2">Check if Empty</h3>
+    <pre><code class="language-cpp">bool ArrayQueue::isEmpty() {
+    return count == 0;
+}</code></pre>
+
+    <h3 class="text-xl font-bold mb-2">Check if Full</h3>
+    <pre><code class="language-cpp">bool ArrayQueue::isFull() {
+    return count == capacity;
+}</code></pre>
+
+    <h2 class="text-2xl font-bold mb-2">Conclusion</h2>
+    <p class="mb-4">ArrayQueue is a fundamental data structure that is widely used in many applications. Understanding its implementation and operations is crucial for any programmer.</p>
+</div>
+<script>hljs.highlightAll();</script>
+</body>
+</html>
