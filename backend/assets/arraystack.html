@@ -1,0 +1,93 @@
+<body class=" text-white bg-black">
+    <style>code { border-radius: 6px; }</style>
+<div class="container mx-auto py-8 text-white font-poppins" style="max-width: 800px;">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <h1 class="text-3xl font-bold mb-4">Understanding ArrayStack in C++</h1>
+    <h2 class="text-2xl font-bold mb-2">What is an ArrayStack?</h2>
+    <p class="mb-4">An ArrayStack is a linear data structure that follows the Last In, First Out (LIFO) principle. It is implemented using an array and provides efficient push and pop operations.</p>
+
+    <h2 class="text-2xl font-bold mb-2">Characteristics of ArrayStack</h2>
+    <ul class="list-disc list-inside mb-4">
+        <li><strong>Fixed Size:</strong> The size of the stack is fixed and must be defined at the time of creation.</li>
+        <li><strong>LIFO Principle:</strong> The last element added to the stack is the first one to be removed.</li>
+        <li><strong>Efficient Operations:</strong> Push and pop operations have a time complexity of O(1).</li>
+    </ul>
+
+    <h2 class="text-2xl font-bold mb-2">Visual Explanation</h2>
+    <p class="mb-4">Here's a visual representation of an ArrayStack:</p>
+    <img src="http://localhost:8080/api/getimage/arraystack.png" alt="ArrayStack Diagram" class="mx-auto mb-8" height="300">
+
+    <h2 class="text-2xl font-bold mb-2">Implementing an ArrayStack</h2>
+    <h3 class="text-xl font-bold mb-2">Defining the Stack</h3>
+    <pre><code class="language-cpp">class ArrayStack {
+private:
+    int *arr;
+    int top;
+    int capacity;
+
+public:
+    ArrayStack(int size);
+    ~ArrayStack();
+    void push(int x);
+    int pop();
+    int peek();
+    bool isEmpty();
+    bool isFull();
+};</code></pre>
+
+    <h2 class="text-2xl font-bold mb-2">Different Operations</h2>
+    <h3 class="text-xl font-bold mb-2">Constructor</h3>
+    <pre><code class="language-cpp">ArrayStack::ArrayStack(int size) {
+    arr = new int[size];
+    capacity = size;
+    top = -1;
+}</code></pre>
+
+    <h3 class="text-xl font-bold mb-2">Destructor</h3>
+    <pre><code class="language-cpp">ArrayStack::~ArrayStack() {
+    delete[] arr;
+}</code></pre>
+
+    <h3 class="text-xl font-bold mb-2">Push Operation</h3>
+    <pre><code class="language-cpp">void ArrayStack::push(int x) {
+    if (isFull()) {
+        std::cout << "Overflow\n";
+        return;
+    }
+    arr[++top] = x;
+}</code></pre>
+
+    <h3 class="text-xl font-bold mb-2">Pop Operation</h3>
+    <pre><code class="language-cpp">int ArrayStack::pop() {
+    if (isEmpty()) {
+        std::cout << "Underflow\n";
+        exit(EXIT_FAILURE);
+    }
+    return arr[top--];
+}</code></pre>
+
+    <h3 class="text-xl font-bold mb-2">Peek Operation</h3>
+    <pre><code class="language-cpp">int ArrayStack::peek() {
+    if (!isEmpty()) {
+        return arr[top];
+    } else {
+        exit(EXIT_FAILURE);
+    }
+}</code></pre>
+
+    <h3 class="text-xl font-bold mb-2">Check if Empty</h3>
+    <pre><code class="language-cpp">bool ArrayStack::isEmpty() {
+    return top == -1;
+}</code></pre>
+
+    <h3 class="text-xl font-bold mb-2">Check if Full</h3>
+    <pre><code class="language-cpp">bool ArrayStack::isFull() {
+    return top == capacity - 1;
+}</code></pre>
+
+    <h2 class="text-2xl font-bold mb-2">Conclusion</h2>
+    <p class="mb-4">ArrayStack is a fundamental data structure that is widely used in many applications. Understanding its implementation and operations is crucial for any programmer.</p>
+</div>
+<script>hljs.highlightAll();</script>
+</body>
+</html>
