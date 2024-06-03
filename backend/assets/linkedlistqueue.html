@@ -1,0 +1,125 @@
+<body class="text-white bg-black">
+    <style>code { border-radius: 6px; }</style>
+
+<div class="containers mx-auto py-8 text-white font-poppins" style="max-width: 800px;">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <h1 class="text-3xl font-bold mb-4">Implementing a Queue using Linked List in C++</h1>
+    <h2 class="text-2xl font-bold mb-2">What is a Queue?</h2>
+    <p class="mb-4">A queue is a linear data structure that follows the First In First Out (FIFO) principle. The operations are performed in the following order:</p>
+    <ol class="list-decimal list-inside mb-4">
+        <li><strong>Enqueue:</strong> Adds an item to the rear of the queue.</li>
+        <li><strong>Dequeue:</strong> Removes an item from the front of the queue.</li>
+    </ol>
+    <p class="mb-4">A queue can be efficiently implemented using a linked list, allowing for dynamic size adjustments.</p>
+
+    <h2 class="text-2xl font-bold mb-2">Queue Operations</h2>
+    <ul class="list-disc list-inside mb-4">
+        <li><strong>Enqueue:</strong> Add to the tail of the linked list.</li>
+        <li><strong>Dequeue:</strong> Remove from the head of the linked list.</li>
+        <li><strong>Front:</strong> Return the data of the head node.</li>
+        <li><strong>isEmpty:</strong> Check if the queue is empty.</li>
+    </ul>
+
+    <h2 class="text-2xl font-bold mb-2">Visual Explanation</h2>
+    <p class="mb-4">Here's a visual representation of a queue using a linked list:</p>
+    <img src="http://localhost:8080/api/getimage/....." alt="Queue Using Linked List" class="mx-auto mb-8" height="300">
+
+    <h2 class="text-2xl font-bold mb-2">Implementing a Queue</h2>
+    <h3 class="text-xl font-bold mb-2">Using the Node Class</h3>
+    <p class="mb-4">We'll use the same <code>Node</code> class from the linked list implementation:</p>
+    <pre><code class="language-cpp">class Node {
+public:
+    int data;
+    Node *next;
+
+    Node(int d) : data(d), next(nullptr) {}
+};</code></pre>
+    
+    <h3 class="text-xl font-bold mb-2">Queue Class</h3>
+    <pre><code class="language-cpp">class Queue {
+private:
+    Node *front;
+    Node *rear;
+
+public:
+    Queue() : front(nullptr), rear(nullptr) {}
+    ~Queue() { while (!isEmpty()) dequeue(); }
+
+    void enqueue(int data);
+    int dequeue();
+    int getFront();
+    bool isEmpty();
+};</code></pre>
+    
+    <h2 class="text-2xl font-bold mb-2">Queue Operations</h2>
+    <h3 class="text-xl font-bold mb-2">Enqueue</h3>
+    <pre><code class="language-cpp">void Queue::enqueue(int data) {
+    Node *newNode = new Node(data);
+    if (isEmpty()) {
+        front = rear = newNode;
+    } else {
+        rear->next = newNode;
+        rear = newNode;
+    }
+}</code></pre>
+    
+    <h3 class="text-xl font-bold mb-2">Dequeue</h3>
+    <pre><code class="language-cpp">int Queue::dequeue() {
+    if (isEmpty()) {
+        throw std::out_of_range("Queue is empty");
+    }
+    int data = front->data;
+    Node *temp = front;
+    front = front->next;
+    delete temp;
+    if (front == nullptr) {
+        rear = nullptr;
+    }
+    return data;
+}</code></pre>
+    
+    <h3 class="text-xl font-bold mb-2">Get Front</h3>
+    <pre><code class="language-cpp">int Queue::getFront() {
+    if (isEmpty()) {
+        throw std::out_of_range("Queue is empty");
+    }
+    return front->data;
+}</code></pre>
+    
+    <h3 class="text-xl font-bold mb-2">Is Empty</h3>
+    <pre><code class="language-cpp">bool Queue::isEmpty() {
+    return front == nullptr;
+}</code></pre>
+    
+    <h2 class="text-2xl font-bold mb-2">Benefits of Using Linked List</h2>
+    <ul class="list-disc list-inside mb-4">
+        <li><strong>Dynamic Size:</strong> No need to specify size beforehand.</li>
+        <li><strong>Efficient Operations:</strong> O(1) time for both enqueue and dequeue.</li>
+        <li><strong>No Wasted Space:</strong> Only allocates memory as needed.</li>
+    </ul>
+
+    <h2 class="text-2xl font-bold mb-2">Example Usage</h2>
+    <pre><code class="language-cpp">int main() {
+    Queue q;
+    q.enqueue(10);
+    q.enqueue(20);
+    q.enqueue(30);
+
+    cout << q.getFront() << endl;  // Outputs: 10
+    cout << q.dequeue() << endl;  // Outputs: 10
+    cout << q.getFront() << endl;  // Outputs: 20
+
+    q.enqueue(40);
+    while (!q.isEmpty()) {
+        cout << q.dequeue() << " ";  // Outputs: 20 30 40
+    }
+    cout << endl;
+
+    return 0;
+}</code></pre>
+    
+    <h2 class="text-2xl font-bold mb-2">Conclusion</h2>
+    <p class="mb-4">Implementing a queue using a linked list provides a flexible and efficient way to handle FIFO operations. This approach is particularly useful when the size of the queue is unknown or varies significantly during runtime.</p>
+
+</div>
+</body>
