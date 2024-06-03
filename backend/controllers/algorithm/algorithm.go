@@ -5,6 +5,7 @@ import(
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"encoding/json"
+	"strings"
 
 	"dailydoseofalgo/database"
 	"dailydoseofalgo/models/Algorithms"
@@ -75,13 +76,35 @@ func ThrowQuiz(c *gin.Context){
 }
 
 func Evaluation(c *gin.Context){
+
+	var tocheck algomodel.Quizevaluate
+
+	if err:=c.ShouldBind(&tocheck); err!=nil{
+		c.JSON(http.StatusBadRequest,gin.H{"Error":err.Error()})
+		return
+	}
 	name:=c.Param("name");
 	query := `SELECT correct_ans from quiz INNER JOIN dsa ON quiz.dsa_id=dsa.id WHERE name=$1`
-	answer,err := database.Searchsmt(query,name)
-
+	answerstr,err := database.Searchsmt(query,name)
 	if err!=nil{
 		c.JSON(http.StatusBadRequest,gin.H{"message":err.Error()})
 		return
 	}
-	fmt.Println(answer);
+	answerstr = strings.Trim(answerstr,"[]");
+	correctans := strings.Split(answerstr, ", ")
+
+	for i := range correctans {
+		correctans[i] = strings.Trim(correctans[i], `"`)
+	}
+	fmt.Println(tocheck.Answers);		
+	fmt.Println(correctans);
+	var numberofcorrect int =0;
+	for i:= range correctans{
+		if(correctans[i]==tocheck.Answers[i]){
+			numberofcorrect++;
+		}
+	}
+		fmt.Println(numberofcorrect)
+		fmt.Println(len(correctans))
+	c.JSON(http.StatusOK, gin.H{"Score": float32(numberofcorrect)/float32(len(correctans))*100})
 }

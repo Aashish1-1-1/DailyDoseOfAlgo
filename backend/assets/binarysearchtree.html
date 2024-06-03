@@ -1,0 +1,205 @@
+<body class="text-white bg-black">
+    <style>code { border-radius: 6px; }</style>
+
+<div class="containers mx-auto py-8 text-white font-poppins" style="max-width: 800px;">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark-dimmed.min.css" /> -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <h1 class="text-3xl font-bold mb-4">Binary Search Tree</h1>
+    <h2 class="text-2xl font-bold mb-2">What is a Binary Search Tree?</h2>
+    <p class="mb-4">Tree data structure is a specialized data structure to store data in hierarchical manner. It is used to organize and store data in the computer to be used more effectively.A Binary Search Tree (BST) is a  tree in which each node has at most two children, referred to as the left child and the right child. For each node, the left subtree contains only nodes with values less than the node’s value, and the right subtree contains only nodes with values greater than the node’s value.</p>
+
+    <h2 class="text-2xl font-bold mb-2">Why use a Binary Search Tree?</h2>
+    <p class="mb-4">A BST supports dynamic set operations like search, insert, and delete efficiently. These operations have an average time complexity of O(log n), which makes BSTs an excellent choice for many applications such as searching, sorting, and maintaining a sorted list of items.</p>
+
+    <h2 class="text-2xl font-bold mb-2">Visual Explanation</h2>
+    <p class="mb-4">Here's a visual representation of a Binary Search Tree:</p>
+    <img src="http://localhost:8080/api/getimage/bst.png" alt="BST Visual Diagram" class="mx-auto mb-8" height="500">
+
+    <h2 class="text-2xl font-bold mb-2">Implementing a Binary Search Tree</h2>
+    <p class="mb-4">Binary search tree can be implemented using an array or node in this blog we will be using node based implementaion using dynamic memory allocation</p>
+    <h3 class="text-xl font-bold mb-2">Defining a TreeNode Structure</h3>
+    <pre><code class="language-cpp">class Node
+{
+    public:
+        int data;
+        Node *left;
+        Node *right;
+        Node *parent;
+
+        Node(){}
+	~Node(){
+	};
+        Node(int d): data(d),left(nullptr),right(nullptr),parent(nullptr) {}
+        Node(int d,Node *left,Node *right,Node *parent): data(d),left(left),right(right),parent(parent) {}
+};</code></pre>
+
+    <h3 class="text-xl font-bold mb-2">Defining a Binary Search Tree</h3>
+    <pre><code class="language-cpp">
+class LinkedlistBst : public BST{
+  public:
+    LinkedlistBst();
+    ~LinkedlistBst();
+
+    bool isEmpty();
+    void addBST(int data);
+    void checker();
+    void removeBST(int data);
+    bool searchBST(int targetkey);
+  private:
+    Node *Root;
+};
+</code></pre>
+
+    <h2 class="text-2xl font-bold mb-2">Different Operations</h2>
+    <h3 class="text-xl font-bold mb-2">IsEmpty</h3>
+    <pre><code class="language-cpp">
+bool LinkedlistBst::isEmpty(){
+	if(this->Root==nullptr){
+		return true;
+	}
+	return false;
+}
+
+    </pre></code>
+    <h3 class="text-xl font-bold mb-2">Insert</h3>
+    <pre><code class="language-cpp">void LinkedlistBst::addBST(int data){
+	if(this->isEmpty()){
+		Node *temp = new Node(data);
+		this->Root=temp;
+		return ;
+	}
+	else{
+		Node *parent=this->Root;
+		Node *toadd;
+		if(data>this->Root->data){
+			toadd=this->Root->right;
+		}
+		else{
+			toadd=this->Root->left;
+		}
+		while(toadd!=nullptr){
+
+				parent=toadd;
+				if(data>toadd->data){
+					toadd=toadd->right;
+				}
+				else{
+					toadd=toadd->left;
+				}
+			}
+
+		Node *temp = new Node(data,nullptr,nullptr,parent);
+		if(data>parent->data){
+			parent->right=temp;
+		}
+		else{
+			parent->left=temp;
+		}
+
+	}
+
+	return ;
+}</code></pre>
+
+    <h3 class="text-xl font-bold mb-2">Search</h3>
+    <pre><code class="language-cpp">bool LinkedlistBst::searchBST(int data){
+	 Node* temp = Root;
+    while (temp != nullptr) {
+        if (data == temp->data) {
+            return true;
+        } else if (data < temp->data) {
+            temp = temp->left;
+        } else {
+            temp = temp->right;
+        }
+    }
+    return false;
+}	</code></pre>
+
+    <h3 class="text-xl font-bold mb-2">Remove</h3>
+    <pre><code class="language-cpp">void LinkedlistBst::removeBST(int dataToDelete) {
+    Node* temp = Root;
+    Node* parent = nullptr;
+
+    // Find the node to delete
+    while (temp != nullptr && temp->data != dataToDelete) {
+        parent = temp;
+        if (dataToDelete < temp->data) {
+            temp = temp->left;
+        } else {
+            temp = temp->right;
+        }
+    }
+
+    // If the node is not found
+    if (temp == nullptr) {
+        return; // Data not found, nothing to delete
+    }
+
+    // Case 1: Node has no children (leaf node)
+    if (temp->left == nullptr && temp->right == nullptr) {
+        if (parent == nullptr) {
+            Root = nullptr; // Tree only had one node
+        } else if (parent->left == temp) {
+            parent->left = nullptr;
+        } else {
+            parent->right = nullptr;
+        }
+        delete temp;
+    }
+    // Case 2: Node has one child
+    else if (temp->left == nullptr) { // Node has only right child
+        if (parent == nullptr) {
+            Root = temp->right;
+        } else if (parent->left == temp) {
+            parent->left = temp->right;
+        } else {
+            parent->right = temp->right;
+        }
+        delete temp;
+    } else if (temp->right == nullptr) { // Node has only left child
+        if (parent == nullptr) {
+            Root = temp->left;
+        } else if (parent->left == temp) {
+            parent->left = temp->left;
+        } else {
+            parent->right = temp->left;
+        }
+        delete temp;
+    }
+    // Case 3: Node has two children
+    else {
+        Node* successor = temp->right;
+        Node* successorParent = temp;
+
+        // Find the in-order successor (leftmost child of right subtree)
+        while (successor->left != nullptr) {
+            successorParent = successor;
+            successor = successor->left;
+        }
+
+        // Replace temp's data with successor's data
+        temp->data = successor->data;
+
+        // Fix the successor's parent
+        if (successorParent != temp) {
+            successorParent->left = successor->right;
+        } else {
+            successorParent->right = successor->right;
+        }
+
+        delete successor;
+    }
+}</code></pre>
+
+<h2 class="text-2xl font-bold mb-2">Conclusion</h2>
+<p class="mb-4">Binary Search Trees provide an efficient way to store and manage data in a sorted manner, allowing for fast lookup, insertion, and deletion operations. Understanding and implementing BSTs is fundamental for anyone interested in computer science and data structures.</p>
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script> -->
+<script>hljs.highlightAll();</script>
+</div>
+
+</body>
+</html>
+

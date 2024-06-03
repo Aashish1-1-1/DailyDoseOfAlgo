@@ -33,6 +33,7 @@ func HandelSignup(c *gin.Context){
 
 	if err:=c.ShouldBind(&data); err!=nil{
 		c.JSON(http.StatusBadRequest,gin.H{"Error":err.Error()})
+		return
 	}
 	name := data.Name
 	email := data.Email
@@ -59,6 +60,7 @@ func HandelLogin(c *gin.Context){
 
 	if err:=c.ShouldBind(&data); err!=nil{
 		c.JSON(http.StatusBadRequest,gin.H{"Error":err.Error()})
+		return
 	}
 	email := data.Email
 	password := data.Password

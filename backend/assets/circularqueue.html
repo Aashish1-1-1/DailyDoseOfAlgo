@@ -1,0 +1,123 @@
+<body class=" text-white bg-black">
+    <style>code { border-radius: 6px; }</style>
+
+<div class="containers mx-auto py-8 text-white font-poppins" style="max-width: 800px;">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark-dimmed.min.css" /> -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <h1 class="text-3xl font-bold mb-4 ">Circular Queue</h1>
+    <h2 class="text-2xl font-bold mb-2">What is a Circular Queue?</h2>
+    <p class="mb-4">A Circular Queue is an extended version of a normal queue where the last element of the queue is connected to the first element of the queue forming a circle</p>
+
+    <h2 class="text-2xl font-bold mb-2">Prerequisite</h2>
+     <a href="/algorithm/arrayqueue">ArrayQueue</a>
+
+    <h2 class="text-2xl font-bold mb-2">Problem with regular Queue?</h2>
+	<p class="mb-4">The queue gradually shifts to the right.Example: suppose maxQueueSize = 4,and operations 
+	performed are enqueue(2), enqueue(5), dequeue(),enqueue(4), dequeue(), enqueue(3).</p>
+	<img src="http://localhost:8080/api/getimage/needofcircularqueue.png" alt="Need of CircularQueue Diagram" class="mx-auto mb-8" height="250">
+    <h2 class="text-2xl font-bold mb-2">Visual Explanation</h2>
+    <p class="mb-4">Here's a visual representation of a circular Queue:</p>
+    <img src="http://localhost:8080/api/getimage/circularqueue.png" alt="Circular Queue Diagram" class="mx-auto mb-8" height="500">
+
+    <h2 class="text-2xl font-bold mb-2">Implementing a Circular Queue</h2>
+    <h3 class="text-xl font-bold mb-2">Defining a Queue Interface</h3>
+    <pre><code class="language-cpp">class Queue{
+	public:
+		Queue() {};
+		~Queue() {};
+		virtual bool isEmpty()=0;
+		virtual void enqueue(int max)=0;
+		virtual int dequeue()=0;
+		virtual int front()=0;
+		virtual int back()=0;
+};</code></pre>
+
+    <h3 class="text-xl font-bold mb-2">Defining a Circular Queue</h3>
+    <pre><code class="language-cpp">
+#include "queue.h"
+
+class CircularQueue : public Queue{
+	public:
+		CircularQueue(int max){
+	        	this->arr = new int[max];
+	        	this->maxsize=max;
+	        	this->frontindex=0;
+	        	this->backindex=0;
+		};
+		~CircularQueue(){
+			delete [] arr;
+		};
+		
+		 bool isEmpty();
+		 bool isFull();
+		 void enqueue(int data);
+		 int dequeue();
+		 int front();
+		 int back();
+	private:
+		 int *arr;
+		 int frontindex;
+		 int backindex;
+		 int maxsize;
+};</code></pre>
+
+    <h2 class="text-2xl font-bold mb-2">Different Operations</h2>
+    <h3 class="text-xl font-bold mb-2">IsEmpty</h3>
+    <pre><code class="language-cpp">bool CircularQueue::isEmpty(){
+	if(frontindex==backindex){
+		return true;
+	}
+	 return false;
+}</code></pre>
+
+    <h3 class="text-xl font-bold mb-2">IsFull</h3>
+    <pre><code class="language-cpp">bool CircularQueue::isFull(){
+	if(frontindex==(backindex+1)%this->maxsize){
+		return true;
+	}
+	return false;
+}</code></pre>
+
+    <h3 class="text-xl font-bold mb-2">Enqueue</h3>
+    <pre><code class="language-cpp">void CircularQueue::enqueue(int data){
+	if(this->isFull()){
+		std::cout<<"Overflow";
+	}
+	else{
+		*(arr+backindex)=data;
+		backindex=(backindex+1)%this->maxsize;
+	}
+}</code></pre>
+
+    <h3 class="text-xl font-bold mb-2">Dequeue</h3>
+    <pre><code class="language-cpp">int CircularQueue::dequeue(){
+	if(this->isEmpty()){
+		std::cout<<"Underflow";
+		return -1;
+	}
+	int toreturn=*(arr+frontindex);
+	frontindex=(frontindex+1)%this->maxsize;
+	return toreturn;
+}
+/code></pre>
+
+    <h3 class="text-xl font-bold mb-2">Front</h3>
+    <pre><code class="language-cpp">int CircularQueue::front(){
+	return *(arr+frontindex);
+}</code></pre>
+
+    <h3 class="text-xl font-bold mb-2">Back</h3>
+    <pre><code class="language-cpp">int CircularQueue::back(){
+	return *(arr+backindex);
+}</code></pre>
+
+<h2 class="text-2xl font-bold mb-2">Conclusion</h2>
+<p class="mb-4">CircularQueue are important to store more data reusing the same space cycling throught the array ustile it is full</p>
+
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script> -->
+<script>hljs.highlightAll();</script>
+</div>
+
+</body>
+</html>
