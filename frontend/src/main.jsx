@@ -11,8 +11,9 @@ import Login from './components/Login/Login.jsx'
 import DashboardComponent from './components/Dashboard/Dashboard.jsx'
 import Blog from './components/Blog/Blog.jsx'
 import Quiz from './components/Quiz/Quiz.jsx'
-import SignUp from './components/SignUp/SignUp.jsx'
+import SignUp from './components/SignUp/Signup.jsx'
 import Contact from './components/Contact/Contact.jsx'
+import TermsAndConditions from './components/TermsAndConditions/TermsAndConditions.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -24,6 +25,7 @@ const router = createBrowserRouter(
       <Route path="/algorithms" element={<DashboardComponent />} />
       <Route path="/quizes" element={<Login />} />
       <Route path="/contact" element={<Contact />} />
+      <Route path="/termsandconditions" element={<TermsAndConditions />} />
       <Route path="/user/:id" element={<User />} />
       <Route path="/dashboard" element={<DashboardComponent />} />
       <Route path="/github/:username" element={<Github />} />
