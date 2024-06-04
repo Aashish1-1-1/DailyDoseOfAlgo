@@ -9,21 +9,37 @@ const SignUp = () => {
     username: '',
     email: '',
     password: '',
+    confirmPassword: '',
   });
-  const [showPassword, setShowPassword] = useState(false);
+
+  const [error, setError] = useState({
+    username: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
+
+  const [showPassword1, setShowPassword1] = useState(false);
+  const [showPassword2, setShowPassword2] = useState(false);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    validateInput(e);
   };
-  const handleTogglePassword = () => {
-    setShowPassword(!showPassword);
-  };
-  const handleSubmit = async (e) => {
 
+  const handleTogglePassword1 = () => {
+    setShowPassword1(!showPassword1);
+  };
+
+  const handleTogglePassword2 = () => {
+    setShowPassword2(!showPassword2);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      console.log(formData)
       const response = await fetch('http://localhost:8080/api/signup', {
         method: 'POST',
         headers: {
@@ -42,6 +58,47 @@ const SignUp = () => {
       console.error('Error submitting form:', error);
     }
   }
+
+  const validateInput = (e) => {
+    const { name, value } = e.target;
+    setError((prev) => {
+      const stateObj = { ...prev, [name]: '' };
+
+      switch (name) {
+        case 'username':
+          if (!value) {
+            stateObj[name] = 'Please enter Username.';
+          }
+          break;
+        case 'email':
+          if (!value) {
+            stateObj[name] = 'Please enter Email.';
+          }
+          break;
+        case 'password':
+          if (!value) {
+            stateObj[name] = 'Please enter Password.';
+          } else if (formData.confirmPassword && value !== formData.confirmPassword) {
+            stateObj['confirmPassword'] = 'Password and Confirm Password does not match.';
+          } else {
+            stateObj['confirmPassword'] = formData.confirmPassword ? '' : error.confirmPassword;
+          }
+          break;
+        case 'confirmPassword':
+          if (!value) {
+            stateObj[name] = 'Please enter Confirm Password.';
+          } else if (formData.password && value !== formData.password) {
+            stateObj[name] = 'Password and Confirm Password does not match.';
+          }
+          break;
+        default:
+          break;
+      }
+
+      return stateObj;
+    });
+  };
+
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -62,11 +119,14 @@ const SignUp = () => {
                 <input
                   value={formData.username}
                   onChange={handleChange}
+                  onBlur={validateInput}
                   type="text"
                   name="username"
                   placeholder="Enter your username"
                   className="w-full p-2 bg-transparent border-2 border-opacity-60 rounded-md border-white outline-none focus:outline-none text-[15px]"
-                  required />
+                  required
+                />
+                {error.username && <span className="err">{error.username}</span>}
               </div>
               <div className="w-full mb-[10px]">
                 <label htmlFor="email" className="text-white text-[14px] mb-[2px]">Email</label>
@@ -74,88 +134,79 @@ const SignUp = () => {
                   value={formData.email}
                   type="email"
                   onChange={handleChange}
+                  onBlur={validateInput}
                   name="email"
                   placeholder="Enter your email"
                   className="w-full p-2 bg-transparent border-2 border-opacity-60 rounded-md border-white outline-none focus:outline-none text-[15px]"
-                  required />
+                  required
+                />
+                {error.email && <span className="err">{error.email}</span>}
               </div>
               <div className="w-full mb-[10px]">
                 <label htmlFor="password" className="text-white text-[14px] mb-[2px]">Password</label>
                 <div className="relative">
                   <input
-                    type={showPassword ? "text" : "password"}
+                    type={showPassword1 ? "text" : "password"}
                     value={formData.password}
                     onChange={handleChange}
+                    onBlur={validateInput}
                     name="password"
                     placeholder="Enter your password"
                     className="w-full p-2 bg-transparent border-2 border-opacity-60 rounded-md border-white outline-none focus:outline-none text-[15px]"
                     required
                   />
+                  {error.password && <span className="err">{error.password}</span>}
                   <button
                     type="button"
                     className="absolute right-2 top-2 text-white"
-                    onClick={handleTogglePassword}
+                    onClick={handleTogglePassword1}
                   >
-                    {showPassword ? <FontAwesomeIcon
-                      icon={faEye}
-                      className="text-white h-[16px] w-[16px]"
-                    /> : <FontAwesomeIcon
-                      icon={faEyeSlash}
-                      className="text-white h-[16px] w-[16px]"
-                    />}
+                    {showPassword1 ? <FontAwesomeIcon icon={faEye} className="text-white h-[16px] w-[16px]" /> : <FontAwesomeIcon icon={faEyeSlash} className="text-white h-[16px] w-[16px]" />}
                   </button>
                 </div>
               </div>
               <div className="w-full mb-[10px]">
-                <label htmlFor="confirmpassword" className="text-white text-[14px] mb-[2px]">Confirm Password</label>
+                <label htmlFor="confirmPassword" className="text-white text-[14px] mb-[2px]">Confirm Password</label>
                 <div className="relative">
                   <input
-                    type={showPassword ? "text" : "password"}
-                    value={formData.confirmpassword}
+                    type={showPassword2 ? "text" : "password"}
+                    value={formData.confirmPassword}
                     onChange={handleChange}
-                    name="confirmpassword"
+                    onBlur={validateInput}
+                    name="confirmPassword"
                     placeholder="Confirm password"
                     className="w-full p-2 bg-transparent border-2 border-opacity-60 rounded-md border-white outline-none focus:outline-none text-[15px]"
                     required
                   />
+                  {error.confirmPassword && <span className="err">{error.confirmPassword}</span>}
                   <button
                     type="button"
                     className="absolute right-2 top-2 text-white"
-                    onClick={handleTogglePassword}
+                    onClick={handleTogglePassword2}
                   >
-                    {showPassword ? <FontAwesomeIcon
-                      icon={faEye}
-                      className="text-white h-[16px] w-[16px]"
-                    /> : <FontAwesomeIcon
-                      icon={faEyeSlash}
-                      className="text-white h-[16px] w-[16px]"
-                    />}
+                    {showPassword2 ? <FontAwesomeIcon icon={faEye} className="text-white h-[16px] w-[16px]" /> : <FontAwesomeIcon icon={faEyeSlash} className="text-white h-[16px] w-[16px]" />}
                   </button>
                 </div>
               </div>
-
-
               <div className="w-full flex items-center justify-between">
                 <div className="w-full flex items-center">
                   <input type="checkbox" className="h-4 mr-2" required />
                   <p className="text-sm">I agree to the Terms & Conditions</p>
                 </div>
               </div>
-
               <div className="w-full my-4">
                 <button type="submit" className="w-full text-white my-2 font-semibold bg-[#6C63FF] rounded-md p-3 text-center flex items-center justify-center hover:bg-opacity-60 transition-colors duration-300">
                   Sign Up
                 </button>
               </div>
-
               <div className="w-full flex items-center justify-center relative py-1 mb-3">
                 <div className="w-full h-[1px] bg-white"></div>
                 <p className="text-lg absolute bg-[#1F1D1D] px-2 top-1/2 transform -translate-y-1/2">
                   OR
                 </p>
               </div>
-              <div className="w-full text-white my-2 bg-[#1F1D1D] border border-opacity-60  border-white rounded-md p-4 text-center flex items-center justify-center hover:bg-gray-900 transition-colors duration-300 cursor-pointer">
-                <img src="../assets/google_logo.png" className="h-6 mr-2" />
+              <div className="w-full text-white my-2 bg-[#1F1D1D] border border-opacity-60 border-white rounded-md p-4 text-center flex items-center justify-center hover:bg-gray-900 transition-colors duration-300 cursor-pointer">
+                <img src="../assets/google_logo.png" className="h-6 mr-2" alt="google logo" />
                 Sign Up With Google
               </div>
               <div>
