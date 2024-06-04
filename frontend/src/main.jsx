@@ -14,6 +14,7 @@ import Quiz from './components/Quiz/Quiz.jsx'
 import SignUp from './components/SignUp/Signup.jsx'
 import Contact from './components/Contact/Contact.jsx'
 import TermsAndConditions from './components/TermsAndConditions/TermsAndConditions.jsx'
+import PrivacyPolicy from './components/PrivacyPolicy/PrivacyPolicy.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -26,6 +27,7 @@ const router = createBrowserRouter(
       <Route path="/quizes" element={<Login />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/termsandconditions" element={<TermsAndConditions />} />
+      <Route path="/privacypolicy" element={<PrivacyPolicy />} />
       <Route path="/user/:id" element={<User />} />
       <Route path="/dashboard" element={<DashboardComponent />} />
       <Route path="/github/:username" element={<Github />} />
