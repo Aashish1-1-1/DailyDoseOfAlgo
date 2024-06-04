@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SingupImg from "/assets/signup.svg";
 import { NavLink } from "react-router-dom";
+import { faEye, faEyeSlash } from "@fortawesome/fontawesome-free-solid";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -81,7 +83,13 @@ const Login = () => {
                     className="absolute right-2 top-2 text-white"
                     onClick={handleTogglePassword}
                   >
-                    {showPassword ? "Hide" : "Show"}
+                    {showPassword ? <FontAwesomeIcon
+                    icon={faEye }
+                    className="text-white h-[16px] w-[16px]"
+                  /> : <FontAwesomeIcon
+                  icon={faEyeSlash }
+                  className="text-white h-[16px] w-[16px]"
+                />}
                   </button>
                 </div>
               </div>
