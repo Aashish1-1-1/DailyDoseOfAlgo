@@ -3,7 +3,7 @@ import React from 'react';
 const TermsAndConditions = () => {
   return (
     <div className="min-h-screen bg-slate-900 text-white font-poppins p-6">
-      <h1 className="text-4xl font-bold mb-4 mt-12">Terms and Conditions</h1>
+      <h1 className="text-4xl font-bold mb-6 mt-14 text-center">Terms and Conditions</h1>
       <p className="mb-4">Welcome to DailyDoseOfAlgo!</p>
       <p className="mb-4">These terms and conditions outline the rules and regulations for the use of DailyDoseOfAlgo's Website.</p>
       <p className="mb-4">By accessing this website we assume you accept these terms and conditions. Do not continue to use DailyDoseOfAlgo if you do not agree to take all of the terms and conditions stated on this page.</p>
