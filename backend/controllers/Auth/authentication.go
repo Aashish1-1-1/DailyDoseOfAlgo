@@ -118,6 +118,11 @@ func HandelLogin(c *gin.Context){
 
 	c.JSON(http.StatusBadRequest,gin.H{"message":"Email or password incorrect"})
 }
+func IsValid(c *gin.Context){
+	userid,_:=c.Get("user")
+	fmt.Println(userid);
+	c.JSON(http.StatusOK, gin.H{"Authenticated":"hehe"})
+}
 
 
 func SendMail(email string,verification_code string) error {

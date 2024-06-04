@@ -104,12 +104,12 @@ func Evaluation(c *gin.Context){
 			numberofcorrect++;
 		}
 	}
-		fmt.Println(numberofcorrect)
-		fmt.Println(len(correctans))
+	//Insert the data into progress table user_id and algo_id and score if score>80
+	//If quiz was of today's pick maintain streak else do nothing
 	c.JSON(http.StatusOK, gin.H{"Score": float32(numberofcorrect)/float32(len(correctans))*100})
 }
 
 func Todaypick(c *gin.Context){
-	fmt.Println("Hello world")	
+	//query the table today's pick which contains algo id and redirect to respective id
 }
 
