@@ -108,3 +108,8 @@ func Evaluation(c *gin.Context){
 		fmt.Println(len(correctans))
 	c.JSON(http.StatusOK, gin.H{"Score": float32(numberofcorrect)/float32(len(correctans))*100})
 }
+
+func Todaypick(c *gin.Context){
+	fmt.Println("Hello world")	
+}
+

@@ -23,30 +23,42 @@ func HandelVerify(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "Your account is verified please login"})
 }
 
-func CheckAuthorization(c *gin.Context) {
-	tokenString, err := c.Cookie("Auth")
+func JwtAuthMiddleware(c *gin.Context) {
+authHeader := c.GetHeader("Authorization")
+	if authHeader == "" {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Authorization header required"})
+		c.Abort()
+		return
+	}
+
+	tokenString := strings.TrimPrefix(authHeader, "Bearer ")
+	if tokenString == authHeader {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Bearer token required"})
+		c.Abort()
+		return
+	}
+
+	err := godotenv.Load()
 	if err != nil {
-		c.AbortWithStatus(http.StatusUnauthorized)
+		fmt.Println("Error loading .env file")
+	}
+	secret := os.Getenv("SECRET")
+	if secret == "" {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "JWT_SECRET not set"})
+		c.Abort()
 		return
 	}
 
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
-		// Validate signing method
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-			return nil, fmt.Errorf("Unexpected signing method: %v", token.Header["alg"])
+			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
 		}
-
-		// Load secret key from environment variable
-		secret := os.Getenv("SECRET")
-		if secret == "" {
-			fmt.Println("Secret not found")
-		}
-
 		return []byte(secret), nil
 	})
 
 	if err != nil || !token.Valid {
-		c.AbortWithStatus(http.StatusUnauthorized)
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token"})
+		c.Abort()
 		return
 	}
 
@@ -62,22 +74,15 @@ func CheckAuthorization(c *gin.Context) {
 		return
 	}
 
-	userID, ok := claims["userid"].(float64)
+	userID, ok := claims["userid"].(string)
 	if !ok {
 		c.AbortWithStatus(http.StatusUnauthorized)
 		return
 	}
-//  var user string
-//  query := `SELECT "name" FROM "users" WHERE "user_id"=$1`
-//  user, err = database.Searchsmt(query, int(userID))
-//  if err!=nil{
-//    c.AbortWithStatus(http.StatusInternalServerError)
-//  }
-//	if err != nil {
-//		c.AbortWithStatus(http.StatusInternalServerError)
-//		return
-//	}
-//
-	c.Set("user", userID)
-	c.Next()
-}
+
+	fmt.Println(userID)
+
+	// Pass userID to the next handlers
+	c.Set("userID", userID)
+	c.Next()}
+

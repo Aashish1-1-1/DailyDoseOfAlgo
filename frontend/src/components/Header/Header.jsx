@@ -4,10 +4,12 @@ import { faUser } from "@fortawesome/fontawesome-free-solid";
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./Header.css";
+import { useAuth } from '../../Context/Auth'
 
 
 const Header = () => {
   const id = "aashish";
+  const auth= useAuth();
 
   // useEffect(() => {
   //   const onScroll = (event) => {
@@ -38,11 +40,14 @@ const Header = () => {
       }
     };
   }, []);
-
+const handellogout=()=>{
+	    localStorage.removeItem('token');
+}
 
   return (
     <>
-      <nav className="bg-[rgba(0,0,0)] w-full px-[20px] sm:px-[80px] py-[10px] flex items-center justify-between z-20 font-poppins transition-all duration-300 ease fixed">
+ 	  {auth.isAuthenticated ? console.log("Authenticated"):console.log("Not authenticated")}
+     <nav className="bg-[rgba(0,0,0)] w-full px-[20px] sm:px-[80px] py-[10px] flex items-center justify-between z-20 font-poppins transition-all duration-300 ease fixed">
         <Link to="/" className="brand-logo">
           <img src={"/assets/logo.png"} alt="brand-logo" className="h-8" />
         </Link>
@@ -134,7 +139,7 @@ const Header = () => {
               </li>
               <li className="mb-[10px] inline-flex">
                 <FontAwesomeIcon icon={faRightFromBracket} className="text-[#525252] bg-[#e5e5e5] rounded-[50%] p-[8px] mr-[15px] h-[16px] w-[16px]"/>
-                <NavLink to="/logout" className="text-[#a5a5a5] font-medium block hover:text-purple-500 text-[16px]">Logout</NavLink>
+                <NavLink to="/login" className="text-[#a5a5a5] font-medium block hover:text-purple-500 text-[16px]" onClick={handellogout}>Logout</NavLink>
               </li>
             </ul>
           </div>
