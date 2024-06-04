@@ -14,7 +14,7 @@ const Quiz = () => {
     const fetchQuizData = async () => {
       try {
         const response = await fetch(
-          "http://localhost:8080/api/quiz/linkedlist"
+          `http://localhost:8080/api/quiz/${name}`
         );
         const data = await response.json();
         setQuizData(data.question);

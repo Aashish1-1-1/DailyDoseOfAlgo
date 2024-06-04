@@ -2,7 +2,7 @@
   "name": "Aashish Adhikari",
   "profileImage": "http://localhost:8080/api/getimage/aashish.jpeg",
   "submissions": 112,
-  "learningProgress": ["array", "linkedlist", "insertion sort", "stack", "queue", "halloween"],
+  "learningProgress": ["array", "linkedlist", "insertion sort", "stack", "queue", "selection sort","heap sort"],
   "streak": {
     "current": 3,
     "longest": 8,
@@ -36,6 +36,6 @@
     }
   ],
   "contributionDates": [
-    3, 7, 12, 15, 18, 22, 27, 31, 34, 38, 41, 45, 49, 52
+    3, 7, 12, 15, 18, 22, 27, 31, 34, 38, 41, 45
   ]
 }
