@@ -101,13 +101,13 @@ const SignUp = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <div className="w-full lg:h-[calc(100vh)] h-full flex flex-col lg:flex-row justify-center font-poppins text-white pt-[60px]">
+      <form onSubmit={handleSubmit} autoComplete="off">
+        <div className="w-full lg:h-[calc(100vh)] h-full flex flex-col lg:flex-row justify-center font-poppins text-white pt-[62px]">
           {/* Image */}
           <div className="relative w-full lg:w-1/2 h-full flex-col hidden lg:flex justify-center items-center p-14 bg-slate-950 text-white">
             <img src={SingupImg} alt="signup" className="scale-75" />
-            <h1 className="font-semibold text-5xl">Daily Dose Of Algo</h1>
-            <h3 className="text-white opacity-65 text-2xl text-center mt-3">Master your algorithm with DailyDoseofAlgo’s quizes and algorithm lessons.</h3>
+            <h1 className="font-semibold text-4xl">Daily Dose Of Algo</h1>
+            <h3 className="text-white opacity-65 text-xl text-center mt-3">Master your algorithm with DailyDoseofAlgo’s quizes and algorithm lessons.</h3>
           </div>
 
           {/* Text container */}
@@ -126,7 +126,7 @@ const SignUp = () => {
                   className="w-full p-2 bg-transparent border-2 border-opacity-60 rounded-md border-white outline-none focus:outline-none text-[15px]"
                   required
                 />
-                {error.username && <span className="err">{error.username}</span>}
+                {error.username && <span className="err text-red-500 text-[14px]">{error.username}</span>}
               </div>
               <div className="w-full mb-[10px]">
                 <label htmlFor="email" className="text-white text-[14px] mb-[2px]">Email</label>
@@ -135,12 +135,13 @@ const SignUp = () => {
                   type="email"
                   onChange={handleChange}
                   onBlur={validateInput}
+                  autoComplete="off"
                   name="email"
                   placeholder="Enter your email"
                   className="w-full p-2 bg-transparent border-2 border-opacity-60 rounded-md border-white outline-none focus:outline-none text-[15px]"
                   required
                 />
-                {error.email && <span className="err">{error.email}</span>}
+                {error.email && <span className="err text-red-500 text-[14px]">{error.email}</span>}
               </div>
               <div className="w-full mb-[10px]">
                 <label htmlFor="password" className="text-white text-[14px] mb-[2px]">Password</label>
@@ -150,12 +151,13 @@ const SignUp = () => {
                     value={formData.password}
                     onChange={handleChange}
                     onBlur={validateInput}
+                    autoComplete="off"
                     name="password"
                     placeholder="Enter your password"
                     className="w-full p-2 bg-transparent border-2 border-opacity-60 rounded-md border-white outline-none focus:outline-none text-[15px]"
                     required
                   />
-                  {error.password && <span className="err">{error.password}</span>}
+                  {error.password && <span className="err text-red-500 text-[14px]">{error.password}</span>}
                   <button
                     type="button"
                     className="absolute right-2 top-2 text-white"
@@ -178,7 +180,7 @@ const SignUp = () => {
                     className="w-full p-2 bg-transparent border-2 border-opacity-60 rounded-md border-white outline-none focus:outline-none text-[15px]"
                     required
                   />
-                  {error.confirmPassword && <span className="err">{error.confirmPassword}</span>}
+                  {error.confirmPassword && <span className="err text-red-500 text-[14px]">{error.confirmPassword}</span>}
                   <button
                     type="button"
                     className="absolute right-2 top-2 text-white"

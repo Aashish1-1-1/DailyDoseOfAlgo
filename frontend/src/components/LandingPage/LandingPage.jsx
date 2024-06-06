@@ -4,8 +4,13 @@ import { faXTwitter } from "@fortawesome/free-brands-svg-icons";
 import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../../Context/Auth";
 
 const LandingPage = () => {
+
+  const { auth } = useAuth();
+  let isAuthenticated = auth.isAuthenticated; 
+
   return (
     <>
       {/* Header */}
@@ -24,7 +29,7 @@ const LandingPage = () => {
             </p>
             <div className="btn-container mt-6 flex gap-2">
               <NavLink
-                to="/login"
+                to={isAuthenticated? "/dashboard" : "/login"}
                 className="text-white hover:text-white bg-purple-500 px-6 py-3 font-semibold rounded-md hover:tracking-wider hover:bg-transparent border-transparent border-2 hover:border-gray-500 ease-in transition-all"
               >
                 Get Started
