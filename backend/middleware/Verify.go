@@ -86,5 +86,6 @@ authHeader := c.GetHeader("Authorization")
 
 	// Pass userID to the next handlers
 	c.Set("userID", userID)
-	c.Next()}
+	c.Next()
+}
 

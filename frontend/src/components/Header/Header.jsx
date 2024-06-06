@@ -9,7 +9,9 @@ import { useAuth } from '../../Context/Auth'
 
 const Header = () => {
   const id = "aashish";
-  const auth= useAuth();
+  const { auth } = useAuth();
+
+  let isAuthenticated = auth.isAuthenticated;
 
   // useEffect(() => {
   //   const onScroll = (event) => {
@@ -47,7 +49,7 @@ const handellogout=()=>{
   return (
     <>
  	  {auth.isAuthenticated ? console.log("Authenticated"):console.log("Not authenticated")}
-     <nav className="bg-[rgba(0,0,0)] w-full px-[20px] sm:px-[80px] py-[10px] flex items-center justify-between z-20 font-poppins transition-all duration-300 ease fixed">
+     <nav className="bg-[rgba(0,0,0)] w-full px-[20px] sm:px-[80px] py-[10px] flex items-center justify-between z-20 font-poppins transition-all duration-300 ease fixed min-h-[62px]">
         <Link to="/" className="brand-logo">
           <img src={"/assets/logo.png"} alt="brand-logo" className="h-8" />
         </Link>
@@ -117,13 +119,15 @@ const handellogout=()=>{
             </NavLink>
           </li>
         </ul>
-
+        
+        { isAuthenticated &&
         <div id="user-menu" className="image-container cursor-pointer ml-4 h-[42px] w-[42px] object-fill rounded-[50%] overflow-hidden" onClick={(e)=>{
           document.querySelector(".sub-menu-wrap").classList.toggle("active");
         }}>
           <img src={"/assets/aashish.jpeg"} alt="user" className="" />
         </div>
-
+        }
+        { isAuthenticated && (
         <div id="sub-menu" className="sub-menu-wrap overflow-hidden absolute top-full right-[5%] w-[240px] transition-all duration-300 ease text-white rounded-md bg-gray-800 p-[20px] m-[10px]">
           <div className="sub-menu ">
             <div className="user-info flex items-center">
@@ -144,6 +148,7 @@ const handellogout=()=>{
             </ul>
           </div>
         </div>
+        )}
 
 
         </div>
