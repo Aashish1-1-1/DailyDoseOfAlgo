@@ -4,7 +4,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../Context/Auth";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/fontawesome-free-solid";
-
+import { useGoogleLogin } from "@react-oauth/google";
+import axios from "axios";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -51,6 +52,37 @@ const Login = () => {
       console.error("Error submitting form:", error);
     }
   };
+
+  const handleGoogleSignIn = useGoogleLogin({
+    onSuccess: async (codeResponse) => {
+      console.log("codeResponse: ", codeResponse);
+
+      // send codeResponse to the server
+      const tokenResponse = await axios.get(
+        `http://localhost:8080/auth/google/callback?code=${codeResponse.code}`
+      );
+      console.log(tokenResponse);
+
+      // try {
+        // const response = await fetch(`http://localhost:8080/auth/google/callback?code=${codeResponse.code}`, {
+        //   method: "GET"
+        // });
+  
+        // const result = await response.json();
+        // console.log("tokenResponse1: ", result);
+        // console.log("tokenResponse2: ", response);
+        // console.log("Welcome");
+        // // localStorage.setItem("token", result.Auth);
+        // // setAuth({ isAuthenticated: true });
+        // navigate("/dashboard");
+      
+      // } catch (error) {
+      //   console.error("Error submitting form:", error);
+      // }
+      
+    },
+    flow: "auth-code",
+  });
 
   return (
     <>
@@ -148,10 +180,13 @@ const Login = () => {
                   OR
                 </p>
               </div>
-              <div className="w-full text-white my-2 bg-[#1F1D1D] border border-opacity-60  border-white rounded-md p-4 text-center flex items-center justify-center hover:bg-gray-900 transition-colors duration-300 cursor-pointer">
+
+              <div className="w-full text-white my-2 bg-[#1F1D1D] border border-opacity-60  border-white rounded-md p-4 text-center flex items-center justify-center hover:bg-gray-900 transition-colors duration-300 cursor-pointer"
+              onClick={()=>handleGoogleSignIn()}>
                 <img src="../assets/google_logo.png" className="h-6 mr-2" />
                 Log In With Google
               </div>
+
               <div>
                 <p className="text-white text-center mt-3">
                   Don't have an account?{" "}

@@ -38,6 +38,11 @@ func Routes() *gin.Engine {
     router.POST("/api/quiz/evaluate/:name", algorithm.Evaluation)
     router.POST("/api/isvalid", Verify.JwtAuthMiddleware,Auth.IsValid)
     router.GET("/api/todaypick", algorithm.Todaypick)
+
+    // Google OAuth routes
+	router.GET("/auth/google", Auth.HandleGoogleLogin)
+	router.GET("/auth/google/callback", Auth.HandleGoogleCallback)
+    
     return router
 }
 

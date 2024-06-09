@@ -37,9 +37,11 @@ import Header from "./components/Header/Header";
 import { Outlet, useNavigate, redirect } from "react-router-dom";
 import Footer from "./components/Footer/Footer";
 import { AuthProvider, useAuth } from "./Context/Auth";
+import { GoogleOAuthProvider } from '@react-oauth/google';
+
 
 const Layout = () => {
-  const PublicRoutes = ["/", "/login", "/signup", "/contact", "/about", "/termsandconditions"];
+  const PublicRoutes = ["/", "/login", "/signup", "/contact", "/about", "/termsandconditions", "/auth/success"];
 
   return (
     <AuthProvider>
@@ -60,9 +62,11 @@ const LayoutContent = ({ PublicRoutes }) => {
 
   return (
     <>
-      <Header />
-      <Outlet />
-      <Footer />
+      <GoogleOAuthProvider clientId="903882814714-9uqs45mhrs8kn4evvrq581iqdm8pfm96.apps.googleusercontent.com" >
+        <Header />
+        <Outlet />
+        <Footer />
+      </GoogleOAuthProvider>
     </>
   );
 };

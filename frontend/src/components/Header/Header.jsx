@@ -5,6 +5,7 @@ import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./Header.css";
 import { useAuth } from '../../Context/Auth'
+import { googleLogout } from "@react-oauth/google";
 
 
 const Header = () => {
@@ -44,6 +45,8 @@ const Header = () => {
   }, []);
 const handellogout=()=>{
 	    localStorage.removeItem('token');
+      googleLogout();
+      console.log('Logged out');
 }
 
   return (

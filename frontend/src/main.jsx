@@ -15,6 +15,7 @@ import SignUp from './components/SignUp/Signup.jsx'
 import Contact from './components/Contact/Contact.jsx'
 import TermsAndConditions from './components/TermsAndConditions/TermsAndConditions.jsx'
 import PrivacyPolicy from './components/PrivacyPolicy/PrivacyPolicy.jsx'
+import AuthSuccess from './utils/AuthSuccess.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -22,6 +23,7 @@ const router = createBrowserRouter(
       <Route path="/" element={<LandingPage />} />
       <Route path="/about" element={<About />} />\
       <Route path="/login" element={<Login/>}/>
+      <Route path="/auth/success" element={<AuthSuccess/>}/>
       <Route path="/signup" element={<SignUp/>}/>
       <Route path="/algorithms" element={<DashboardComponent />} />
       <Route path="/quizes" element={<Login />} />
