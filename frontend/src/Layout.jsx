@@ -45,19 +45,26 @@ const Layout = () => {
 
   return (
     <AuthProvider>
+      <Header />
       <LayoutContent PublicRoutes={PublicRoutes} />
+      <Footer />
     </AuthProvider>
   );
 };
 
 const LayoutContent = ({ PublicRoutes }) => {
   const { auth } = useAuth();
-  const isAuthenticated = auth.isAuthenticated;
-  const navigate = useNavigate();
+  const location = useLocation();
+  const { isAuthenticated, loading } = auth;
 
-  if (!isAuthenticated && !PublicRoutes.includes(window.location.pathname)) {
-    console.log(`Redirecting to login from ${window.location.pathname}`);
-    return navigate("/login");
+  if (loading) {
+    return <div>Loading...</div>; // or any loading indicator
+  }
+
+  const isPublicRoute = PublicRoutes.includes(location.pathname);
+
+  if (!isAuthenticated && !isPublicRoute) {
+    return <Navigate to="/login" replace />;
   }
 
   return (
@@ -72,3 +79,4 @@ const LayoutContent = ({ PublicRoutes }) => {
 };
 
 export default Layout;
+

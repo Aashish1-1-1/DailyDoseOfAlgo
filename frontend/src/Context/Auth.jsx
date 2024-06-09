@@ -23,6 +23,7 @@ export const AuthProvider = ({ children }) => {
             setAuth({ isAuthenticated: true });
           } else {
             console.log(responseData);
+	    localStorage.removeItem('token');
           }
         } catch (error) {
           console.log("Fetching failed", error);

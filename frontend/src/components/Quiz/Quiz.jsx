@@ -7,39 +7,52 @@ const Quiz = () => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [userAnswers, setUserAnswers] = useState([]);
   const [quizCompleted, setQuizCompleted] = useState(false);
-
+  const [numCorrectAnswers, setnumCorrectAnswers] = useState(0);
   const { name } = useParams();
+  const token = localStorage.getItem("token");
 
   useEffect(() => {
     const fetchQuizData = async () => {
       try {
-        const response = await fetch(
-          `http://localhost:8080/api/quiz/${name}`
-        );
+        const response = await fetch(`http://localhost:8080/api/quiz/${name}`);
         const data = await response.json();
         setQuizData(data.question);
-        console.log(data);
       } catch (error) {
         console.error("Error fetching quiz data:", error);
       }
     };
     fetchQuizData();
-  }, []);
+  }, [name]);
 
   const handleOptionSelect = (option) => {
     setSelectedOption(option);
   };
 
-  const handleNextQuestion = () => {
+  const handleNextQuestion = async () => {
+    if (selectedOption) {
+      setUserAnswers((prevAnswers) => [...prevAnswers, selectedOption.id]);
+    }
+
     if (currentQuestion === quizData.length - 1) {
       // Quiz completed
+      try {
+        const response = await fetch(`http://localhost:8080/api/quiz/evaluate/${name}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ answers: [...userAnswers, selectedOption?.id] }),
+        });
+        const responseData = await response.json();
+        setnumCorrectAnswers(responseData.Score);
+      } catch (error) {
+        console.error("Error submitting form:", error);
+      }
       setQuizCompleted(true);
     } else {
       setCurrentQuestion(currentQuestion + 1);
       setSelectedOption(null);
-      if (selectedOption) {
-        setUserAnswers((prevAnswers) => [...prevAnswers, selectedOption.id]);
-      }
     }
   };
 
@@ -55,12 +68,6 @@ const Quiz = () => {
   }
 
   if (quizCompleted) {
-    // Logic to check the selected options with the backend array
-    const backendCorrectAnswers = []; // Replace with the actual backend array
-    const numCorrectAnswers = userAnswers.filter(
-      (answer, index) => answer === backendCorrectAnswers[index]
-    ).length;
-
     return (
       <div className="bg-gray-900 flex justify-center items-center h-screen w-full">
         <div className="max-w-md mx-auto">
@@ -91,7 +98,7 @@ const Quiz = () => {
             Quiz: {name.charAt(0).toUpperCase() + name.slice(1)}
           </h2>
           <p className="text-xl mb-4 font-poppins font-semibold">
-            {currentQuestion+1}. {currentQuestionData.question}
+            {currentQuestion + 1}. {currentQuestionData.question}
           </p>
           <div>
             {currentQuestionData.options.map((option) => (
@@ -130,3 +137,4 @@ const Quiz = () => {
 };
 
 export default Quiz;
+
