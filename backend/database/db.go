@@ -75,6 +75,17 @@ func Searchsmt(query string,values ...interface{}) (string,error) {
   CloseDB()
   return data,nil 
 }
+func Searchsmt2(query string,values ...interface{}) (int64,error) {
+  Init()
+  var data int64
+  err := Db.QueryRow(query,values...).Scan(&data)
+  if err!=nil{
+    fmt.Println(err)
+    return -1,err
+  }
+  CloseDB()
+  return data,nil 
+}
 func MakeSearchQuery(query string,values ...interface{}) (*sql.Rows,error) {
   Init()
   rows,err :=Db.Query(query,values...)

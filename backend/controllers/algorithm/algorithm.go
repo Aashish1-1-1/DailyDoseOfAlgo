@@ -76,7 +76,7 @@ func ThrowQuiz(c *gin.Context){
 }
 
 func Evaluation(c *gin.Context){
-
+	user_id,_:=c.Get("userID")
 	var tocheck algomodel.Quizevaluate
 
 	if err:=c.ShouldBind(&tocheck); err!=nil{
@@ -106,10 +106,27 @@ func Evaluation(c *gin.Context){
 	}
 	//Insert the data into progress table user_id and algo_id and score if score>80
 	//If quiz was of today's pick maintain streak else do nothing
-	c.JSON(http.StatusOK, gin.H{"Score": float32(numberofcorrect)/float32(len(correctans))*100})
+	score := float32(numberofcorrect)/float32(len(correctans))*100;
+	if(score>80){
+		query=`select id from dsa where name=$1`;
+		dsa_id,err := database.Searchsmt2(query,name);
+		if err!=nil{
+	    		c.JSON(http.StatusInternalServerError, gin.H{"error": "Internal Server Error"})
+	  	return
+  		}
+		query=`insert into progress(user_id,dsa_id,score) values($1,$2,$3)`
+
+		err = database.MakeInsertQuery(query,user_id,dsa_id,score)
+		if err!=nil{
+	    		c.JSON(http.StatusInternalServerError, gin.H{"error": "Internal Server Error"})
+	  	return
+  		}
+	}
+	c.JSON(http.StatusOK, gin.H{"Score": numberofcorrect})
 }
 
 func Todaypick(c *gin.Context){
 	//query the table today's pick which contains algo id and redirect to respective id
+	//query:=SELECT id FROM dsa ORDER BY RANDOM() LIMIT 1;
 }
 
