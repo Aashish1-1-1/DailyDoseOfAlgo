@@ -25,7 +25,7 @@ func Routes() *gin.Engine {
     config.AllowHeaders = []string{"Authorization", "Content-Type"} // Allow specific headers
     router.Use(cors.New(config))
 
-    // Define your routes
+
     router.GET("/", func(c *gin.Context) {
         c.JSON(http.StatusOK, gin.H{"message": "Hello from server"})
     })
@@ -40,6 +40,10 @@ func Routes() *gin.Engine {
     router.POST("/api/isvalid", Verify.JwtAuthMiddleware,Auth.IsValid)
     router.GET("/api/todaypick", algorithm.Todaypick)
     router.GET("/api/profile/:name", Users.Throwprofile)
+
+    // Google OAuth routes
+     router.GET("/auth/google", Auth.HandleGoogleLogin)
+     router.GET("/auth/google/callback", Auth.HandleGoogleCallback)
     return router
 }
 
