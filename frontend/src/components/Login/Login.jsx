@@ -58,27 +58,26 @@ const Login = () => {
       console.log("codeResponse: ", codeResponse);
 
       // send codeResponse to the server
-      const tokenResponse = await axios.get(
-        `http://localhost:8080/auth/google/callback?code=${codeResponse.code}`
-      );
-      console.log(tokenResponse);
+      // const tokenResponse = await axios.get(
+      //   `http://localhost:8080/auth/google/callback?code=${codeResponse.code}`
+      // );
+      // console.log(tokenResponse.data);
 
-      // try {
-        // const response = await fetch(`http://localhost:8080/auth/google/callback?code=${codeResponse.code}`, {
-        //   method: "GET"
-        // });
+      try {
+        const response = await fetch(`http://localhost:8080/auth/google/callback?code=${codeResponse.code}`, {
+          method: "GET"
+        });
   
-        // const result = await response.json();
-        // console.log("tokenResponse1: ", result);
-        // console.log("tokenResponse2: ", response);
-        // console.log("Welcome");
-        // // localStorage.setItem("token", result.Auth);
-        // // setAuth({ isAuthenticated: true });
-        // navigate("/dashboard");
+        const result = await response.json();
+        console.log("tokenResponse1: ", result);
+        console.log("Welcome");
+        localStorage.setItem("token", result.token);
+        setAuth({ isAuthenticated: true });
+        navigate("/dashboard");
       
-      // } catch (error) {
-      //   console.error("Error submitting form:", error);
-      // }
+      } catch (error) {
+        console.error("Error submitting form:", error);
+      }
       
     },
     flow: "auth-code",
