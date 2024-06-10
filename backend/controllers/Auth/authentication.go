@@ -345,3 +345,4 @@ func SendMail(email string,verification_code string) error {
 	}
 	return nil; 
 }
+

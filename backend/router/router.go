@@ -4,6 +4,7 @@ import(
 	"dailydoseofalgo/database"
 	"dailydoseofalgo/controllers/Auth"
 	"dailydoseofalgo/controllers/algorithm"
+	"dailydoseofalgo/controllers/users"
 	"dailydoseofalgo/middleware"
 
 	"github.com/gin-gonic/gin"
@@ -35,14 +36,10 @@ func Routes() *gin.Engine {
     router.GET("/api/preview/:algoords", algorithm.ThrowAlgos)
     router.GET("/api/getimage/:name", algorithm.ThrowImage)
     router.GET("/api/quiz/:name", algorithm.ThrowQuiz)
-    router.POST("/api/quiz/evaluate/:name", algorithm.Evaluation)
+    router.POST("/api/quiz/evaluate/:name",Verify.JwtAuthMiddleware,algorithm.Evaluation)
     router.POST("/api/isvalid", Verify.JwtAuthMiddleware,Auth.IsValid)
     router.GET("/api/todaypick", algorithm.Todaypick)
-
-    // Google OAuth routes
-	router.GET("/auth/google", Auth.HandleGoogleLogin)
-	router.GET("/auth/google/callback", Auth.HandleGoogleCallback)
-    
+    router.GET("/api/profile/:name", Users.Throwprofile)
     return router
 }
 

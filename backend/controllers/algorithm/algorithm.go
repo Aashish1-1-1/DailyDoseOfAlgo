@@ -121,6 +121,21 @@ func Evaluation(c *gin.Context){
 	    		c.JSON(http.StatusInternalServerError, gin.H{"error": "Internal Server Error"})
 	  	return
   		}
+
+		query=`select score from leaderboard where user_id=$1`
+		marks,err := database.Searchsmt2(query,user_id);
+		if err!=nil{
+	    		c.JSON(http.StatusInternalServerError, gin.H{"error": "Internal Server Error"})
+	  	return
+  		}
+
+		query=`insert into leaderboard(user_id,score) values($1,$2)`
+
+		err = database.MakeInsertQuery(query,user_id,score+float32(marks))
+		if err!=nil{
+	    		c.JSON(http.StatusInternalServerError, gin.H{"error": "Internal Server Error"})
+	  	return
+  		}
 	}
 	c.JSON(http.StatusOK, gin.H{"Score": numberofcorrect})
 }
@@ -129,4 +144,5 @@ func Todaypick(c *gin.Context){
 	//query the table today's pick which contains algo id and redirect to respective id
 	//query:=SELECT id FROM dsa ORDER BY RANDOM() LIMIT 1;
 }
+
 
