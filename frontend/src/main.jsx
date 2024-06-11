@@ -16,6 +16,7 @@ import Contact from './components/Contact/Contact.jsx'
 import TermsAndConditions from './components/TermsAndConditions/TermsAndConditions.jsx'
 import PrivacyPolicy from './components/PrivacyPolicy/PrivacyPolicy.jsx'
 import AuthSuccess from './utils/AuthSuccess.jsx'
+import Error from './components/Error/Error.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -35,6 +36,7 @@ const router = createBrowserRouter(
       <Route path="/github/:username" element={<Github />} />
       <Route path="/algorithms/:name" element={<Blog />} />
       <Route path="/quiz/:name" element={<Quiz />} />
+      <Route path="*" element={<Error />} />
     </Route>
   )
 );
