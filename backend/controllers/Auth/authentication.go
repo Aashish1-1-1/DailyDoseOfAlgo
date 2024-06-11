@@ -19,7 +19,11 @@ import(
 	"golang.org/x/oauth2/google"
 	"context"
 	"io/ioutil"
+	"io"
 	"encoding/json"
+
+	firebase "firebase.google.com/go"
+    "google.golang.org/api/option"
 )
 
 var googleOauthConfig *oauth2.Config
@@ -73,69 +77,6 @@ func HandleGoogleLogin(c *gin.Context) {
 
 	c.Redirect(http.StatusTemporaryRedirect, url)
 }
-
-// func HandleGoogleCallback(c *gin.Context) {
-// 	// Handle the callback from Google
-// 	code := c.Query("code")
-// 	if code == "" {
-// 		c.JSON(http.StatusBadRequest, gin.H{"error": "Failed to get authorization code"})
-// 		return
-// 	}
-
-// 	// Exchange the authorization code for an access token
-// 	oauthToken, err := googleOauthConfig.Exchange(context.Background(), code)
-// 	if err != nil {
-// 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to exchange authorization code for token"})
-// 		return
-// 	}
-
-// 	// Get the user's information from the Google API
-// 	client := googleOauthConfig.Client(context.Background(), oauthToken)
-// 	resp, err := client.Get("https://www.googleapis.com/oauth2/v3/userinfo")
-// 	if err != nil {
-// 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to retrieve user information"})
-// 		return
-// 	}
-// 	defer resp.Body.Close()
-
-// 	// Handle the user's information and authenticate them in your application
-// 	// (e.g., create a new user or update an existing user in your database)
-// 	// Get the user information from the retrieved response
-//     userInfo, err := getUserInfoFromResponse(resp)
-//     if err != nil {
-//         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to retrieve user information"})
-//         return
-//     }
-
-//     // Load the secret key from environment variable
-//     if err := godotenv.Load(); err != nil {
-//         log.Fatal("Error loading .env file")
-//     }
-//     secret := os.Getenv("SECRET")
-//     if secret == "" {
-//         log.Fatal("Secret key not found")
-//     }
-
-//     // Create JWT token with user claims
-//     token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
-//         "id":     userInfo.ID,
-//         "email":  userInfo.Email,
-//         "name":   userInfo.Name,
-//         "picture": userInfo.Picture,
-//         "exp":    time.Now().Add(time.Hour * 24 * 5).Unix(), // Set the desired expiration time
-//     })
-
-//     // Generate token string
-//     tokenString, err := token.SignedString([]byte(secret))
-//     if err != nil {
-//         c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to generate token string"})
-//         return
-//     }
-
-//     // After successful authentication, redirect the user back to your React application
-//     // and pass the token string as a query parameter
-//     c.Redirect(http.StatusTemporaryRedirect, "http://localhost:5173/auth/success?token="+tokenString)
-// }
 
 func GetUserInfo(accessToken string) (map[string]interface{}, error) {
     userInfoEndpoint := "https://www.googleapis.com/oauth2/v2/userinfo"
@@ -216,6 +157,55 @@ func randStr(n int) string {
 	return string(b)
 }
 
+
+func uploadToFirebase(filePath string, fileNames string) (string, error) {
+	ctx := context.Background()
+	configPath := os.Getenv("FIREBASE_CONFIG_PATH")
+	opt := option.WithCredentialsFile(configPath)
+
+	app, err := firebase.NewApp(ctx, nil, opt)
+	if err != nil {
+		return "", err
+	}
+
+	storageClient, err := app.Storage(ctx)
+	if err != nil {
+		return "", err
+	}
+
+	bucketName := os.Getenv("FIREBASE_BUCKET_NAME")
+	bucket, err := storageClient.Bucket(bucketName)
+	if err != nil {
+		return "", err
+	}
+
+	// Upload to 'images' directory
+	fileName := "images/" + fileNames
+	file, err := os.Open(filePath)
+	if err != nil {
+		return "", err
+	}
+	defer file.Close()
+
+	wc := bucket.Object(fileName).NewWriter(ctx)
+	if _, err = file.Seek(0, 0); err != nil {
+		return "", err
+	}
+
+	if _, err = io.Copy(wc, file); err != nil {
+		return "", err
+	}
+
+	if err := wc.Close(); err != nil {
+		return "", err
+	}
+
+	// Generate the public URL
+	imageURL := fmt.Sprintf("https://firebasestorage.googleapis.com/v0/b/%s/o/%s?alt=media", bucketName, "images%2F"+fileNames)
+
+	return imageURL, nil
+}
+
 func HandelSignup(c *gin.Context){
 	var data User.FormDataSign
 
@@ -223,14 +213,34 @@ func HandelSignup(c *gin.Context){
 		c.JSON(http.StatusBadRequest,gin.H{"Error":err.Error()})
 		return
 	}
+
+	// Handle profile image upload
+	file, err := c.FormFile("image")
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Image upload failed"})
+		return
+	}
+
+	filePath := "./" + file.Filename
+	if err := c.SaveUploadedFile(file, filePath); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Image save failed"})
+		return
+	}
+
+	imageURL, err := uploadToFirebase(filePath, file.Filename)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Image upload to Firebase failed"})
+		return
+	}
+
 	name := data.Name
 	email := data.Email
 	password := data.Password
 	hashedpw, _:=bcrypt.GenerateFromPassword([]byte(password),bcrypt.DefaultCost)
 	password = string(hashedpw)
 	verification_code := randStr(7);
-	query:=`insert into "users"("username", "email","password","verification_code") values($1, $2, $3,$4)`
-	err := database.MakeInsertQuery(query,name,email,password,verification_code)
+	query:=`insert into "users"("username", "email", "password","verification_code", "image_url) values($1, $2, $3, $4, $5)`
+	err = database.MakeInsertQuery(query,name,email,password,verification_code,imageURL)
 	if err!=nil{
 	    c.JSON(http.StatusInternalServerError, gin.H{"error": "Internal Server Error"})
 	  return
