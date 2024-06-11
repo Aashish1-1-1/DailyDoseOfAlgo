@@ -3,10 +3,11 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [auth, setAuth] = useState({ isAuthenticated: false });
+  const [auth, setAuth] = useState({ isAuthenticated: false, loading: true });
 
   useEffect(() => {
     const validateToken = async () => {
+
       const token = localStorage.getItem("token");
       if (token) {
         console.log(token);
@@ -20,10 +21,10 @@ export const AuthProvider = ({ children }) => {
           });
           const responseData = await response.json();
           if (response.ok) {
-            setAuth({ isAuthenticated: true });
+            setAuth({ isAuthenticated: true, loading: false});
           } else {
             console.log(responseData);
-	    localStorage.removeItem('token');
+            localStorage.removeItem("token");
           }
         } catch (error) {
           console.log("Fetching failed", error);

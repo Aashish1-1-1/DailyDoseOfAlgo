@@ -1,9 +1,10 @@
-import React from 'react';
-import { Outlet, Navigate, useLocation } from 'react-router-dom';
+import { React, useEffect} from 'react';
+import { Outlet, useNavigate, useLocation, Navigate } from 'react-router-dom';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import { AuthProvider, useAuth } from './Context/Auth';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import Loader from './components/Loader/Loader';
 
 const Layout = () => {
   const PublicRoutes = ['/', '/login', '/signup', '/contact', '/about', '/termsandconditions', '/auth/success'];
@@ -19,22 +20,43 @@ const Layout = () => {
   );
 };
 
+
 const LayoutContent = ({ PublicRoutes }) => {
   const { auth } = useAuth();
   const location = useLocation();
-  const { isAuthenticated, loading } = auth;
+  const navigate = useNavigate(); // Import useNavigate from react-router-dom
 
-  if (loading) {
-    return <div>Loading...</div>; // or any loading indicator
-  }
+  const { isAuthenticated, loading } = auth;
 
   const isPublicRoute = PublicRoutes.includes(location.pathname);
 
-  if (!isAuthenticated && !isPublicRoute) {
-    return <Navigate to="/login" replace />;
+  useEffect(() => {
+    if (loading) {
+      // Show loading screen while checking authentication
+      // return <Loader />;
+    }
+
+    if (isAuthenticated) {
+      // Navigate to dashboard if authenticated
+      navigate("/dashboard");
+    } else {
+      // Navigate to signup if not authenticated
+      navigate("/signup");
+    }
+  }, [loading, isAuthenticated, navigate]);
+
+  if (loading) {
+    return <Loader />;
   }
 
-  return <Outlet />;
+  // Render the appropriate content based on the authentication status
+  return isAuthenticated ? (
+    <Outlet />
+  ) : isPublicRoute ? (
+    <Outlet />
+  ) : (
+    <Navigate to="/login" replace />
+  );
 };
 
 export default Layout;

@@ -251,6 +251,7 @@ func HandelSignup(c *gin.Context){
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"message": "Sent mail please verify"})
+	// c.JSON(http.StatusOK, gin.H{"message": "Sent mail please verify","image_url": imageURL})
 }
 
 func HandelLogin(c *gin.Context){

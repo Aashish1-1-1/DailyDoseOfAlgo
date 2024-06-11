@@ -6,6 +6,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/fontawesome-free-solid";
 import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
+import CircularLoader from "../Loader/CircularLoader";
+import { ToastContainer } from "react-toastify";
+import successToast from "../Toast/successToast";
+import errorToast from "../Toast/errorToast";
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -14,6 +20,7 @@ const Login = () => {
   });
 
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -29,6 +36,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       const response = await fetch("http://localhost:8080/api/login", {
@@ -41,16 +49,20 @@ const Login = () => {
 
       if (response.ok) {
         const result = await response.json();
-        console.log("Welcome");
+        successToast("Login successful, Welcome!");
         localStorage.setItem("token", result.Auth);
         setAuth({ isAuthenticated: true });
         navigate("/dashboard");
       } else {
         console.error("Email or password incorrect");
+        errorToast("Email or password incorrect");
       }
     } catch (error) {
       console.error("Error submitting form:", error);
+      errorToast("Something went wrong, please try again later.");
     }
+
+    setLoading(false);
   };
 
   const handleGoogleSignIn = useGoogleLogin({
@@ -64,27 +76,34 @@ const Login = () => {
       // console.log(tokenResponse.data);
 
       try {
-        const response = await fetch(`http://localhost:8080/auth/google/callback?code=${codeResponse.code}`, {
-          method: "GET"
-        });
-  
+        const response = await fetch(
+          `http://localhost:8080/auth/google/callback?code=${codeResponse.code}`,
+          {
+            method: "GET",
+          }
+        );
+
         const result = await response.json();
         console.log("tokenResponse1: ", result);
         console.log("Welcome");
         localStorage.setItem("token", result.token);
+
+        const decodedToken = jwtDecode(localStorage.getItem("token"));
+        const { id, email, name, picture } = decodedToken;
+        console.log("User information:", id, email, name, picture);
+
         setAuth({ isAuthenticated: true });
         navigate("/dashboard");
-      
       } catch (error) {
         console.error("Error submitting form:", error);
       }
-      
     },
     flow: "auth-code",
   });
 
   return (
     <>
+      <ToastContainer />
       <form onSubmit={handleSubmit}>
         <div className="w-full lg:h-[calc(100vh)] h-full flex flex-col lg:flex-row justify-center font-poppins text-white pt-[60px]">
           {/* Image */}
@@ -169,7 +188,11 @@ const Login = () => {
                   className="w-full text-white my-2 font-semibold bg-[#6C63FF] rounded-md p-3 text-center flex items-center justify-center hover:bg-opacity-60 transition-colors duration-300"
                   onClick={handleSubmit}
                 >
-                  Log In
+                  {loading ? (
+                    <CircularLoader />
+                  ) : (
+                    "Log In"
+                  )}
                 </button>
               </div>
 
@@ -180,8 +203,10 @@ const Login = () => {
                 </p>
               </div>
 
-              <div className="w-full text-white my-2 bg-[#1F1D1D] border border-opacity-60  border-white rounded-md p-4 text-center flex items-center justify-center hover:bg-gray-900 transition-colors duration-300 cursor-pointer"
-              onClick={()=>handleGoogleSignIn()}>
+              <div
+                className="w-full text-white my-2 bg-[#1F1D1D] border border-opacity-60  border-white rounded-md p-4 text-center flex items-center justify-center hover:bg-gray-900 transition-colors duration-300 cursor-pointer"
+                onClick={() => handleGoogleSignIn()}
+              >
                 <img src="../assets/google_logo.png" className="h-6 mr-2" />
                 Log In With Google
               </div>
