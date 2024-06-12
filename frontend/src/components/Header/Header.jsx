@@ -27,7 +27,7 @@ const Header = () => {
   const handellogout = () => {
     localStorage.removeItem("token");
     googleLogout();
-    successToast("Logout successful");
+    // successToast("Logout successful");
   };
 
   return (

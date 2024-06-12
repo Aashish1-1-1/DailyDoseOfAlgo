@@ -1,41 +1,61 @@
 {
   "name": "Aashish Adhikari",
-  "profileImage": "http://localhost:8080/api/getimage/aashish.jpeg",
-  "submissions": 112,
-  "learningProgress": ["array", "linkedlist", "insertion sort", "stack", "queue", "selection sort","heap sort"],
+  "profileImage": "https://firebasestorage.googleapis.com/v0/b/daily-algo.appspot.com/o/images%2Faashish.jpeg?alt=media",
+  "leaderboard": [
+    {
+      "id": "1",
+      "username": "aashish",
+      "name": "Aashish Adhikari",
+      "score": 100
+    },
+    {
+      "id": "2",
+      "username": "Anonymous",
+      "name": "Anonymous Boy",
+      "score": 0
+    },
+    {
+      "id": "3",
+      "username": "sanjib_dahal",
+      "name": "Sanjib Dahal",
+      "score": 0
+    },
+    {
+      "id": "2",
+      "username": "be_cool",
+      "name": "Bipul Lamsal",
+      "score": 0
+    }
+  ],
+  "progress": [
+    {
+      "algorithm": "binarysearchtree",
+      "score": 100
+    },
+    {
+      "algorithm": "Random",
+      "score": 100
+    },
+    {
+      "algorithm": "Arraystack",
+      "score": 100
+    },
+    {
+      "algorithm": "maxheap",
+      "score": 100
+    },
+    {
+      "algorithm": "queue",
+      "score": 100
+    }
+  ],
+  "contributionDates": [
+    3, 7, 12, 15, 18, 22, 27, 31, 34, 38, 41, 45
+  ],
   "streak": {
     "current": 3,
     "longest": 8,
     "currentRange": "May 31 - Jun 2",
     "longestRange": "May 12 - May 19"
-  },
-  "leaderboard": [
-    {
-      "name": "Aashish Adhikari",
-      "points": 700
-    },
-    {
-      "name": "Sanjib Dahal",
-      "points": 650
-    },
-    {
-      "name": "Bipul Lamsal",
-      "points": 620
-    },
-    {
-      "name": "Aryaman Giri",
-      "points": 580
-    },
-    {
-      "name": "Hridayanshu Raj Acharya",
-      "points": 550
-    },
-    {
-      "name": "Dikshit Bhatta",
-      "points": 530
-    }
-  ],
-  "contributionDates": [
-    3, 7, 12, 15, 18, 22, 27, 31, 34, 38, 41, 45
-  ]
+  }
 }

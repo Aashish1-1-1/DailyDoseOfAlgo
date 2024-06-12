@@ -7,7 +7,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import Loader from './components/Loader/Loader';
 
 const Layout = () => {
-  const PublicRoutes = ['/', '/login', '/signup', '/contact', '/about', '/termsandconditions', '/auth/success'];
+  const PublicRoutes = ['/', '/login', '/signup', '/contact', '/about', '/termsandconditions', '/auth/success', 'privacypolicy', '/user/aashish'];
 
   return (
     <AuthProvider>
@@ -23,7 +23,7 @@ const Layout = () => {
 const LayoutContent = ({ PublicRoutes }) => {
   const { auth } = useAuth();
   const location = useLocation();
-  const navigate = useNavigate(); // Import useNavigate from react-router-dom
+  const navigate = useNavigate();
 
   const { isAuthenticated, loading } = auth;
 
@@ -40,7 +40,11 @@ const LayoutContent = ({ PublicRoutes }) => {
       // navigate("/dashboard");
     } else {
       // Navigate to signup if not authenticated
-      navigate("/signup");
+      if (!isPublicRoute) {
+        
+      } else {
+        navigate(location.pathname);
+      }
     }
   }, [loading, isAuthenticated, navigate]);
 
