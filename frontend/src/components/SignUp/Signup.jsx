@@ -9,8 +9,7 @@ import { jwtDecode } from "jwt-decode";
 import { ToastContainer } from "react-toastify";
 import successToast from "../Toast/successToast";
 import errorToast from "../Toast/errorToast";
-import 'react-toastify/dist/ReactToastify.css';
-
+import "react-toastify/dist/ReactToastify.css";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -36,20 +35,18 @@ const SignUp = () => {
   const handleChange = (e) => {
     const { name, value, type } = e.target;
 
-    if (type === 'file') {
+    if (type === "file") {
       setFile(e.target.files[0]);
     } else {
       setFormData({ ...formData, [name]: value });
       validateInput(e);
     }
-
   };
 
   const handleImageChange = (e) => {
     console.log(e.target.files[0]);
-    setFormData({ ...formData, image: e.target.files[0]});
+    setFormData({ ...formData, image: e.target.files[0] });
   };
-
 
   const handleTogglePassword1 = () => {
     setShowPassword1(!showPassword1);
@@ -64,11 +61,11 @@ const SignUp = () => {
     setLoading(true);
 
     const data = new FormData();
-    data.append('username', formData.username);
-    data.append('email', formData.email);
-    data.append('password', formData.password);
+    data.append("username", formData.username);
+    data.append("email", formData.email);
+    data.append("password", formData.password);
     if (file) {
-      data.append('image', file);
+      data.append("image", file);
     }
 
     try {
@@ -82,7 +79,9 @@ const SignUp = () => {
 
       if (response.ok) {
         const result = await response.json();
-        successToast("Verification email sent successfully. Please verify your email to login.");
+        successToast(
+          "Verification email sent successfully. Please verify your email to login."
+        );
         console.log(result);
       } else {
         console.error("Try another username/email taken");
@@ -98,6 +97,8 @@ const SignUp = () => {
 
   const validateInput = (e) => {
     const { name, value } = e.target;
+    const usernameRegex = /^[a-zA-Z0-9._]+$/;
+
     setError((prev) => {
       const stateObj = { ...prev, [name]: "" };
 
@@ -105,6 +106,9 @@ const SignUp = () => {
         case "username":
           if (!value) {
             stateObj[name] = "Please enter Username.";
+          } else if (!usernameRegex.test(value)) {
+            stateObj[name] =
+              "Username must not contain spaces or special characters other than _ or .";
           }
           break;
         case "email":
@@ -113,8 +117,8 @@ const SignUp = () => {
           }
           break;
         case "password":
-          if (!value) {
-            stateObj[name] = "Please enter Password.";
+          if (value.length < 8) {
+            stateObj[name] = "Password must contain at least 8 letters.";
           } else if (
             formData.confirmPassword &&
             value !== formData.confirmPassword
@@ -209,10 +213,13 @@ const SignUp = () => {
                   value={formData.username}
                   onChange={handleChange}
                   onBlur={validateInput}
+                  autoFocus="true"
                   type="text"
                   name="username"
                   placeholder="Enter your username"
-                  className="w-full p-2 bg-transparent border-2 border-opacity-60 rounded-md border-white outline-none focus:outline-none text-[15px]"
+                  className={`w-full p-2 bg-transparent border-2 border-opacity-60 rounded-md border-white outline-none focus:outline-none text-[15px] ${
+                    error.username && "border-red-500"
+                  }`}
                   required
                 />
                 {error.username && (
@@ -236,7 +243,9 @@ const SignUp = () => {
                   autoComplete="off"
                   name="email"
                   placeholder="Enter your email"
-                  className="w-full p-2 bg-transparent border-2 border-opacity-60 rounded-md border-white outline-none focus:outline-none text-[15px]"
+                  className={`w-full p-2 bg-transparent border-2 border-opacity-60 rounded-md border-white outline-none focus:outline-none text-[15px] ${
+                    error.email && "border-red-500"
+                  }`}
                   required
                 />
                 {error.email && (
@@ -261,7 +270,9 @@ const SignUp = () => {
                     autoComplete="off"
                     name="password"
                     placeholder="Enter your password"
-                    className="w-full p-2 bg-transparent border-2 border-opacity-60 rounded-md border-white outline-none focus:outline-none text-[15px]"
+                    className={`w-full p-2 bg-transparent border-2 border-opacity-60 rounded-md border-white outline-none focus:outline-none text-[15px] ${
+                      error.password && "border-red-500"
+                    }`}
                     required
                   />
                   {error.password && (
@@ -303,7 +314,9 @@ const SignUp = () => {
                     onBlur={validateInput}
                     name="confirmPassword"
                     placeholder="Confirm password"
-                    className="w-full p-2 bg-transparent border-2 border-opacity-60 rounded-md border-white outline-none focus:outline-none text-[15px]"
+                    className={`w-full p-2 bg-transparent border-2 border-opacity-60 rounded-md border-white outline-none focus:outline-none text-[15px] ${
+                      error.confirmPassword && "border-red-500"
+                    }`}
                     required
                   />
                   {error.confirmPassword && (
@@ -339,17 +352,17 @@ const SignUp = () => {
                   accept="image/*"
                   onChange={handleImageChange}
                   required
-                  className="w-full p-1 bg-transparent border-2 border-opacity-60 rounded-md border-white outline-none focus:outline-none text-[15px]"
+                  className={`w-full p-2 bg-transparent border-2 border-opacity-60 rounded-md border-white outline-none focus:outline-none text-[15px]`}
                 />
               </div>
 
-              <div className="w-full flex items-center justify-between">
+              <div className="w-full flex items-center justify-between mt-2">
                 <div className="w-full flex items-center">
-                  <input type="checkbox" className="h-4 mr-2" required />
-                  <p className="text-sm">I agree to the Terms & Conditions</p>
+                  <input type="checkbox" className="h-4 mr-1" required />
+                  <p className="text-sm">I agree to the <NavLink className="underline" to={"/termsandconditions"}>Terms & Conditions</NavLink></p>
                 </div>
               </div>
-              <div className="w-full my-4">
+              {/* <div className="w-full my-4">
                 <button
                   type="submit"
                   className="w-full text-white my-2 font-semibold bg-[#6C63FF] rounded-md p-3 text-center flex items-center justify-center hover:bg-opacity-60 transition-colors duration-300"
@@ -360,6 +373,26 @@ const SignUp = () => {
                     "Sign Up"
                   )}
                 </button>
+              </div> */}
+              <div className="w-full my-4">
+                <button
+                  type="submit"
+                  className="w-full text-white my-2 font-semibold bg-[#6C63FF] rounded-md p-3 text-center flex items-center justify-center hover:bg-opacity-60 transition-colors duration-300"
+                  // disabled={Object.values(error).some((err) => err !== "")}
+                  onClick={(e) => {
+                    const hasErrors = Object.values(error).some(
+                      (err) => err !== ""
+                    );
+                    if (hasErrors) {
+                      e.preventDefault();
+                      errorToast(
+                        "Fill all the fields correctly before submitting the form."
+                      );
+                    }
+                  }}
+                >
+                  {loading ? <CircularLoader /> : "Sign Up"}
+                </button>
               </div>
               <div className="w-full flex items-center justify-center relative py-1 mb-3">
                 <div className="w-full h-[1px] bg-white"></div>
@@ -367,8 +400,10 @@ const SignUp = () => {
                   OR
                 </p>
               </div>
-              <div className="w-full text-white my-2 bg-[#1F1D1D] border border-opacity-60 border-white rounded-md p-4 text-center flex items-center justify-center hover:bg-gray-900 transition-colors duration-300 cursor-pointer"
-              onClick={() => handleGoogleSignIn()}>
+              <div
+                className="w-full text-white my-2 bg-[#1F1D1D] border border-opacity-60 border-white rounded-md p-4 text-center flex items-center justify-center hover:bg-gray-900 transition-colors duration-300 cursor-pointer"
+                onClick={() => handleGoogleSignIn()}
+              >
                 <img
                   src="../assets/google_logo.png"
                   className="h-6 mr-2"

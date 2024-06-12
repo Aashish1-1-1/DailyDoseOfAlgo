@@ -20,45 +20,6 @@ const Layout = () => {
   );
 };
 
-
-// const LayoutContent = ({ PublicRoutes }) => {
-//   const { auth } = useAuth();
-//   const location = useLocation();
-//   const navigate = useNavigate(); // Import useNavigate from react-router-dom
-
-//   const { isAuthenticated, loading } = auth;
-
-//   const isPublicRoute = PublicRoutes.includes(location.pathname);
-
-//   useEffect(() => {
-//     if (loading) {
-//       // Show loading screen while checking authentication
-//       // return <Loader />;
-//     }
-
-//     if (isAuthenticated) {
-//       // Navigate to dashboard if authenticated
-//       navigate("/dashboard");
-//     } else {
-//       // Navigate to signup if not authenticated
-//       navigate("/signup");
-//     }
-//   }, [loading, isAuthenticated, navigate]);
-
-//   if (loading) {
-//     return <Loader />;
-//   }
-
-//   // Render the appropriate content based on the authentication status
-//   return isAuthenticated ? (
-//     <Outlet />
-//   ) : isPublicRoute ? (
-//     <Outlet />
-//   ) : (
-//     <Navigate to="/login" replace />
-//   );
-// };
-
 const LayoutContent = ({ PublicRoutes }) => {
   const { auth } = useAuth();
   const location = useLocation();
@@ -76,7 +37,7 @@ const LayoutContent = ({ PublicRoutes }) => {
 
     if (isAuthenticated) {
       // Navigate to dashboard if authenticated
-      navigate("/dashboard");
+      // navigate("/dashboard");
     } else {
       // Navigate to signup if not authenticated
       navigate("/signup");
