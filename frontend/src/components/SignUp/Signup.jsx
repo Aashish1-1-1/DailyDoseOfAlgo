@@ -13,6 +13,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
+    name: "",
     username: "",
     email: "",
     password: "",
@@ -26,6 +27,7 @@ const SignUp = () => {
     email: "",
     password: "",
     confirmPassword: "",
+    name: "",
   });
 
   const [showPassword1, setShowPassword1] = useState(false);
@@ -61,6 +63,7 @@ const SignUp = () => {
     setLoading(true);
 
     const data = new FormData();
+    data.append("name", formData.name);
     data.append("username", formData.username);
     data.append("email", formData.email);
     data.append("password", formData.password);
@@ -103,6 +106,11 @@ const SignUp = () => {
       const stateObj = { ...prev, [name]: "" };
 
       switch (name) {
+        case "name":
+          if (!value) {
+            stateObj[name] = "Please enter your name.";
+          }
+          break;
         case "username":
           if (!value) {
             stateObj[name] = "Please enter Username.";
@@ -187,9 +195,9 @@ const SignUp = () => {
     <>
       <ToastContainer />
       <form onSubmit={handleSubmit} autoComplete="off">
-        <div className="w-full lg:h-[calc(100vh)] h-full flex flex-col lg:flex-row justify-center font-poppins text-white pt-[62px]">
+        <div className="w-full lg:min-h-[calc(100vh)] h-full flex flex-col lg:flex-row justify-center font-poppins bg-slate-950 text-white pt-[62px] relative">
           {/* Image */}
-          <div className="relative w-full lg:w-1/2 h-full flex-col hidden lg:flex justify-center items-center p-14 bg-slate-950 text-white">
+          <div className=" w-full lg:w-1/2 h-[792px] flex-col hidden lg:flex justify-center items-center p-14 bg-slate-950 text-white">
             <img src={SingupImg} alt="signup" className="scale-75" />
             <h1 className="font-semibold text-4xl">Daily Dose Of Algo</h1>
             <h3 className="text-white opacity-65 text-xl text-center mt-3">
@@ -204,6 +212,31 @@ const SignUp = () => {
               <h1 className="text-3xl font-semibold mb-5">Sign Up</h1>
               <div className="w-full mb-[10px]">
                 <label
+                  htmlFor="name"
+                  className="text-white text-[14px] mb-[2px]"
+                >
+                  Full Name
+                </label>
+                <input
+                  value={formData.name}
+                  onChange={handleChange}
+                  onBlur={validateInput}
+                  type="text"
+                  name="name"
+                  placeholder="Enter your full name"
+                  className={`w-full p-2 bg-transparent border-2 border-opacity-60 rounded-md border-white outline-none focus:outline-none text-[15px] ${
+                    error.name && "border-red-500"
+                  }`}
+                  required
+                />
+                {error.name && (
+                  <span className="err text-red-500 text-[14px]">
+                    {error.name}
+                  </span>
+                )}
+              </div>
+              <div className="w-full mb-[10px]">
+                <label
                   htmlFor="username"
                   className="text-white text-[14px] mb-[2px]"
                 >
@@ -213,7 +246,6 @@ const SignUp = () => {
                   value={formData.username}
                   onChange={handleChange}
                   onBlur={validateInput}
-                  autoFocus="true"
                   type="text"
                   name="username"
                   placeholder="Enter your username"
