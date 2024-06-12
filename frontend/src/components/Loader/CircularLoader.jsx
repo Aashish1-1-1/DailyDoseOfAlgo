@@ -3,7 +3,7 @@ import './CircularLoader.css'; // Make sure to import your styles
 
 const CircularLoader = () => (
   <svg
-    className="containers"
+    className="circular-loader-container"
     viewBox="0 0 40 40"
     height="40"
     width="40"

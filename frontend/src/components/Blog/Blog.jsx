@@ -41,7 +41,7 @@ const Blog = () => {
   return (
     <>
       {loading ? (
-        <Loader />
+        <Loader /> 
       ) : (
         <div className="bg-slate-950 flex justify-center pt-[72px] min-h-screen">
         <div className= "mb-[25px] max-w-[800px]">

@@ -29,6 +29,8 @@ export const AuthProvider = ({ children }) => {
         } catch (error) {
           console.log("Fetching failed", error);
         }
+      } else {
+        setAuth({ isAuthenticated: false, loading: false});
       }
     };
 
