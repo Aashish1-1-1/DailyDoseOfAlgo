@@ -16,11 +16,11 @@ func Throwprofile(c *gin.Context){
 	rows,err:=database.MakeSearchQuery(query,profile);
 	if err!=nil{
 		fmt.Println("Error:", err)
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch Profile"})
+	c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch Profile"})
 		return
 	}
 	defer rows.Close()
-	var profiledatas []User.Progress;
+	var progressdatas []User.Progress;
 	for rows.Next(){
 		var profiledata User.Progress;
 		if err := rows.Scan(&profiledata.Algorithm, &profiledata.Score); err != nil {
@@ -28,7 +28,7 @@ func Throwprofile(c *gin.Context){
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to scan row"})
 			return
 		}
-		profiledatas = append(profiledatas, profiledata)
+		progressdatas = append(progressdatas, profiledata)
 	}
 
 	if err := rows.Err(); err != nil {
@@ -36,7 +36,7 @@ func Throwprofile(c *gin.Context){
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error during iteration"})
 		return
 	}
-	query = `select username,score from leaderboard INNER JOIN users on leaderboard.user_id=users.id  ORDER BY score DESC LIMIT 5;`
+	query = `select username,score,name from leaderboard INNER JOIN users on leaderboard.user_id=users.id  ORDER BY score DESC LIMIT 5;`
 	rows,err =database.MakeSearchQuery(query);
 	if err!=nil{
 		fmt.Println("Error:", err)
@@ -48,7 +48,7 @@ func Throwprofile(c *gin.Context){
 	var i int32 = 1
 	for rows.Next(){
 		var leaderboard User.LeaderBoard;
-		if err := rows.Scan(&leaderboard.Username, &leaderboard.Score); err != nil {
+		if err := rows.Scan(&leaderboard.Username, &leaderboard.Score,&leaderboard.Name); err != nil {
 			fmt.Println("Error scanning row:", err)
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to scan row"})
 			return
@@ -63,6 +63,24 @@ func Throwprofile(c *gin.Context){
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error during iteration"})
 		return
 	}
-
-	c.JSON(http.StatusOK,gin.H{"progress":profiledatas,"leaderboard":leaderboards})
+	query=`select name from users where username=$1`
+	name,err:=database.Searchsmt(query,profile)
+	if err!=nil{
+		fmt.Println("Error:", err)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch Profile"})
+		return
+	}
+	query=`select image_url from users where username=$1`
+	img_url,err:=database.Searchsmt(query,profile)
+	if err!=nil{
+		fmt.Println("Error:", err)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch Profile"})
+		return
+	}
+	var profiledatas User.ProfileData;
+	profiledatas.Name=name;
+	profiledatas.ProfileImage=img_url;
+	profiledatas.LeaderBoarddata=leaderboards;
+	profiledatas.Progressdata=progressdatas;
+	c.JSON(http.StatusOK,profiledatas)
 }

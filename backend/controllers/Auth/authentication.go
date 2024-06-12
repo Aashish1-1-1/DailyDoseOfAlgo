@@ -233,14 +233,15 @@ func HandelSignup(c *gin.Context){
 		return
 	}
 
+	username := data.Username
 	name := data.Name
 	email := data.Email
 	password := data.Password
 	hashedpw, _:=bcrypt.GenerateFromPassword([]byte(password),bcrypt.DefaultCost)
 	password = string(hashedpw)
 	verification_code := randStr(7);
-	query:=`insert into "users"("username", "email", "password","verification_code", "image_url) values($1, $2, $3, $4, $5)`
-	err = database.MakeInsertQuery(query,name,email,password,verification_code,imageURL)
+	query:=`insert into "users"("username", "email", "password","verification_code", "image_url","name") values($1, $2, $3, $4, $5, $6)`
+	err = database.MakeInsertQuery(query,username,email,password,verification_code,imageURL,name)
 	if err!=nil{
 	    c.JSON(http.StatusInternalServerError, gin.H{"error": "Internal Server Error"})
 	  return
