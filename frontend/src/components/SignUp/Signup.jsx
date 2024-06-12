@@ -20,7 +20,7 @@ const SignUp = () => {
     confirmPassword: "",
   });
 
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState();
 
   const [error, setError] = useState({
     username: "",
@@ -46,9 +46,11 @@ const SignUp = () => {
   };
 
   const handleImageChange = (e) => {
-    console.log(e.target.files[0]);
-    setFormData({ ...formData, image: e.target.files[0] });
+  	if (e.target.files) {
+      setFile(e.target.files[0]);
+    }
   };
+
 
   const handleTogglePassword1 = () => {
     setShowPassword1(!showPassword1);
@@ -67,11 +69,10 @@ const SignUp = () => {
     data.append("username", formData.username);
     data.append("email", formData.email);
     data.append("password", formData.password);
-    if (file) {
-      data.append("image", file);
-    }
+    data.append("image", file);
 
     try {
+	    console.log(data)
       const response = await fetch("http://localhost:8080/api/signup", {
         method: "POST",
         // headers: {
@@ -87,8 +88,8 @@ const SignUp = () => {
         );
         console.log(result);
       } else {
-        console.error("Try another username/email taken");
-        errorToast("This username or email already exists. Try another.");
+        console.error("Error",response);
+        errorToast("Error");
       }
     } catch (error) {
       console.error("Error submitting form:", error);

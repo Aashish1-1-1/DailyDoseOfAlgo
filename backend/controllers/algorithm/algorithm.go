@@ -6,6 +6,9 @@ import(
 	"net/http"
 	"encoding/json"
 	"strings"
+	"time"
+	"strconv"
+	"github.com/lib/pq"
 
 	"dailydoseofalgo/database"
 	"dailydoseofalgo/models/Algorithms"
@@ -75,79 +78,113 @@ func ThrowQuiz(c *gin.Context){
 	c.JSON(http.StatusOK,gin.H{"question":questions})
 }
 
-func Evaluation(c *gin.Context){
-	user_id,_:=c.Get("userID")
-	var tocheck algomodel.Quizevaluate
-
-	if err:=c.ShouldBind(&tocheck); err!=nil{
-		c.JSON(http.StatusBadRequest,gin.H{"Error":err.Error()})
+func Evaluation(c *gin.Context) {
+	userID, ok := c.Get("userID")
+	if !ok {
+		c.JSON(http.StatusBadRequest, gin.H{"Error": "User ID not found"})
 		return
 	}
-	name:=c.Param("name");
+
+	var toCheck algomodel.Quizevaluate
+	if err := c.ShouldBind(&toCheck); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"Error": err.Error()})
+		return
+	}
+
+	name := c.Param("name")
 	query := `SELECT correct_ans from quiz INNER JOIN dsa ON quiz.dsa_id=dsa.id WHERE name=$1`
-	answerstr,err := database.Searchsmt(query,name)
-	if err!=nil{
-		c.JSON(http.StatusBadRequest,gin.H{"message":err.Error()})
+	answerStr, err := database.Searchsmt(query, name)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
 		return
 	}
-	answerstr = strings.Trim(answerstr,"[]");
-	correctans := strings.Split(answerstr, ", ")
 
-	for i := range correctans {
-		correctans[i] = strings.Trim(correctans[i], `"`)
+	answerStr = strings.Trim(answerStr, "[]")
+	correctAns := strings.Split(answerStr, ", ")
+	for i := range correctAns {
+		correctAns[i] = strings.Trim(correctAns[i], `"`)
 	}
-	fmt.Println(tocheck.Answers);		
-	fmt.Println(correctans);
-	var numberofcorrect int =0;
-	for i:= range correctans{
-		if(correctans[i]==tocheck.Answers[i]){
-			numberofcorrect++;
+
+	fmt.Println(toCheck.Answers)
+	fmt.Println(correctAns)
+
+	var numberOfCorrect int = 0
+	for i := range correctAns {
+		if correctAns[i] == toCheck.Answers[i] {
+			numberOfCorrect++
 		}
 	}
-	//Insert the data into progress table user_id and algo_id and score if score>80
-	//If quiz was of today's pick maintain streak else do nothing
-	score := float32(numberofcorrect)/float32(len(correctans))*100;
-	if(score>80){
-		query=`select id from dsa where name=$1`;
-		dsa_id,err := database.Searchsmt2(query,name);
-		if err!=nil{
-	    		c.JSON(http.StatusInternalServerError, gin.H{"error": "Internal Server Error"})
-	  	return
-  		}
-		query=`insert into progress(user_id,dsa_id,score) values($1,$2,$3)`
 
-		err = database.MakeInsertQuery(query,user_id,dsa_id,score)
-		if err!=nil{
-	    		c.JSON(http.StatusInternalServerError, gin.H{"error": "Internal Server Error"})
-	  	return
-  		}
+	score := float32(numberOfCorrect) / float32(len(correctAns)) * 100
+	if score > 65 {
+		query = `select id from dsa where name=$1`
+		dsaID, err := database.Searchsmt2(query, name)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Internal Server Error"})
+			return
+		}
 
-		query=`select score from leaderboard where user_id=$1`
-		marks,err := database.Searchsmt2(query,user_id);
-		if err!=nil{
-	    		c.JSON(http.StatusInternalServerError, gin.H{"error": "Internal Server Error"})
-	  	return
-  		}
+		query = `insert into progress(user_id,dsa_id,score) values($1,$2,$3)`
+		err = database.MakeInsertQuery(query, userID, dsaID, score)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Internal Server Error"})
+			return
+		}
 
-		query=`insert into leaderboard(user_id,score) values($1,$2)`
+		query = `select score from leaderboard where user_id=$1`
+		marks, err := database.Searchsmt2(query, userID)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Internal Server Error"})
+			return
+		}
 
-		err = database.MakeInsertQuery(query,user_id,score+float32(marks))
-		if err!=nil{
-	    		c.JSON(http.StatusInternalServerError, gin.H{"error": "Internal Server Error"})
-	  	return
-  		}
-		query=`select dsa_id from todaypick where id=$1`
-		todaypick,err:=database.Searchsmt2(query,976665072127836161)
-		err = database.MakeInsertQuery(query,user_id,score+float32(marks))
-		if err!=nil{
-	    		c.JSON(http.StatusInternalServerError, gin.H{"error": "Internal Server Error"})
-	  	return
-  		}
-		if(dsa_id==todaypick){
-			fmt.Println("HEllo world")
+		query = `update leaderboard  set score=$1 where user_id=$2`
+		err = database.MakeInsertQuery(query, score+float32(marks), userID)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Internal Server Error"})
+			return
+		}
+
+		query = `select dsa_id from todaypick where id=$1`
+		todayPick, err := database.Searchsmt2(query, 976665072127836161)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Internal Server Error"})
+			return
+		}
+
+		if dsaID == todayPick {
+			day := time.Now().Day()
+			query = `select date from streak where user_id=$1`
+			dates, err := database.Searchsmt(query, userID)
+			if err != nil {
+				datesArr := []string{strconv.Itoa(day)}
+				query = `update streak set date=$1 where user_id=$2`
+				err = database.MakeInsertQuery(query, pq.Array(datesArr), userID)
+				if err != nil {
+					c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
+					return
+				}
+				c.JSON(http.StatusOK, gin.H{"message": "Added today"})
+				return
+			}
+
+			dates = strings.Trim(dates, "[]")
+			datesArr := strings.Split(dates, ", ")
+			for i := range datesArr {
+				datesArr[i] = strings.Trim(datesArr[i], `"`)
+			}
+			if len(datesArr) > 0 && datesArr[len(datesArr)-1] != strconv.Itoa(day) {
+				
+				query = `update streak set date=$1 where user_id=$2`
+				err = database.MakeInsertQuery(query, pq.Array(datesArr), userID)
+				if err != nil {
+					c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
+					return
+				}
+			}		
 		}
 	}
-	c.JSON(http.StatusOK, gin.H{"Score": numberofcorrect})
+	c.JSON(http.StatusOK, gin.H{"Score": numberOfCorrect})
 }
 
 func Todaypick(c *gin.Context){
@@ -159,8 +196,7 @@ func Todaypick(c *gin.Context){
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Internal Server Error"})
 	  	return
 	}
-	redirectlink:="/api/view/"+name
-	c.Redirect(http.StatusMovedPermanently,redirectlink)
+	c.JSON(http.StatusOK,name)
 }
 
 func Resetter()error{

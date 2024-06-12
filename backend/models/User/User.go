@@ -1,14 +1,16 @@
 package User
+import "mime/multipart"
 
 type FormData struct{
  	 Email string `json:"email" binding:"required"`
   	 Password string `json:"password" binding:"required"`
 }
 type FormDataSign struct{
-	 Username string `json:"username" binding:"required"` 
- 	 Name string  `json:"name" binding:"required"`
- 	 Email string `json:"email" binding:"required"`
- 	 Password string `json:"password" binding:"required"`
+	 Username string `form:"username" binding:"required"` 
+ 	 Name string  `form:"name" binding:"required"`
+ 	 Email string `form:"email" binding:"required"`
+	 Img *multipart.FileHeader `form:"image" binding:"required"`
+ 	 Password string `form:"password" binding:"required"`
 }
 type LeaderBoard struct {
 	ID string `json:"id"`

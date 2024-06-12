@@ -213,15 +213,9 @@ func HandelSignup(c *gin.Context){
 		c.JSON(http.StatusBadRequest,gin.H{"Error":err.Error()})
 		return
 	}
+	file:=data.Img
 
-	// Handle profile image upload
-	file, err := c.FormFile("image")
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Image upload failed"})
-		return
-	}
-
-	filePath := "./" + file.Filename
+	filePath := "./assets/images/" + file.Filename
 	if err := c.SaveUploadedFile(file, filePath); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Image save failed"})
 		return
@@ -232,7 +226,10 @@ func HandelSignup(c *gin.Context){
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Image upload to Firebase failed"})
 		return
 	}
-
+	err=os.Remove(filePath)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError,gin.H{"error":"error deleting file"})
+	}
 	username := data.Username
 	name := data.Name
 	email := data.Email
@@ -252,7 +249,6 @@ func HandelSignup(c *gin.Context){
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"message": "Sent mail please verify"})
-	// c.JSON(http.StatusOK, gin.H{"message": "Sent mail please verify","image_url": imageURL})
 }
 
 func HandelLogin(c *gin.Context){
