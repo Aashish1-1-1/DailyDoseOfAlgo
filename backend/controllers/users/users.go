@@ -12,7 +12,7 @@ import(
 
 func Throwprofile(c *gin.Context){
 	profile:=c.Param("name");
-	query := `select "name","score" from progress INNER JOIN dsa on progress.dsa_id=dsa.id INNER JOIN users on progress.user_id=users.id where username=$1`
+	query := `select dsa.name,progress.score from progress INNER JOIN dsa on progress.dsa_id=dsa.id LEFT JOIN users on progress.user_id=users.id where username=$1`
 	rows,err:=database.MakeSearchQuery(query,profile);
 	if err!=nil{
 		fmt.Println("Error:", err)
@@ -66,4 +66,3 @@ func Throwprofile(c *gin.Context){
 
 	c.JSON(http.StatusOK,gin.H{"progress":profiledatas,"leaderboard":leaderboards})
 }
-

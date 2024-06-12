@@ -136,6 +136,16 @@ func Evaluation(c *gin.Context){
 	    		c.JSON(http.StatusInternalServerError, gin.H{"error": "Internal Server Error"})
 	  	return
   		}
+		query=`select dsa_id from todaypick where id=$1`
+		todaypick,err:=database.Searchsmt2(query,976665072127836161)
+		err = database.MakeInsertQuery(query,user_id,score+float32(marks))
+		if err!=nil{
+	    		c.JSON(http.StatusInternalServerError, gin.H{"error": "Internal Server Error"})
+	  	return
+  		}
+		if(dsa_id==todaypick){
+			fmt.Println("HEllo world")
+		}
 	}
 	c.JSON(http.StatusOK, gin.H{"Score": numberofcorrect})
 }
@@ -143,6 +153,27 @@ func Evaluation(c *gin.Context){
 func Todaypick(c *gin.Context){
 	//query the table today's pick which contains algo id and redirect to respective id
 	//query:=SELECT id FROM dsa ORDER BY RANDOM() LIMIT 1;
+	query := `SELECT name from todaypick INNER JOIN dsa ON todaypick.dsa_id=dsa.id`
+	name,err:=database.Searchsmt(query)
+	if err!=nil{
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Internal Server Error"})
+	  	return
+	}
+	redirectlink:="/api/view/"+name
+	c.Redirect(http.StatusMovedPermanently,redirectlink)
 }
 
+func Resetter()error{
+	query := `select id from dsa order by RANDOM() LIMIT 1`
+	random_id,err := database.Searchsmt2(query)
+	if err!=nil{
+	return err
+	}
+	query=`update todaypick set dsa_id=$1 where id=$2`
+	err = database.MakeInsertQuery(query,random_id,976665072127836161)
+		if err!=nil{
+	  	return err
+  		}
+	return nil
+}
 
