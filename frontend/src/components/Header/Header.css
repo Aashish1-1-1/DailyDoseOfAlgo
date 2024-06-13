@@ -53,11 +53,20 @@
 }
 
 .sub-menu-wrap {
-  max-height: 0px;
-  display: none;
+  /* max-height: 0px; */
+  /* display: none; */
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.7s ease;
+  transform: translateY(-25px);
+  z-index: -13;
 }
 
 .sub-menu-wrap.active {
-  max-height: 240px;
-  display: block;
+  /* max-height: 240px; */
+  /* display: block; */
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0px);
+  z-index: -13;
 }

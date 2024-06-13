@@ -10,7 +10,6 @@ import successToast from "../Toast/successToast";
 import { ToastContainer } from "react-toastify";
 
 const Header = () => {
-  const id = "aashish";
   const { auth } = useAuth();
 
   let isAuthenticated = auth.isAuthenticated;
@@ -20,6 +19,9 @@ const Header = () => {
       if (e.target.id !== "toggle-menu" && e.target.id !== "nav-links") {
         document.querySelector(".toggle-menu").classList.remove("active");
         document.querySelector(".nav-links").classList.remove("active");
+      }
+      if (e.target.id !== "user-menu" && e.target.id !== "sub-menu") {
+        document.querySelector(".sub-menu-wrap").classList.remove("active");
       }
     };
   }, []);
@@ -118,31 +120,36 @@ const Header = () => {
           </ul>
 
           {isAuthenticated && (
-            <div
-              id="user-menu"
-              className="image-container cursor-pointer ml-4 h-[42px] w-[42px] object-fill rounded-[50%] overflow-hidden"
-              onClick={(e) => {
-                document
-                  .querySelector(".sub-menu-wrap")
-                  .classList.toggle("active");
-              }}
-            >
-              <img src={auth.image} alt="user" className="" />
-            </div>
+              <img
+                src={auth.image}
+                alt="user"
+                id="user-menu"
+                className="object-cover cursor-pointer ml-4 h-[42px] w-[42px] rounded-[50%]"
+                onClick={(e) => {
+                  document
+                    .querySelector(".sub-menu-wrap")
+                    .classList.toggle("active");
+                }}
+              />
           )}
           {isAuthenticated && (
             <div
               id="sub-menu"
-              className="sub-menu-wrap overflow-hidden absolute top-full right-[5%] w-[240px] transition-all duration-300 ease text-white rounded-md bg-gray-800 p-[20px] m-[10px]"
+              className="sub-menu-wrap overflow-hidden absolute top-full right-[5%] w-[240px] text-white rounded-md bg-gray-800 p-[20px] m-[10px]"
             >
               <div className="sub-menu ">
                 <div className="user-info flex items-center">
                   <img
                     src={auth.image}
                     alt="user"
-                    className="w-[50px] rounded-[50%] mr-[15px]"
+                    className="w-[50px] h-[50px] object-cover rounded-[50%] mr-[15px]"
                   />
-                  <h2 className="font-medium">{auth.Name}</h2>
+                  <div>
+                    <h2 className="font-medium">{auth.Name}</h2>
+                    <p className="text-[#a5a5a5] text-[14px] -mt-1 font-jetbrains">
+                      @{auth.Username}{" "}
+                    </p>
+                  </div>
                 </div>
                 <hr className="border-0 h-[1px] w-full bg-[#ccc] mt-[15px]" />
 

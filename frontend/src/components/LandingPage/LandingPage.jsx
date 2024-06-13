@@ -6,7 +6,7 @@ import { faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../Context/Auth";
 import Tilt from "react-parallax-tilt";
-import './LandingPage.css';
+import "./LandingPage.css";
 
 const LandingPage = () => {
   const { auth } = useAuth();
@@ -191,18 +191,18 @@ const LandingPage = () => {
           <div className="w-full flex flex-wrap gap-5 justify-center">
             {/* one box of one team member */}
             <Tilt
-              className="background-stripes parallax-effect-glare-scale overflow-hidden"
+              className="overflow-hidden rounded-lg"
               perspective={500}
               glareEnable={true}
-              glareMaxOpacity={0.45}
+              glareMaxOpacity={0.55}
               scale={1.02}
             >
-              <div className="inner-html h-[270px] w-[250px] bg-[#242424] rounded-lg flex justify-center items-center flex-col">
+              <div className="h-[270px] w-[250px] bg-[#242424] rounded-lg flex justify-center items-center flex-col">
                 <div className="imgContainer w-[110px] h-[110px] rounded-full border-2 border-[#1F68F7]">
                   <img
                     src="./assets/sanjib.jpg"
                     alt=""
-                    className="object-cover w-full h-full rounded-full"
+                    className=" object-cover w-full h-full rounded-full"
                   />
                 </div>
                 <h3 className="font-bold text-[20px]">Sanjib Dahal</h3>
@@ -233,129 +233,129 @@ const LandingPage = () => {
             </Tilt>
 
             <Tilt
-              className="background-stripes parallax-effect-glare-scale overflow-hidden"
+              className="overflow-hidden rounded-lg"
               perspective={500}
               glareEnable={true}
               glareMaxOpacity={0.45}
               scale={1.02}
             >
-            <div className="h-[270px] w-[250px] bg-[#242424] rounded-lg flex justify-center items-center flex-col">
-              <div className="imgContainer w-[110px] h-[110px] rounded-full border-2 border-[#1F68F7]">
-                <img
-                  src="./assets/giri.jpg"
-                  alt=""
-                  className="object-cover w-full h-full rounded-full"
-                />
+              <div className="h-[270px] w-[250px] bg-[#242424] rounded-lg flex justify-center items-center flex-col">
+                <div className="imgContainer w-[110px] h-[110px] rounded-full border-2 border-[#1F68F7]">
+                  <img
+                    src="./assets/giri.jpg"
+                    alt=""
+                    className="object-cover w-full h-full rounded-full"
+                  />
+                </div>
+                <h3 className="font-bold text-[20px]">Aryaman Giri</h3>
+                <p className="font-light text-[15px] text-[#1F68F7] mt-[-6px] mb-[6px]">
+                  Frontend Developer
+                </p>
+                <div className="social-icons flex gap-2">
+                  <a href="https://x.com/Gannibro">
+                    <FontAwesomeIcon
+                      icon={faXTwitter}
+                      className="text-white h-[24px] w-[24px]"
+                    />
+                  </a>
+                  <a href="https://www.linkedin.com/in/aryaman-giri-945b5a1b6/">
+                    <FontAwesomeIcon
+                      icon={faLinkedin}
+                      className="text-white h-[24px] w-[24px]"
+                    />
+                  </a>
+                  <a href="https://www.facebook.com/aryaman.giri.9">
+                    <FontAwesomeIcon
+                      icon={faFacebook}
+                      className="text-white h-[24px] w-[24px]"
+                    />
+                  </a>
+                </div>
               </div>
-              <h3 className="font-bold text-[20px]">Aryaman Giri</h3>
-              <p className="font-light text-[15px] text-[#1F68F7] mt-[-6px] mb-[6px]">
-                Frontend Developer
-              </p>
-              <div className="social-icons flex gap-2">
-                <a href="https://x.com/Gannibro">
-                  <FontAwesomeIcon
-                    icon={faXTwitter}
-                    className="text-white h-[24px] w-[24px]"
-                  />
-                </a>
-                <a href="https://www.linkedin.com/in/aryaman-giri-945b5a1b6/">
-                  <FontAwesomeIcon
-                    icon={faLinkedin}
-                    className="text-white h-[24px] w-[24px]"
-                  />
-                </a>
-                <a href="https://www.facebook.com/aryaman.giri.9">
-                  <FontAwesomeIcon
-                    icon={faFacebook}
-                    className="text-white h-[24px] w-[24px]"
-                  />
-                </a>
-              </div>
-            </div>
             </Tilt>
 
             <Tilt
-              className="background-stripes parallax-effect-glare-scale overflow-hidden"
+              className="overflow-hidden rounded-lg"
               perspective={500}
               glareEnable={true}
               glareMaxOpacity={0.45}
               scale={1.02}
             >
-            <div className="h-[270px] w-[250px] bg-[#242424] rounded-lg flex justify-center items-center flex-col">
-              <div className="imgContainer w-[110px] h-[110px] rounded-full border-2 border-[#1F68F7]">
-                <img
-                  src="./assets/aashish.jpeg"
-                  alt=""
-                  className="object-cover w-full h-full rounded-full"
-                />
+              <div className="h-[270px] w-[250px] bg-[#242424] rounded-lg flex justify-center items-center flex-col">
+                <div className="imgContainer w-[110px] h-[110px] rounded-full border-2 border-[#1F68F7]">
+                  <img
+                    src="./assets/aashish.jpeg"
+                    alt=""
+                    className="object-cover w-full h-full rounded-full"
+                  />
+                </div>
+                <h3 className="font-bold text-[20px]">Aashish Adhikari</h3>
+                <p className="font-light text-[15px] text-[#1F68F7] mt-[-6px] mb-[6px]">
+                  GoLang Developer
+                </p>
+                <div className="social-icons flex gap-2">
+                  <a href="https://x.com/AashishAdh9?t=8ZBIBJ8Fi93dzx13i8PG1Q&s=09">
+                    <FontAwesomeIcon
+                      icon={faXTwitter}
+                      className="text-white h-[24px] w-[24px]"
+                    />
+                  </a>
+                  <a href="https://www.linkedin.com/in/aashish-adhikari-92a958212">
+                    <FontAwesomeIcon
+                      icon={faLinkedin}
+                      className="text-white h-[24px] w-[24px]"
+                    />
+                  </a>
+                  <a href="https://www.facebook.com/100014331156052">
+                    <FontAwesomeIcon
+                      icon={faFacebook}
+                      className="text-white h-[24px] w-[24px]"
+                    />
+                  </a>
+                </div>
               </div>
-              <h3 className="font-bold text-[20px]">Aashish Adhikari</h3>
-              <p className="font-light text-[15px] text-[#1F68F7] mt-[-6px] mb-[6px]">
-                GoLang Developer
-              </p>
-              <div className="social-icons flex gap-2">
-                <a href="https://x.com/AashishAdh9?t=8ZBIBJ8Fi93dzx13i8PG1Q&s=09">
-                  <FontAwesomeIcon
-                    icon={faXTwitter}
-                    className="text-white h-[24px] w-[24px]"
-                  />
-                </a>
-                <a href="https://www.linkedin.com/in/aashish-adhikari-92a958212">
-                  <FontAwesomeIcon
-                    icon={faLinkedin}
-                    className="text-white h-[24px] w-[24px]"
-                  />
-                </a>
-                <a href="https://www.facebook.com/100014331156052">
-                  <FontAwesomeIcon
-                    icon={faFacebook}
-                    className="text-white h-[24px] w-[24px]"
-                  />
-                </a>
-              </div>
-            </div>
             </Tilt>
 
             <Tilt
-              className="background-stripes parallax-effect-glare-scale overflow-hidden"
+              className="overflow-hidden rounded-lg"
               perspective={500}
               glareEnable={true}
               glareMaxOpacity={0.45}
               scale={1.02}
             >
-            <div className="h-[270px] w-[250px] bg-[#242424] rounded-lg flex justify-center items-center flex-col">
-              <div className="imgContainer w-[110px] h-[110px] rounded-full border-2 border-[#1F68F7]">
-                <img
-                  src="./assets/hridayanshu.jpg"
-                  alt=""
-                  className="object-cover w-full h-full rounded-full"
-                />
+              <div className="h-[270px] w-[250px] bg-[#242424] rounded-lg flex justify-center items-center flex-col">
+                <div className="imgContainer w-[110px] h-[110px] rounded-full border-2 border-[#1F68F7]">
+                  <img
+                    src="./assets/hridayanshu.jpg"
+                    alt=""
+                    className="object-cover w-full h-full rounded-full"
+                  />
+                </div>
+                <h3 className="font-bold text-[20px]">Hridayanshu Acharya</h3>
+                <p className="font-light text-[15px] text-[#1F68F7] mt-[-6px] mb-[6px]">
+                  Frontend Developer
+                </p>
+                <div className="social-icons flex gap-2">
+                  <a href="https://x.com/hridayanshu23?s=21">
+                    <FontAwesomeIcon
+                      icon={faXTwitter}
+                      className="text-white h-[24px] w-[24px]"
+                    />
+                  </a>
+                  <a href="https://www.linkedin.com/in/hridayanshu-raj-acharya-4b4a96265/">
+                    <FontAwesomeIcon
+                      icon={faLinkedin}
+                      className="text-white h-[24px] w-[24px]"
+                    />
+                  </a>
+                  <a href="https://www.facebook.com/Hridayanshu23">
+                    <FontAwesomeIcon
+                      icon={faFacebook}
+                      className="text-white h-[24px] w-[24px]"
+                    />
+                  </a>
+                </div>
               </div>
-              <h3 className="font-bold text-[20px]">Hridayanshu Acharya</h3>
-              <p className="font-light text-[15px] text-[#1F68F7] mt-[-6px] mb-[6px]">
-                Frontend Developer
-              </p>
-              <div className="social-icons flex gap-2">
-                <a href="https://x.com/hridayanshu23?s=21">
-                  <FontAwesomeIcon
-                    icon={faXTwitter}
-                    className="text-white h-[24px] w-[24px]"
-                  />
-                </a>
-                <a href="https://www.linkedin.com/in/hridayanshu-raj-acharya-4b4a96265/">
-                  <FontAwesomeIcon
-                    icon={faLinkedin}
-                    className="text-white h-[24px] w-[24px]"
-                  />
-                </a>
-                <a href="https://www.facebook.com/Hridayanshu23">
-                  <FontAwesomeIcon
-                    icon={faFacebook}
-                    className="text-white h-[24px] w-[24px]"
-                  />
-                </a>
-              </div>
-            </div>
             </Tilt>
           </div>
         </section>
