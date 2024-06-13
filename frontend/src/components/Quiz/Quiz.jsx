@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
+import Loader from "../Loader/Loader"
 
 const Quiz = () => {
   const [quizData, setQuizData] = useState([]);
@@ -10,8 +11,10 @@ const Quiz = () => {
   const [numCorrectAnswers, setnumCorrectAnswers] = useState(0);
   const { name } = useParams();
   const token = localStorage.getItem("token");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     const fetchQuizData = async () => {
       try {
         const response = await fetch(`http://localhost:8080/api/quiz/${name}`);
@@ -22,6 +25,7 @@ const Quiz = () => {
       }
     };
     fetchQuizData();
+    setLoading(false);
   }, [name]);
 
   const handleOptionSelect = (option) => {
@@ -34,16 +38,22 @@ const Quiz = () => {
     }
 
     if (currentQuestion === quizData.length - 1) {
+      setLoading(true);
       // Quiz completed
       try {
-        const response = await fetch(`http://localhost:8080/api/quiz/evaluate/${name}`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({ answers: [...userAnswers, selectedOption?.id] }),
-        });
+        const response = await fetch(
+          `http://localhost:8080/api/quiz/evaluate/${name}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+              answers: [...userAnswers, selectedOption?.id],
+            }),
+          }
+        );
         const responseData = await response.json();
         setnumCorrectAnswers(responseData.Score);
       } catch (error) {
@@ -54,6 +64,7 @@ const Quiz = () => {
       setCurrentQuestion(currentQuestion + 1);
       setSelectedOption(null);
     }
+    setLoading(false);
   };
 
   const restartQuiz = () => {
@@ -69,28 +80,42 @@ const Quiz = () => {
 
   if (quizCompleted) {
     return (
-      <div className="bg-gray-900 flex justify-center items-center h-screen w-full">
-        <div className="max-w-md mx-auto">
-          <div className="bg-gray-800 text-white p-4 rounded-md">
-            <h2 className="text-2xl font-bold mb-4">Quiz Completed</h2>
-            <p className="text-lg mb-4">
-              You got {numCorrectAnswers}/{quizData.length} correct answers
-            </p>
-            <button
-              className="bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500"
-              onClick={restartQuiz}
-            >
-              Restart Quiz
-            </button>
+      <>
+        { loading ? <Loader/> :
+          <div className="bg-gray-900 flex justify-center items-center h-screen w-full">
+            <div className="max-w-xl px-4 w-[576px] mx-auto">
+              <div className="bg-gray-800 text-white p-4 h-[300px] rounded-md flex justify-center items-center flex-col">
+                <h2 className="text-3xl font-bold mb-4">Quiz Completed</h2>
+                <p className="text-xl mb-4">
+                  You got <strong className="text-2xl">{numCorrectAnswers}/{quizData.length}</strong> correct answers
+                </p>
+                <div className="btn-container flex gap-3">
+                <button
+                  className="bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  onClick={restartQuiz}
+                >
+                  Restart Quiz
+                </button>
+                <NavLink to={"/dashboard"}
+                  className="border border-gray-500 transition-all ease duration-200 text-white py-2 px-4 rounded-md hover:bg-purple-700 focus:outline-none focus:ring-2 hover:border-purple-700 focus:ring-purple-500"
+                  onClick={restartQuiz}
+                >
+                  Go to Dashboard
+                </NavLink>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        }
+      </>
     );
   }
 
   const currentQuestionData = quizData[currentQuestion];
 
   return (
+    <>
+    { loading ? <Loader/> :
     <div className="bg-gray-900 flex justify-center items-center h-screen">
       <div className="max-w-xl mx-3 sm:mx-auto">
         <div className="bg-gray-800 text-white p-7 rounded-md">
@@ -133,8 +158,9 @@ const Quiz = () => {
         </div>
       </div>
     </div>
+    }
+    </>
   );
 };
 
 export default Quiz;
-
