@@ -3,8 +3,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [auth, setAuth] = useState({ isAuthenticated: false, loading: true });
-
+  const [auth, setAuth] = useState({ isAuthenticated: false, loading: true, Name:"", image:"", Username:""});
   useEffect(() => {
     const validateToken = async () => {
 
@@ -21,7 +20,9 @@ export const AuthProvider = ({ children }) => {
           });
           const responseData = await response.json();
           if (response.ok) {
-            setAuth({ isAuthenticated: true, loading: false});
+            console.log(responseData);
+            setAuth({ isAuthenticated: true, loading: false, Name:responseData.Name, image:responseData.image_url, Username:responseData.Username});
+		  console.log(auth)
           } else {
             console.log(responseData);
             localStorage.removeItem("token");

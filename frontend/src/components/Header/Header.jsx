@@ -34,7 +34,7 @@ const Header = () => {
     <>
       <ToastContainer />
       {auth.isAuthenticated
-        ? console.log("Authenticated")
+        ? console.log(auth)
         : console.log("Not authenticated")}
       <nav className="bg-[rgba(0,0,0)] w-full px-[20px] sm:px-[80px] py-[10px] flex items-center justify-between z-20 font-poppins transition-all duration-300 ease fixed min-h-[62px]">
         <Link to="/" className="brand-logo">
@@ -127,7 +127,7 @@ const Header = () => {
                   .classList.toggle("active");
               }}
             >
-              <img src={"/assets/aashish.jpeg"} alt="user" className="" />
+              <img src={auth.image} alt="user" className="" />
             </div>
           )}
           {isAuthenticated && (
@@ -138,11 +138,11 @@ const Header = () => {
               <div className="sub-menu ">
                 <div className="user-info flex items-center">
                   <img
-                    src={"/assets/aashish.jpeg"}
+                    src={auth.image}
                     alt="user"
                     className="w-[50px] rounded-[50%] mr-[15px]"
                   />
-                  <h2 className="font-medium">Aashish Adhikari</h2>
+                  <h2 className="font-medium">{auth.Name}</h2>
                 </div>
                 <hr className="border-0 h-[1px] w-full bg-[#ccc] mt-[15px]" />
 
@@ -153,7 +153,7 @@ const Header = () => {
                       className="text-[#525252] bg-[#e5e5e5] rounded-[50%] p-[8px] mr-[15px] h-[16px] w-[16px]"
                     />
                     <NavLink
-                      to={`/user/${id}`}
+                      to={`/user/${auth.Username}`}
                       className="text-[#a5a5a5] font-medium block hover:text-purple-500 text-[18px]"
                     >
                       Profile

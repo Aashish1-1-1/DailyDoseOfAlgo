@@ -28,11 +28,8 @@ func HandelVerify(c *gin.Context) {
 	    c.JSON(http.StatusInternalServerError, gin.H{"error": "Internal Server Error"})
 	  return
   	}
-	query=`INSERT INTO stread(user_id) SELECT id FROM users ON CONFILC (user_id) DO NOTHING`
-
-	query = `INSERT INTO leaderboard(user_id) SELECT id FROM users ON CONFLICT (user_id) DO NOTHING`
+	query=`INSERT INTO streak(user_id) SELECT id FROM users ON CONFLICT (user_id) DO NOTHING`
 	err =database.MakeInsertQuery(query)
-
 	if err!=nil{
 	    c.JSON(http.StatusInternalServerError, gin.H{"error": "Internal Server Error"})
 	  return

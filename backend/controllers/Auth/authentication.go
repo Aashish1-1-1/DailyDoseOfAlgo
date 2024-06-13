@@ -317,13 +317,26 @@ func HandelLogin(c *gin.Context){
 func IsValid(c *gin.Context){
 	userid,_:=c.Get("userID")
 	fmt.Println(userid);
-	query := `select "username" from "users" where "id"=$1`
+	query := `select "name" from "users" where "id"=$1`
 	name,err:=database.Searchsmt(query,userid);
 	if err!=nil{
 		c.JSON(http.StatusBadRequest,gin.H{"message":"Unauthorized please login"})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"Authenticated":name})
+
+	query = `select "image_url" from "users" where "id"=$1`
+	image_url,err:=database.Searchsmt(query,userid);
+	if err!=nil{
+		c.JSON(http.StatusBadRequest,gin.H{"message":"Unauthorized please login"})
+		return
+	}
+	query = `select "username" from "users" where "id"=$1`
+	username,err:=database.Searchsmt(query,userid);
+	if err!=nil{
+		c.JSON(http.StatusBadRequest,gin.H{"message":"Unauthorized please login"})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"Name":name,"image_url":image_url,"Username":username})
 }
 
 
