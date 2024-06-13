@@ -126,13 +126,7 @@ func Evaluation(c *gin.Context) {
 			return
 		}
 
-		query = `insert into progress(user_id,dsa_id,score) values($1,$2,$3)`
-		err = database.MakeInsertQuery(query, userID, dsaID, score)
-		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "Internal Server Error"})
-			return
-		}
-		query =`SELECT EXISTS (SELECT 1 FROM progress WHERE user_id = $1 AND dsa_id = $2);`
+		query =`SELECT EXISTS (SELECT 1 FROM progress WHERE user_id = $1 AND dsa_id = $2)`
 		exist,err:=database.CheckifExist(query,userID,dsaID)
 		if err != nil {
 			fmt.Println(err)
@@ -153,6 +147,12 @@ func Evaluation(c *gin.Context) {
 					c.JSON(http.StatusInternalServerError, gin.H{"error": "Internal Server Error"})
 					return
 				}
+		}
+		query = `insert into progress(user_id,dsa_id,score) values($1,$2,$3)`
+		err = database.MakeInsertQuery(query, userID, dsaID, score)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Internal Server Error"})
+			return
 		}
 
 		query = `select dsa_id from todaypick where id=$1`
