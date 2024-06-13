@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
 import SingupImg from "/assets/signup.svg";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useAuth } from "../../Context/Auth";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/fontawesome-free-solid";
 import { useGoogleLogin } from "@react-oauth/google";
-import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import CircularLoader from "../Loader/CircularLoader";
 import { ToastContainer } from "react-toastify";
 import successToast from "../Toast/successToast";
 import errorToast from "../Toast/errorToast";
 import 'react-toastify/dist/ReactToastify.css';
+import {useAuth} from "../../Context/Auth";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -23,8 +22,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
-
-  const { setAuth } = useAuth();
+  const { auth, setAuth } = useAuth();
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
@@ -49,9 +47,12 @@ const Login = () => {
 
       if (response.ok) {
         const result = await response.json();
+        console.log("first result: ", result);
         successToast("Login successful, Welcome!");
         localStorage.setItem("token", result.Auth);
-        setAuth({ isAuthenticated: true });
+        // setAuth({ isAuthenticated: true });
+        // refresh the page
+        window.location.reload();
         navigate("/dashboard");
       } else {
         console.error("Email or password incorrect");
@@ -92,7 +93,13 @@ const Login = () => {
         const { id, email, name, picture } = decodedToken;
         console.log("User information:", id, email, name, picture);
 
-        setAuth({ isAuthenticated: true });
+        setAuth({
+          isAuthenticated: true,
+          loading: false,
+          Name: name,
+          image: picture,
+          Username: email.split("@")[0],
+        });
         navigate("/dashboard");
       } catch (error) {
         console.error("Error submitting form:", error);

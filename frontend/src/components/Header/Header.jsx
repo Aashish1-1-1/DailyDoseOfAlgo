@@ -10,9 +10,7 @@ import successToast from "../Toast/successToast";
 import { ToastContainer } from "react-toastify";
 
 const Header = () => {
-  const { auth } = useAuth();
-
-  let isAuthenticated = auth.isAuthenticated;
+  const { auth, setAuth } = useAuth();
 
   useEffect(() => {
     document.onclick = (e) => {
@@ -29,7 +27,13 @@ const Header = () => {
   const handellogout = () => {
     localStorage.removeItem("token");
     googleLogout();
-    // successToast("Logout successful");
+    setAuth({
+      isAuthenticated: false,
+      loading: false,
+      Name: "",
+      image: "",
+      Username: "",
+    });
   };
 
   return (
@@ -119,20 +123,20 @@ const Header = () => {
             </li>
           </ul>
 
-          {isAuthenticated && (
-              <img
-                src={auth.image}
-                alt="user"
-                id="user-menu"
-                className="object-cover cursor-pointer ml-4 h-[42px] w-[42px] rounded-[50%]"
-                onClick={(e) => {
-                  document
-                    .querySelector(".sub-menu-wrap")
-                    .classList.toggle("active");
-                }}
-              />
+          {auth.isAuthenticated && (
+            <img
+              src={auth.image}
+              alt="user"
+              id="user-menu"
+              className="object-cover cursor-pointer ml-4 h-[42px] w-[42px] rounded-[50%]"
+              onClick={(e) => {
+                document
+                  .querySelector(".sub-menu-wrap")
+                  .classList.toggle("active");
+              }}
+            />
           )}
-          {isAuthenticated && (
+          {auth.isAuthenticated && (
             <div
               id="sub-menu"
               className="sub-menu-wrap overflow-hidden absolute top-full right-[5%] w-[240px] text-white rounded-md bg-gray-800 p-[20px] m-[10px]"

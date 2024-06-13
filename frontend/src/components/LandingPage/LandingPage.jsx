@@ -6,7 +6,6 @@ import { faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../Context/Auth";
 import Tilt from "react-parallax-tilt";
-import "./LandingPage.css";
 
 const LandingPage = () => {
   const { auth } = useAuth();
@@ -76,12 +75,12 @@ const LandingPage = () => {
                   Sharpen your skills
                 </p>
                 <h4 className="text-white font-medium text-2xl">
-                  Daily Custom Challenges
+                  Daily Algorithm and Quizes
                 </h4>
                 <h6 className="text-white font-extralight text-sm mb-2">
                   Tailored problems to fit your skill level.
                 </h6>
-                <a href="" className="text-white font-light text-xs">
+                <a href="/algorithms" className="text-white font-light text-xs">
                   Accept Challenge
                 </a>
               </div>
@@ -98,12 +97,12 @@ const LandingPage = () => {
                   Interactive Learning
                 </p>
                 <h4 className="text-white font-medium text-2xl">
-                  Real-time Feedback System
+                  Real-time Quiz Evaluation
                 </h4>
                 <h6 className="text-white font-extralight text-sm mb-2">
-                  Instant evaluation to guide your progress.
+                  Instant evaluation and your learned topics to track your progress.
                 </h6>
-                <a href="" className="text-white font-light text-xs">
+                <a href="/algorithms" className="text-white font-light text-xs">
                   Try Now
                 </a>
               </div>
@@ -117,16 +116,16 @@ const LandingPage = () => {
               />
               <div className="content p-4">
                 <p className="text-white font-extralight text-xs mb-1">
-                  Community Wisdom
+                  Real time Leaderboard
                 </p>
                 <h4 className="text-white font-medium text-2xl">
-                  Engage with Fellow Coders
+                  Compete with Fellow Coders
                 </h4>
                 <h6 className="text-white font-extralight text-sm mb-2">
-                  Share insights and gain new perspectives.
+                  Learn algortihm, solve the quiz and score.
                 </h6>
-                <a href="" className="text-white font-light text-xs">
-                  Join Discussion
+                <a href={`/user/${auth.Username}`} className="text-white font-light text-xs">
+                  View your ranking
                 </a>
               </div>
             </div>

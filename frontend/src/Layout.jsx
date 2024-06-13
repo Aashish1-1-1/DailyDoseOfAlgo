@@ -38,6 +38,9 @@ const LayoutContent = ({ PublicRoutes }) => {
     if (isAuthenticated) {
       // Navigate to dashboard if authenticated
       // navigate("/dashboard");
+      if(location.pathname == '/login' || location.pathname == '/signup'){
+        navigate("/dashboard");
+      }
     } else {
       // Navigate to signup if not authenticated
       if (!isPublicRoute) {
@@ -54,7 +57,7 @@ const LayoutContent = ({ PublicRoutes }) => {
 
   // Render the appropriate content based on the authentication status
   return isAuthenticated ? (
-    <Outlet />
+    location.pathname == '/login' || location.pathname == '/signup' ? <Navigate to="/dashboard" replace /> : <Outlet />
   ) : isPublicRoute ? (
     <Outlet />
   ) : (

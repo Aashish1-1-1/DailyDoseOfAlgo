@@ -87,6 +87,9 @@ const SignUp = () => {
           "Verification email sent successfully. Please verify your email to login."
         );
         console.log(result);
+        navigate = useNavigate();
+        navigate("/login");
+        
       } else {
         console.error("Error",response);
         errorToast("Error");

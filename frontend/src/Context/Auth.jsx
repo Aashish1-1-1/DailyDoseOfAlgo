@@ -3,10 +3,15 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [auth, setAuth] = useState({ isAuthenticated: false, loading: true, Name:"", image:"", Username:""});
+  const [auth, setAuth] = useState({
+    isAuthenticated: false,
+    loading: true,
+    Name: "",
+    image: "",
+    Username: "",
+  });
   useEffect(() => {
     const validateToken = async () => {
-
       const token = localStorage.getItem("token");
       if (token) {
         console.log(token);
@@ -21,8 +26,13 @@ export const AuthProvider = ({ children }) => {
           const responseData = await response.json();
           if (response.ok) {
             console.log(responseData);
-            setAuth({ isAuthenticated: true, loading: false, Name:responseData.Name, image:responseData.image_url, Username:responseData.Username});
-		  console.log(auth)
+            setAuth({
+              isAuthenticated: true,
+              loading: false,
+              Name: responseData.Name,
+              image: responseData.image_url,
+              Username: responseData.Username,
+            });
           } else {
             console.log(responseData);
             localStorage.removeItem("token");
@@ -31,7 +41,7 @@ export const AuthProvider = ({ children }) => {
           console.log("Fetching failed", error);
         }
       } else {
-        setAuth({ isAuthenticated: false, loading: false});
+        setAuth({ isAuthenticated: false, loading: false });
       }
     };
 
