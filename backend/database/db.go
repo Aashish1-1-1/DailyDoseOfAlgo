@@ -6,7 +6,7 @@ import (
 	"log"
 	"os"
 
-	_ "github.com/lib/pq"
+	"github.com/lib/pq"
 	"github.com/joho/godotenv"
 )
 
@@ -31,6 +31,20 @@ func Init() {
   Db = db
 }
 
+func MakeInsertQuery2(query string, values ...interface{}) error {
+    Init()
+    defer CloseDB()
+
+    for i, value := range values {
+        switch v := value.(type) {
+        case []int64:
+            values[i] = pq.Array(v)
+        }
+    }
+
+    _, err := Db.Exec(query, values...)
+    return err
+}
 
 func MakeInsertQuery(query string,values ...interface{}) error {
   Init()
@@ -44,26 +58,16 @@ func MakeInsertQuery(query string,values ...interface{}) error {
   CloseDB()
 	return nil
 }
+func CheckifExist(query string,values ...interface{})(bool,error){
+	Init()
+	var exist bool
+	err := Db.QueryRow(query,values...).Scan(&exist)
+	if err!=nil{
+		return false,err 
+	}
+	return exist,nil 
+}
 
-
-//func LoginQuery(email string,password string) (int,error) {
-//  Init()
-//  var password1 string
-//  var id int
-//  query := `SELECT "user_id","password" FROM "users" WHERE "email"=$1`
-//  err := Db.QueryRow(query, email).Scan(&id,&password1)
-//  if err!=nil{
-//    fmt.Println(err)
-//    return 0,err
-//  }
-//   if password1!=password{
-//      fmt.Println("Password not match")
-//      return 0,nil 
-//  }
-//  CloseDB()
-//  fmt.Println("Password Matched")
-//  return id,nil
-//}
 func Searchsmt(query string,values ...interface{}) (string,error) {
   Init()
   var data string
@@ -74,6 +78,19 @@ func Searchsmt(query string,values ...interface{}) (string,error) {
   }
   CloseDB()
   return data,nil 
+}
+func Searchsmt3(query string, values ...interface{}) ([]int64, error) {
+    Init()
+    defer CloseDB()
+
+    var data []int64
+    err := Db.QueryRow(query, values...).Scan(pq.Array(&data))
+    if err != nil {
+        fmt.Println(err)
+        return nil, err
+    }
+
+    return data, nil
 }
 func Searchsmt2(query string,values ...interface{}) (int64,error) {
   Init()
@@ -104,3 +121,4 @@ func CloseDB() {
 		fmt.Println("Closed connection")
 	}
 }
+

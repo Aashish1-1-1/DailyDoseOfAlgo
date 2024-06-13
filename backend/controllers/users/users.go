@@ -77,10 +77,26 @@ func Throwprofile(c *gin.Context){
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch Profile"})
 		return
 	}
+
 	var profiledatas User.ProfileData;
+	query = `SELECT streak_dates FROM streak INNER join users on streak.user_id=users.id where username=$1`
+	profiledatas.Streak,err=database.Searchsmt3(query,profile)
+	if err!=nil{
+		fmt.Println("Error:", err)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch Profile"})
+		return
+	}
+	query = `SELECT longest_streak FROM streak INNER join users on streak.user_id=users.id where username=$1`
+	profiledatas.Longest_streak,err=database.Searchsmt2(query,profile)
+	if err!=nil{
+		fmt.Println("Error:", err)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch Profile"})
+		return
+	}
 	profiledatas.Name=name;
 	profiledatas.ProfileImage=img_url;
 	profiledatas.LeaderBoarddata=leaderboards;
 	profiledatas.Progressdata=progressdatas;
 	c.JSON(http.StatusOK,profiledatas)
 }
+
