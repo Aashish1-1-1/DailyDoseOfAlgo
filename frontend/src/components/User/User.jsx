@@ -49,62 +49,38 @@ const User = () => {
     }
   }
 
-  // Calculate current streak
   const today = new Date().getDate();
-
-  // let currentStreak = 0;
-  // for (let i = streak.length - 1; i >= 0; i--) {
-  //   if (streak[i] === today - currentStreak) {
-  //     currentStreak++;
-  //   } else {
-  //     break;
-  //   }
-  // }
-
   let currentStreak = 0;
   let currentStreakRange = "";
-
   for (let i = streak.length - 1; i >= 0; i--) {
     if (streak[i] === today - currentStreak) {
       currentStreak++;
-      if (i === streak.length - 1) {
-        const startDate = new Date(
-          new Date().getFullYear(),
-          new Date().getMonth(),
-          streak[i]
-        );
-        currentStreakRange = `${startDate.toLocaleString("default", {
-          month: "long",
-        })} ${streak[i]}`;
-      } else {
-        let j = i + 1;
-        while (j < streak.length && streak[j] === streak[j - 1] + 1) {
-          currentStreak++;
-          j++;
-        }
-        const startDate = new Date(
-          new Date().getFullYear(),
-          new Date().getMonth(),
-          streak[j - currentStreak]
-        );
-        const endDate = new Date(
-          new Date().getFullYear(),
-          new Date().getMonth(),
-          streak[j - 1]
-        );
-        currentStreakRange = `${startDate.toLocaleString("default", {
-          month: "long",
-        })} ${streak[j - currentStreak]} - ${endDate.toLocaleString("default", {
-          month: "long",
-        })} ${streak[j - 1]}`;
-        break;
-      }
-    } else {
-      currentStreak = 0;
-      currentStreakRange = "";
     }
   }
 
+  // Calculate current streak range
+  if (currentStreak > 0) {
+    const startDate = new Date(
+      new Date().getFullYear(),
+      new Date().getMonth(),
+      streak[streak.length - currentStreak]
+    );
+    const endDate = new Date(
+      new Date().getFullYear(),
+      new Date().getMonth(),
+      streak[streak.length - 1]
+    );
+    currentStreakRange = `${startDate.toLocaleString("default", {
+      month: "long",
+    })} ${streak[streak.length - currentStreak]} - ${endDate.toLocaleString(
+      "default",
+      {
+        month: "long",
+      }
+    )} ${streak[streak.length - 1]}`;
+  } else {
+    currentStreakRange = "";
+  }
   // Calculate longest streak range
   let longestStreak = 0;
   let longestStreakRange = "";

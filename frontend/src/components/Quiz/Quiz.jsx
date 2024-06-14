@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import Loader from "../Loader/Loader";
-import ConfettiExplosion from "react-confetti-explosion";
 
 const Quiz = () => {
   const [quizData, setQuizData] = useState([]);
@@ -82,17 +81,6 @@ const Quiz = () => {
   if (quizCompleted) {
     const score = (numCorrectAnswers / quizData.length) * 100;
     const passedQuiz = score >= 65;
-    const [showConfetti, setShowConfetti] = useState(passedQuiz);
-
-    useEffect(() => {
-      if (passedQuiz) {
-        const timer = setTimeout(() => {
-          setShowConfetti(false);
-        }, 2000); // Hide confetti after 2 seconds
-
-        return () => clearTimeout(timer); // Clean up the timer on unmount
-      }
-    }, [passedQuiz]);
 
     return (
       <>
@@ -100,11 +88,6 @@ const Quiz = () => {
           <Loader />
         ) : (
           <div className="bg-gray-900 flex justify-center items-center h-screen w-full font-poppins">
-            {showConfetti && (
-              <div className="absolute inset-0 flex items-center justify-center z-10">
-                <ConfettiExplosion />
-              </div>
-            )}
             <div className="max-w-xl px-4 w-[576px] mx-auto">
               <div className="bg-gray-800 text-white p-4 h-[300px] rounded-md flex justify-center items-center flex-col">
                 <h2 className="text-3xl font-bold mb-4">

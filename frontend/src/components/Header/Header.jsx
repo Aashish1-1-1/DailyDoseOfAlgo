@@ -93,7 +93,7 @@ const Header = () => {
                 Algorithms
               </NavLink>
             </li>
-            <li className="w-full m-0">
+            {/* <li className="w-full m-0">
               <NavLink
                 to="/quizes"
                 className={({ isActive }) =>
@@ -106,7 +106,7 @@ const Header = () => {
               >
                 Quizes
               </NavLink>
-            </li>
+            </li> */}
             <li className="w-full m-0">
               <NavLink
                 to="/contact"
