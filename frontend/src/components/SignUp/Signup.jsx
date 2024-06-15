@@ -33,6 +33,7 @@ const SignUp = () => {
   const [showPassword1, setShowPassword1] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value, type } = e.target;
@@ -72,7 +73,7 @@ const SignUp = () => {
     data.append("image", file);
 
     try {
-	    console.log(data)
+	    console.log("Data: ",data)
       const response = await fetch("http://localhost:8080/api/signup", {
         method: "POST",
         // headers: {
@@ -84,19 +85,17 @@ const SignUp = () => {
       if (response.ok) {
         const result = await response.json();
         successToast(
-          "Verification email sent successfully. Please verify your email to login."
+          "Verification email sent. Please verify your email to login."
         );
-        console.log(result);
-        navigate = useNavigate();
+        console.log("SignUp result: ", result);
         navigate("/login");
-        
       } else {
         console.error("Error",response);
-        errorToast("Error");
+        errorToast(`User with email already exists.`);
       }
     } catch (error) {
       console.error("Error submitting form:", error);
-      errorToast("Something went wrong. Please try again.");
+      errorToast(`Something went wrong. Please try again.`);
     }
 
     setLoading(false);
@@ -186,7 +185,6 @@ const SignUp = () => {
         console.log("User information:", id, email, name, picture);
 
         setAuth({ isAuthenticated: true });
-        navigate = useNavigate();
         navigate("/dashboard");
       } catch (error) {
         console.error("Error submitting form:", error);

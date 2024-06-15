@@ -9,6 +9,8 @@ const successToast = (msg) => {
     draggable: true,
     progress: undefined,
     theme: "dark",
+    className: " font-poppins",
+    style: {fontFamily: "Poppins", fontWeight: "500", top: "70px"}
   });
 };
 
