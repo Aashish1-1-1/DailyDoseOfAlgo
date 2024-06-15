@@ -53,9 +53,13 @@ const User = () => {
   let currentStreak = 0;
   let currentStreakRange = "";
   for (let i = streak.length - 1; i >= 0; i--) {
-    if (streak[i] === today - currentStreak) {
+    if (streak[i] === today - 1 - currentStreak) {
       currentStreak++;
     }
+  }
+
+  if(streak[streak.length - 1] == today) {
+    currentStreak++;
   }
 
   // Calculate current streak range
