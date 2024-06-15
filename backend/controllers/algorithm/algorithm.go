@@ -82,40 +82,33 @@ func Evaluation(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"Error": "User ID not found"})
 		return
 	}
-
-	var toCheck algomodel.Quizevaluate
-	if err := c.ShouldBind(&toCheck); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"Error": err.Error()})
+	var tocheck algomodel.Quizevaluate
+	if err:=c.ShouldBind(&tocheck); err!=nil{
+		c.JSON(http.StatusBadRequest,gin.H{"Error":err.Error()})
 		return
 	}
-
-	// Retrieve correct answers for the quiz based on `name`
-	name := c.Param("name")
-	query := `SELECT correct_ans FROM quiz INNER JOIN dsa ON quiz.dsa_id = dsa.id WHERE name = $1`
-	answerStr, err := database.Searchsmt(query, name)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
+	name:=c.Param("name");
+	query := `SELECT correct_ans from quiz INNER JOIN dsa ON quiz.dsa_id=dsa.id WHERE name=$1`
+	answerstr,err := database.Searchsmt(query,name)
+	if err!=nil{
+		c.JSON(http.StatusBadRequest,gin.H{"message":err.Error()})
 		return
 	}
+	answerstr = strings.Trim(answerstr,"[]");
+	correctans := strings.Split(answerstr, ", ")
 
-	// Parse correct answers from database response
-	answerStr = strings.Trim(answerStr, "{}") // Remove curly braces
-	correctAns := strings.Split(answerStr, ",")
-	for i := range correctAns {
-		correctAns[i] = strings.Trim(correctAns[i], `" `) // Trim double quotes and spaces
+	for i := range correctans {
+		correctans[i] = strings.Trim(correctans[i], `"`)
 	}
-	fmt.Println(correctAns)
-	fmt.Println(toCheck.Answers)
-	// Calculate number of correct answers
-	var numberOfCorrect int
-	for i := range correctAns {
-		if correctAns[i] == toCheck.Answers[i] {
-			numberOfCorrect++
+	fmt.Println(tocheck.Answers);		
+	fmt.Println(correctans);
+	var numberofcorrect int =0;
+	for i:= range correctans{
+		if(correctans[i]==tocheck.Answers[i]){
+			numberofcorrect++;
 		}
 	}
-
-	// Calculate score percentage
-	score := float32(numberOfCorrect) / float32(len(correctAns)) * 100
+	score := float32(numberofcorrect) / float32(len(correctans)) * 100
 
 	// Update progress table with the score
 	if score > 65 {
@@ -169,26 +162,6 @@ func Evaluation(c *gin.Context) {
 				c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to retrieve streak dates"})
 				return
 			}
-			temparr:=datesArr
-			temparr=append(temparr,int64(day))
-			longest := findLongestConsecutiveSequence(temparr)
-
-			query = `SELECT longest_streak FROM streak WHERE user_id = $1`
-			longestStreak, err := database.Searchsmt2(query, userID)
-			if err != nil {
-				c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
-				return
-			}
-
-			if longest > longestStreak {
-				query = `UPDATE streak SET longest_streak = $1 WHERE user_id = $2`
-				err = database.MakeInsertQuery(query, longest, userID)
-				if err != nil {
-					c.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
-					return
-				}
-			}
-
 			if len(datesArr) == 0 || datesArr[len(datesArr)-1] != int64(day) {
 				datesArr = append(datesArr, int64(day))
 				query = `UPDATE streak SET streak_dates = $1 WHERE user_id = $2`
@@ -201,32 +174,7 @@ func Evaluation(c *gin.Context) {
 		}
 	}
 
-	c.JSON(http.StatusOK, gin.H{"Score": numberOfCorrect})
-}
-func findLongestConsecutiveSequence(arr []int64) int64 {
-	if len(arr) == 0 {
-		return 0
-	}
-
-	maxLength := 1
-	currentLength := 1
-
-	for i := 1; i < len(arr); i++ {
-		if arr[i] == arr[i-1]+1 {
-			currentLength++
-		} else if arr[i] != arr[i-1] {
-			if currentLength > maxLength {
-				maxLength = currentLength
-			}
-			currentLength = 1
-		}
-	}
-
-	if currentLength > maxLength {
-		maxLength = currentLength
-	}
-
-	return int64(maxLength)
+	c.JSON(http.StatusOK, gin.H{"Score": numberofcorrect})
 }
 func Todaypick(c *gin.Context){
 	//query the table today's pick which contains algo id and redirect to respective id
