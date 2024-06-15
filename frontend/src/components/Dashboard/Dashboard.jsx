@@ -92,17 +92,41 @@ const Dashboard = () => {
       setFetchedds(!fetchedds);
     }
   };
+const [searchInput, setSearchInput] = useState("");
+  const [filteredDSResults, setFilteredDSResults] = useState(DSresult);
+  const [filteredALgoResults, setFilteredALgoResults] = useState(Algoresult);
 
-  return (
+  useEffect(() => {
+    if (searchInput.length > 0) {
+      const filteredDS = DSresult.filter((DS) => 
+        DS.name.toLowerCase().includes(searchInput.toLowerCase())
+      );
+      const filteredALgo = Algoresult.filter((ALgo) => 
+        ALgo.name.toLowerCase().includes(searchInput.toLowerCase())
+      );
+      setFilteredDSResults(filteredDS);
+      setFilteredALgoResults(filteredALgo);
+    } else {
+      setFilteredDSResults(DSresult);
+      setFilteredALgoResults(Algoresult);
+    }
+  }, [searchInput, DSresult, Algoresult]);
+
+  const handleInputChange = (e) => {
+    e.preventDefault();
+    setSearchInput(e.target.value);
+  };
+return (
     <>
     { loading ? <Loader/> :
       <div className="flex flex-col items-center min-h-screen bg-slate-950 space-y-6 pt-[90px] pb-10 font-poppins">
-        {/* need to implement search function */}
-        {/* <input
+         <input
+	  onChange={handleInputChange}
           type="text"
           placeholder="Search"
+	  value={searchInput}
           className="bg-white border rounded-full py-2 px-6 shadow focus:outline-none focus:ring-2 focus:ring-blue-600 text-black w-1/2"
-        /> */}
+        /> 
         <div className="space-y-10 w-full">
           <div className="flex flex-col items-center">
             <button
@@ -123,7 +147,7 @@ const Dashboard = () => {
 
             {fetchedds && (
               <div className="w-1/2 bg-gray-800 rounded-lg p-4 mt-4">
-                {DSresult.map((element, index) => (
+                {filteredDSResults.map((element, index) => (
                   <div key={index} className="p-2">
                     <NavLink
                       to={`/algorithms/${element.name}`}
@@ -161,7 +185,7 @@ const Dashboard = () => {
 
             {fetchedalgo && (
               <div className="w-1/2 bg-gray-800 rounded-lg p-4 mt-4">
-                {Algoresult.map((element, index) => (
+                {filteredALgoResults.map((element, index) => (
                   <div key={index} className="p-2">
                     <NavLink
                       to={`/algorithms/${element.name}`}
@@ -181,7 +205,7 @@ const Dashboard = () => {
           </div>
 
         </div>
-        <NavLink to={`/algorithms/${todaypick}`} className="bg-purple-800 hover:bg-purple-900 text-white font-semibold py-3 px-8 rounded-lg">
+	<NavLink to={`/algorithms/${todaypick}`} className="bg-purple-800 hover:bg-purple-900 text-white font-semibold py-3 px-8 rounded-lg">
           Today's Pick
         </NavLink>
       </div>
