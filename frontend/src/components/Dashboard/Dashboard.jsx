@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import Loader from "../Loader/Loader";
+import CircularLoader from "../Loader/CircularLoader";
 
 const Dashboard = () => {
   const [fetchedalgo, setFetchedalgo] = useState(false);
@@ -10,38 +11,38 @@ const Dashboard = () => {
 
   const [todaypick, setTodayPick] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isFetchingDS, setIsFetchingDS] = useState(false);
+  const [isFetchingAlgo, setIsFetchingAlgo] = useState(false);
 
-  useEffect(()=>{
+  useEffect(() => {
     setLoading(true);
     const handleTodayPick = async () => {
       try {
-        const response = await fetch(
-          `http://localhost:8080/api/todaypick`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const response = await fetch(`http://localhost:8080/api/todaypick`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
         if (response.ok) {
           const result = await response.json();
           setTodayPick(result);
-          console.log("todaypick: ",result)
+          console.log("todaypick: ", result);
         } else {
           console.log("Failed to fetch data");
         }
       } catch (error) {
-        console.error(error)
+        console.error(error);
       }
-    }
+    };
 
     handleTodayPick();
     setLoading(false);
-  },[])
+  }, []);
 
   const handelfetch = async (value) => {
     if (value) {
+      setIsFetchingAlgo(true);
       if (Algoresult.length === 0) {
         try {
           const response = await fetch(
@@ -64,6 +65,7 @@ const Dashboard = () => {
         }
       }
     } else {
+      setIsFetchingDS(true);
       if (DSresult.length === 0) {
         try {
           const response = await fetch(
@@ -91,17 +93,19 @@ const Dashboard = () => {
     } else {
       setFetchedds(!fetchedds);
     }
+    setIsFetchingAlgo(false);
+    setIsFetchingDS(false);
   };
-const [searchInput, setSearchInput] = useState("");
+  const [searchInput, setSearchInput] = useState("");
   const [filteredDSResults, setFilteredDSResults] = useState(DSresult);
   const [filteredALgoResults, setFilteredALgoResults] = useState(Algoresult);
 
   useEffect(() => {
     if (searchInput.length > 0) {
-      const filteredDS = DSresult.filter((DS) => 
+      const filteredDS = DSresult.filter((DS) =>
         DS.name.toLowerCase().includes(searchInput.toLowerCase())
       );
-      const filteredALgo = Algoresult.filter((ALgo) => 
+      const filteredALgo = Algoresult.filter((ALgo) =>
         ALgo.name.toLowerCase().includes(searchInput.toLowerCase())
       );
       setFilteredDSResults(filteredDS);
@@ -116,100 +120,104 @@ const [searchInput, setSearchInput] = useState("");
     e.preventDefault();
     setSearchInput(e.target.value);
   };
-return (
+  return (
     <>
-    { loading ? <Loader/> :
-      <div className="flex flex-col items-center min-h-screen bg-slate-950 space-y-6 pt-[90px] pb-10 font-poppins">
-         <input
-	  onChange={handleInputChange}
-          type="text"
-          placeholder="Search"
-	  value={searchInput}
-          className="bg-white border rounded-full py-2 px-6 shadow focus:outline-none focus:ring-2 focus:ring-blue-600 text-black w-1/2"
-        /> 
-        <div className="space-y-10 w-full">
-          <div className="flex flex-col items-center">
-            <button
-              className="bg-gray-700 text-white font-semibold py-3 px-8 rounded-lg flex items-center justify-between w-1/2"
-              onClick={() => {
-                handelfetch(false);
-              }}
-            >
-              Data Structures
-              <span
-                className={`ml-2 transform transition-transform ${
-                  fetchedds ? "rotate-180" : "rotate-0"
-                }`}
+      {loading ? (
+        <Loader />
+      ) : (
+        <div className="flex flex-col items-center min-h-screen bg-slate-950 space-y-6 pt-[90px] pb-10 font-poppins">
+          <input
+            onChange={handleInputChange}
+            type="text"
+            placeholder="Search"
+            value={searchInput}
+            className="bg-white border rounded-full py-2 px-6 shadow focus:outline-none focus:ring-2 focus:ring-blue-600 text-black w-1/2"
+          />
+          <div className="space-y-10 w-full">
+            <div className="flex flex-col items-center">
+              <button
+                className="bg-gray-700 text-white font-semibold py-3 px-8 rounded-lg flex items-center justify-between w-1/2"
+                onClick={() => {
+                  handelfetch(false);
+                }}
               >
-                ▼
-              </span>
-            </button>
+                Data Structures
+                <span
+                  className={`ml-2 transform transition-transform ${
+                    fetchedds ? "rotate-180" : "rotate-0"
+                  }`}
+                >
+                  {isFetchingDS? <CircularLoader /> :"▼"}
+                </span>
+              </button>
 
-            {fetchedds && (
-              <div className="w-1/2 bg-gray-800 rounded-lg p-4 mt-4">
-                {filteredDSResults.map((element, index) => (
-                  <div key={index} className="p-2">
-                    <NavLink
-                      to={`/algorithms/${element.name}`}
-                      className="text-white"
-                    >
-                      {index + 1}.{" "}
-                      {element.name.charAt(0).toUpperCase() +
-                        element.name.slice(1)}{" "}
-                      <div className="inline-block bg-orange-300 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">
-                        {element.category}
-                      </div>
-                    </NavLink>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
+              {fetchedds && (
+                <div className="w-1/2 bg-gray-800 rounded-lg p-4 mt-4">
+                  {filteredDSResults.map((element, index) => (
+                    <div key={index} className="p-2">
+                      <NavLink
+                        to={`/algorithms/${element.name}`}
+                        className="text-white"
+                      >
+                        {index + 1}.{" "}
+                        {element.name.charAt(0).toUpperCase() +
+                          element.name.slice(1)}{" "}
+                        <div className="inline-block bg-orange-300 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">
+                          {element.category}
+                        </div>
+                      </NavLink>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
 
-          <div className="flex flex-col items-center">
-            <button
-              className="bg-gray-700 text-white font-semibold py-3 px-8 rounded-lg flex items-center justify-between w-1/2"
-              onClick={() => {
-                handelfetch(true);
-              }}
-            >
-              Algorithms
-              <span
-                className={`ml-2 transform transition-transform ${
-                  fetchedalgo ? "rotate-180" : "rotate-0"
-                }`}
+            <div className="flex flex-col items-center">
+              <button
+                className="bg-gray-700 text-white font-semibold py-3 px-8 rounded-lg flex items-center justify-between w-1/2"
+                onClick={() => {
+                  handelfetch(true);
+                }}
               >
-                ▼
-              </span>
-            </button>
+                Algorithms
+                <span
+                  className={`ml-2 transform transition-transform ${
+                    fetchedalgo ? "rotate-180" : "rotate-0"
+                  }`}
+                >
+                  {isFetchingAlgo? <CircularLoader /> :"▼"}
+                </span>
+              </button>
 
-            {fetchedalgo && (
-              <div className="w-1/2 bg-gray-800 rounded-lg p-4 mt-4">
-                {filteredALgoResults.map((element, index) => (
-                  <div key={index} className="p-2">
-                    <NavLink
-                      to={`/algorithms/${element.name}`}
-                      className="text-white"
-                    >
-                      {index + 1}.{" "}
-                      {element.name.charAt(0).toUpperCase() +
-                        element.name.slice(1)}{" "}
-                      <div className="inline-block bg-orange-300 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">
-                        {element.category}
-                      </div>
-                    </NavLink>
-                  </div>
-                ))}
-              </div>
-            )}
+              {fetchedalgo && (
+                <div className="w-1/2 bg-gray-800 rounded-lg p-4 mt-4">
+                  {filteredALgoResults.map((element, index) => (
+                    <div key={index} className="p-2">
+                      <NavLink
+                        to={`/algorithms/${element.name}`}
+                        className="text-white"
+                      >
+                        {index + 1}.{" "}
+                        {element.name.charAt(0).toUpperCase() +
+                          element.name.slice(1)}{" "}
+                        <div className="inline-block bg-orange-300 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">
+                          {element.category}
+                        </div>
+                      </NavLink>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
-
+          <NavLink
+            to={`/algorithms/${todaypick}`}
+            className="bg-purple-800 hover:bg-purple-900 text-white font-semibold py-3 px-8 rounded-lg"
+          >
+            Today's Pick
+          </NavLink>
         </div>
-	<NavLink to={`/algorithms/${todaypick}`} className="bg-purple-800 hover:bg-purple-900 text-white font-semibold py-3 px-8 rounded-lg">
-          Today's Pick
-        </NavLink>
-      </div>
-      }
+      )}
     </>
   );
 };
