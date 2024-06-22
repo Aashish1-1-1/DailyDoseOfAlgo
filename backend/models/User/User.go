@@ -28,7 +28,6 @@ type ProfileData struct{
  	 LeaderBoarddata []LeaderBoard  `json:"leaderboard"`
  	 Progressdata []Progress `json:"progress"`
 	 Streak []int64 `json:"streak"`
-	 Longest_streak int64 `json:"longeststreak"`
 }
 
 

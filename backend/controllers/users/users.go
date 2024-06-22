@@ -63,22 +63,27 @@ func Throwprofile(c *gin.Context){
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error during iteration"})
 		return
 	}
-	query=`select name from users where username=$1`
-	name,err:=database.Searchsmt(query,profile)
+	query=`select name,image_url from users where username=$1`
+	rows,err = database.MakeSearchQuery(query,profile)
 	if err!=nil{
 		fmt.Println("Error:", err)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch Profile"})
 		return
 	}
-	query=`select image_url from users where username=$1`
-	img_url,err:=database.Searchsmt(query,profile)
-	if err!=nil{
-		fmt.Println("Error:", err)
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch Profile"})
-		return
-	}
-
+	defer rows.Close()
 	var profiledatas User.ProfileData;
+	for rows.Next(){
+		if err := rows.Scan(&profiledatas.Name,&profiledatas.ProfileImage); err != nil {
+			fmt.Println("Error scanning row:", err)
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to scan row"})
+			return
+		}
+	}
+	if err = rows.Err(); err != nil {
+		fmt.Println("Error during iteration:", err)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Error during iteration"})
+		return
+	}
 	query = `SELECT streak_dates FROM streak INNER join users on streak.user_id=users.id where username=$1`
 	profiledatas.Streak,err=database.Searchsmt3(query,profile)
 	if err!=nil{
@@ -86,15 +91,6 @@ func Throwprofile(c *gin.Context){
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch Profile"})
 		return
 	}
-	query = `SELECT longest_streak FROM streak INNER join users on streak.user_id=users.id where username=$1`
-	profiledatas.Longest_streak,err=database.Searchsmt2(query,profile)
-	if err!=nil{
-		fmt.Println("Error:", err)
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch Profile"})
-		return
-	}
-	profiledatas.Name=name;
-	profiledatas.ProfileImage=img_url;
 	profiledatas.LeaderBoarddata=leaderboards;
 	profiledatas.Progressdata=progressdatas;
 	c.JSON(http.StatusOK,profiledatas)

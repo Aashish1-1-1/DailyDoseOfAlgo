@@ -36,6 +36,7 @@ export const AuthProvider = ({ children }) => {
           } else {
             console.log(responseData);
             localStorage.removeItem("token");
+             window.location.reload();
           }
         } catch (error) {
           console.log("Fetching failed", error);
