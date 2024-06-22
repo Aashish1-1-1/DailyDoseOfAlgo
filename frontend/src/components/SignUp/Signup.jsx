@@ -157,41 +157,41 @@ const SignUp = () => {
     });
   };
 
-  const handleGoogleSignIn = useGoogleLogin({
-    onSuccess: async (codeResponse) => {
-      console.log("codeResponse: ", codeResponse);
+  // const handleGoogleSignIn = useGoogleLogin({
+  //   onSuccess: async (codeResponse) => {
+  //     console.log("codeResponse: ", codeResponse);
 
-      // send codeResponse to the server
-      // const tokenResponse = await axios.get(
-      //   `http://localhost:8080/auth/google/callback?code=${codeResponse.code}`
-      // );
-      // console.log(tokenResponse.data);
+  //     // send codeResponse to the server
+  //     // const tokenResponse = await axios.get(
+  //     //   `http://localhost:8080/auth/google/callback?code=${codeResponse.code}`
+  //     // );
+  //     // console.log(tokenResponse.data);
 
-      try {
-        const response = await fetch(
-          `http://localhost:8080/auth/google/callback?code=${codeResponse.code}`,
-          {
-            method: "GET",
-          }
-        );
+  //     try {
+  //       const response = await fetch(
+  //         `http://localhost:8080/auth/google/callback?code=${codeResponse.code}`,
+  //         {
+  //           method: "GET",
+  //         }
+  //       );
 
-        const result = await response.json();
-        console.log("tokenResponse1: ", result);
-        console.log("Welcome");
-        localStorage.setItem("token", result.token);
+  //       const result = await response.json();
+  //       console.log("tokenResponse1: ", result);
+  //       console.log("Welcome");
+  //       localStorage.setItem("token", result.token);
 
-        const decodedToken = jwtDecode(localStorage.getItem("token"));
-        const { id, email, name, picture } = decodedToken;
-        console.log("User information:", id, email, name, picture);
+  //       const decodedToken = jwtDecode(localStorage.getItem("token"));
+  //       const { id, email, name, picture } = decodedToken;
+  //       console.log("User information:", id, email, name, picture);
 
-        setAuth({ isAuthenticated: true });
-        navigate("/dashboard");
-      } catch (error) {
-        console.error("Error submitting form:", error);
-      }
-    },
-    flow: "auth-code",
-  });
+  //       setAuth({ isAuthenticated: true });
+  //       navigate("/dashboard");
+  //     } catch (error) {
+  //       console.error("Error submitting form:", error);
+  //     }
+  //   },
+  //   flow: "auth-code",
+  // });
 
   return (
     <>
@@ -199,7 +199,7 @@ const SignUp = () => {
       <form onSubmit={handleSubmit} autoComplete="off">
         <div className="w-full lg:min-h-[calc(100vh)] h-full flex flex-col lg:flex-row justify-center font-poppins bg-slate-950 text-white pt-[62px] relative">
           {/* Image */}
-          <div className=" w-full lg:w-1/2 h-[792px] flex-col hidden lg:flex justify-center items-center p-14 bg-slate-950 text-white">
+          <div className=" w-full lg:w-1/2 h-[100vh] flex-col hidden lg:flex justify-center items-center p-14 bg-slate-950 text-white">
             <img src={SingupImg} alt="signup" className="scale-75" />
             <h1 className="font-semibold text-4xl">Daily Dose Of Algo</h1>
             <h3 className="text-white opacity-65 text-xl text-center mt-3">
@@ -209,7 +209,7 @@ const SignUp = () => {
           </div>
 
           {/* Text container */}
-          <div className="w-full lg:w-1/2 bg-[#1F1D1D] h-full flex flex-col justify-center items-center">
+          <div className="w-full lg:w-1/2 bg-[#1F1D1D] h-screen flex flex-col justify-center items-center">
             <div className="w-full flex flex-col max-w-[420px] lg:max-w-[500px] p-4 items-center">
               <h1 className="text-3xl font-semibold mb-5">Sign Up</h1>
               <div className="w-full mb-[10px]">
@@ -428,7 +428,7 @@ const SignUp = () => {
                   {loading ? <CircularLoader /> : "Sign Up"}
                 </button>
               </div>
-              <div className="w-full flex items-center justify-center relative py-1 mb-3">
+              {/* <div className="w-full flex items-center justify-center relative py-1 mb-3">
                 <div className="w-full h-[1px] bg-white"></div>
                 <p className="text-lg absolute bg-[#1F1D1D] px-2 top-1/2 transform -translate-y-1/2">
                   OR
@@ -444,9 +444,9 @@ const SignUp = () => {
                   alt="google logo"
                 />
                 Sign Up With Google
-              </div>
+              </div> */}
               <div>
-                <p className="text-white text-center mt-3">
+                <p className="text-white text-center">
                   Already have an account?{" "}
                   <NavLink to="/login" className="font-medium text-[#6C63FF]">
                     Login

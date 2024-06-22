@@ -66,47 +66,47 @@ const Login = () => {
     setLoading(false);
   };
 
-  const handleGoogleSignIn = useGoogleLogin({
-    onSuccess: async (codeResponse) => {
-      console.log("codeResponse: ", codeResponse);
+  // const handleGoogleSignIn = useGoogleLogin({
+  //   onSuccess: async (codeResponse) => {
+  //     console.log("codeResponse: ", codeResponse);
 
-      // send codeResponse to the server
-      // const tokenResponse = await axios.get(
-      //   `http://localhost:8080/auth/google/callback?code=${codeResponse.code}`
-      // );
-      // console.log(tokenResponse.data);
+  //     // send codeResponse to the server
+  //     // const tokenResponse = await axios.get(
+  //     //   `http://localhost:8080/auth/google/callback?code=${codeResponse.code}`
+  //     // );
+  //     // console.log(tokenResponse.data);
 
-      try {
-        const response = await fetch(
-          `http://localhost:8080/auth/google/callback?code=${codeResponse.code}`,
-          {
-            method: "GET",
-          }
-        );
+  //     try {
+  //       const response = await fetch(
+  //         `http://localhost:8080/auth/google/callback?code=${codeResponse.code}`,
+  //         {
+  //           method: "GET",
+  //         }
+  //       );
 
-        const result = await response.json();
-        console.log("tokenResponse1: ", result);
-        console.log("Welcome");
-        localStorage.setItem("token", result.token);
+  //       const result = await response.json();
+  //       console.log("tokenResponse1: ", result);
+  //       console.log("Welcome");
+  //       localStorage.setItem("token", result.token);
 
-        const decodedToken = jwtDecode(localStorage.getItem("token"));
-        const { id, email, name, picture } = decodedToken;
-        console.log("User information:", id, email, name, picture);
+  //       const decodedToken = jwtDecode(localStorage.getItem("token"));
+  //       const { id, email, name, picture } = decodedToken;
+  //       console.log("User information:", id, email, name, picture);
 
-        setAuth({
-          isAuthenticated: true,
-          loading: false,
-          Name: name,
-          image: picture,
-          Username: email.split("@")[0],
-        });
-        navigate("/dashboard");
-      } catch (error) {
-        console.error("Error submitting form:", error);
-      }
-    },
-    flow: "auth-code",
-  });
+  //       setAuth({
+  //         isAuthenticated: true,
+  //         loading: false,
+  //         Name: name,
+  //         image: picture,
+  //         Username: email.split("@")[0],
+  //       });
+  //       navigate("/dashboard");
+  //     } catch (error) {
+  //       console.error("Error submitting form:", error);
+  //     }
+  //   },
+  //   flow: "auth-code",
+  // });
 
   return (
     <>
@@ -179,7 +179,7 @@ const Login = () => {
                 </div>
               </div>
 
-              <div className="w-full flex items-end justify-end">
+              {/* <div className="w-full flex items-end justify-end">
                 <p className="text-white mt-1">
                   <NavLink
                     to="/forgot-password"
@@ -188,7 +188,7 @@ const Login = () => {
                     Forgot password?
                   </NavLink>
                 </p>
-              </div>
+              </div> */}
 
               <div className="w-full my-4">
                 <button
@@ -203,7 +203,7 @@ const Login = () => {
                 </button>
               </div>
 
-              <div className="w-full flex items-center justify-center relative py-1 mb-3">
+              {/* <div className="w-full flex items-center justify-center relative py-1 mb-3">
                 <div className="w-full h-[1px] bg-white"></div>
                 <p className="text-lg absolute bg-[#1F1D1D] px-2 top-1/2 transform -translate-y-1/2">
                   OR
@@ -216,10 +216,10 @@ const Login = () => {
               >
                 <img src="../assets/google_logo.png" className="h-6 mr-2" />
                 Log In With Google
-              </div>
+              </div> */}
 
               <div>
-                <p className="text-white text-center mt-3">
+                <p className="text-white text-center">
                   Don't have an account?{" "}
                   <NavLink to="/signup" className="font-medium text-[#6C63FF]">
                     Sign Up
