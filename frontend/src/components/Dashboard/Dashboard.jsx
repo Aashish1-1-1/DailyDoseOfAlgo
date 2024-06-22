@@ -131,7 +131,7 @@ const Dashboard = () => {
             type="text"
             placeholder="Search"
             value={searchInput}
-            className="bg-white border rounded-full py-2 px-6 shadow focus:outline-none focus:ring-2 focus:ring-blue-600 text-black w-1/2"
+            className="bg-white border rounded-lg py-2 px-6 shadow focus:outline-none focus:ring-2 focus:ring-blue-600 text-black w-1/2"
           />
           <div className="space-y-10 w-full">
             <div className="flex flex-col items-center">
