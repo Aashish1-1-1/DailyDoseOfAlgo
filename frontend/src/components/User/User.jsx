@@ -25,7 +25,7 @@ const User = () => {
 
   if (!userData) return <Loader />;
 
-  const { name, profileImage, leaderboard, progress, streak, longeststreak } = userData;
+  const { name, profileImage, leaderboard, progress, streak } = userData;
 
   const progressSet = new Set();
   const newProgress =
@@ -176,7 +176,7 @@ const User = () => {
 
                         <div className="longestStreak w-1/2 h-full flex flex-col justify-center items-center">
                           <div className="text-white font-bold text-5xl">
-                            {longeststreak}
+                            {longestStreak}
                           </div>
                           <div className="text-white">Longest Streak</div>
                           <span className="text-gray-400 text-[14px]">
